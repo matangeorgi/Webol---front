@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch , Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import React from "react";
-import {Login, Register} from "./components/login"
+import Login from "./components/login/login";
+import Register from "./components/login/register";
 
 const App = () => {
     return (

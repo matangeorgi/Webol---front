@@ -1,60 +1,62 @@
-import { Component } from "react";
-import { withRouter } from "react-router";
-import {Link} from "react-router-dom";
-import axios from "axios";
+import React, {useState} from "react";
+import {Link, Redirect} from "react-router-dom";
+import "./style.scss"
 
 
-export class Login extends Component {
-    constructor(props) {
-        super(props);
-    }
+const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, serRedirect] = useState(false);
 
-    handleSubmit = e => {
-        console.log("hey");
+    const submit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            email: this.email,
-            password: this.password
-        }
-        axios.post('http://2aa4-2a0d-6fc0-6f7-400-c0e1-3919-e408-618c.ngrok.io',data)
-            .then(res => {
-                console.log(res);
-                localStorage.setItem('token',res.token);
+        const response = await fetch('https://httpbin.org/post', {
+            method: 'POST',
+            header: {'Content-Type': 'application/json'},
+            //credentials: 'include',
+            body: JSON.stringify({
+                "username": username,
+                "password": password
             })
-            .catch(err => {
-                console.log(err)
-            })
-    }
+        });
 
-    render() {
-        return(
-            <div className="base-container">
-                {/*<div className="header">Login</div>*/}
-                <div className="content">
-                    <div className="logo">
-                        <h2>Webol</h2>
-                    </div>
-                    <form className="form" onSubmit={this.handleSubmit}>
-                    {/*<div className="form">*/}
-                        <div className="form-group">
-                            <input className="" type="text" name="username" placeholder="Enter email or username"
-                                   onChange={e => this.email = e.target.value }/>
-                        </div>
-                        <div className="form-group">
-                            <input className="mt-5" type="password" name="password" placeholder="password"
-                                   onChange={e => this.password = e.target.value }/>
-                        </div>
-                    {/*//</div>*/}
-                    </form>
-                </div>
-                <div className="footer">
-                    <button type="submit" className="btn btn-dark shadow">Login</button>
-                </div>
-                <Link to="/register">Register</Link>
-            </div>
-        )
+        const content = await response.json();
+        console.log(response);
+        serRedirect(true);
     }
+    if (redirect)
+        return <Redirect to={"/"}/>;
+
+    return(
+        <div className="base-container">
+            <div className="content">
+                <div className="logo mt-4">
+                    <h2>Webol</h2>
+                </div>
+                <form className="form" onSubmit={submit}>
+                    <div className="form-group">
+                        <input className="" type="text" name="username" placeholder="Email or username"
+                               onChange={e => setUsername(e.target.value)}/>
+                    </div>
+                    <div className="form-group">
+                        <input className="mt-5" type="password" name="password" placeholder="Password"
+                               onChange={e => setPassword(e.target.value)}/>
+                    </div>
+                    <div className="footer mb-4">
+                        <button type="submit" className="">Log In</button>
+                    </div>
+                </form>
+
+                 <p className="orContinue">or continue with</p>
+                <img src="https://developers.google.com/identity/images/g-logo.png"
+                     alt="Google auth icon" className="mb-4"/>
+
+                <p className="registerOption">Don't have an account?
+                    <span><Link style={{ textDecoration: 'none' }}role="text" to="/register"> Sign Up</Link></span></p>
+            </div>
+        </div>
+    )
 }
 
-export default withRouter(Login);
+export default Login;

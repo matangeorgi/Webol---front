@@ -1,10 +1,15 @@
-body {background-color: #E5E5E5;}
+body {background-color: #eeeeee;}
 .base-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  width:417px;
+  height:647px;
+  margin-top: -20em;
+  margin-left: -13em;
   background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px grey;
   .logo {
     display: flex;
     flex-direction: column;
@@ -17,9 +22,32 @@ body {background-color: #E5E5E5;}
     }
   }
 
+  .registerOption {
+    textDecoration: 'none';
+  }
+
   .content {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    p {
+      font-size: 16px;
+      font-family: 'Poppins';
+      color: grey;
+
+    }
+    img{
+      width: 36px;
+      height: 36px
+    }
+    .registerOption{
+      color: #6f6cd2;
+      span {
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
   }
 
   .form {
@@ -60,11 +88,20 @@ body {background-color: #E5E5E5;}
       button {
         width: 369px;
         height: 59px;
-        margin-bottom: 53px;
-        border-radius: 10px;
-        background-color: #5450bd;
-        font-family: 'Poppins';
-        font-size: 18px;
+        display:inline-block;
+        padding:0.3em 1.2em;
+        margin:0 0.3em 0.3em 0;
+        border-radius:10px;
+        box-sizing: border-box;
+        text-decoration:none;
+        font-weight:300;
+        color:#FFFFFF;
+        background-color:#5450bd;
+        text-align:center;
+        font-weight: bold;
+        transition: all 0.2s;
+        border: 0px;
+        box-shadow: 0px 0px 10px #6f6cd2;
       }
     }
   }
