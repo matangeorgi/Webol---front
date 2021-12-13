@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -8,19 +10,16 @@ const Register = () => {
 
     const submit = async (e) => {
         e.preventDefault();
-        const response = await fetch('https://8080-2a0d-6fc0-6f7-400-9181-b26-ad3f-2c4e.ngrok.io/register', {
-            headers: {'Content-Type': 'application/json'},
-            method: "POST",
-            body: JSON.stringify({
-                email:email,
-                fullname: fullname,
-                username:username,
-                password:password
-            })
-        });
-        console.log(email,fullname,username,password);
-        const content = await response.json();
-        console.log(content);
+        const userDetails = {email, fullname, username, password};
+        // send the username and password to the server
+        const response = await axios.post(
+            "https://8080-2a0d-6fc0-6f7-400-9181-b26-ad3f-2c4e.ngrok.io/register",
+            //"https://httpbin.org/post",
+            userDetails
+        );
+        // console.log(email,fullname,username,password);
+        // const content = await response.data();
+        console.log(response.data);
     }
 
     return(
@@ -30,9 +29,7 @@ const Register = () => {
                     <h2>Webol</h2>
                 </div>
                 <p>Sign up and have better experience.</p>
-                <p className="orContinue">or continue with</p>
-                <img src="https://developers.google.com/identity/images/g-logo.png"
-                     alt="Google auth icon" className="mb-4"/>
+
                 <form id="test" className="form" onSubmit={submit}>
                     <div className="form-group mb-3">
                         <input type="email" name="email" placeholder="Email" required
@@ -46,7 +43,7 @@ const Register = () => {
                         <input type="text" name="Username" placeholder="Username" required
                             onChange={e => setUsername(e.target.value)}/>
                     </div>
-                    <div className="form-group mb-3">
+                    <div className="form-group">
                         <input type="password" name="password" placeholder="Password" required
                                onChange={e => setPassword(e.target.value)}/>
                     </div>
@@ -54,6 +51,15 @@ const Register = () => {
                         <button type="submit" className="btn">Sign up</button>
                     </div>
                 </form>
+            </div>
+            <div className="base-container-small">
+                <p className="loginOption mt-2">have an account?
+                    <span><Link style={{ textDecoration: 'none' }}to="/login"> Log in</Link></span></p>
+
+                <p className="orContinue">or continue with</p>
+
+                <img src="frontend/public/google.png"
+                     alt="Google auth icon" className="mb-4"/>
             </div>
         </div>
     )

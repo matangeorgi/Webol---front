@@ -3229,6 +3229,11 @@
     "function-bind" "^1.1.1"
     "get-intrinsic" "^1.0.2"
 
+"callback@^0.0.1":
+  "integrity" "sha1-CGqtxgSsbzzmkhDcaKjTufRxN5I="
+  "resolved" "https://registry.npmjs.org/callback/-/callback-0.0.1.tgz"
+  "version" "0.0.1"
+
 "caller-callsite@^2.0.0":
   "integrity" "sha1-hH4PzgoiN1CpoCfFSzNzGtMVQTQ="
   "resolved" "https://registry.npmjs.org/caller-callsite/-/caller-callsite-2.0.0.tgz"

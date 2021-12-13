@@ -37,8 +37,8 @@ const Login = () => {
         // set the state of the user
         setUser(response.data);
         // store the user in localStorage
-        localStorage.setItem("user", JSON.stringify(response.data));
-        console.log(response);
+        localStorage.setItem("user", JSON.stringify(response.data.token));
+        console.log(response.data);
     };
 
     //if there's a user show the message below
@@ -58,7 +58,7 @@ const Login = () => {
                                onChange={e => setUsername(e.target.value)}/>
                     </div>
                     <div className="form-group">
-                        <input className="mt-5" type="password" name="password" placeholder="Password"
+                        <input className="mt-3" type="password" name="password" placeholder="Password"
                                onChange={e => setPassword(e.target.value)}/>
                     </div>
 

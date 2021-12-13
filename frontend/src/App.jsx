@@ -8,7 +8,7 @@ import Home from "./components/home/home";
 
 const App = () => {
     return (
-        <div to="/">
+        <div>
             <Router>
                 <Switch>
                     <Route path="/" exact component={Home}><Home /></Route>
