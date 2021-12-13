@@ -1,16 +1,17 @@
-body {background-color: #eeeeee;}
+body {background-color: #f5f5f5;}
 .base-container {
   position:fixed;
   top: 50%;
   left: 50%;
   width:417px;
-  height:647px;
+  height:630px;
   margin-top: -20em;
   margin-left: -13em;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px grey;
-  .logo {
+
+  .content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,31 +21,18 @@ body {background-color: #eeeeee;}
       font-family: 'Poppins';
       font-weight: bold;
     }
-  }
-
-  .registerOption {
-    textDecoration: 'none';
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
     p {
       font-size: 16px;
       font-family: 'Poppins';
       color: grey;
-
     }
-    img{
+    img{ //Google auth
       width: 36px;
       height: 36px
     }
-    .registerOption{
+    .registerOption{ // Sign up
       color: #6f6cd2;
       span {
-        text-decoration: none;
         font-weight: bold;
       }
     }
@@ -55,6 +43,15 @@ body {background-color: #eeeeee;}
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .forgot{ // Forgot Password
+      color: #A7A3FF;
+      position: relative;
+      right: -120px;
+      font-size: 14px;
+      font-family: 'Poppins';
+      align-items: end;
+    }
 
     .form-group {
       display: flex;
