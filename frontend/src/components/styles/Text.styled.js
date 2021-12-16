@@ -7,7 +7,6 @@ export const Logo = styled.h2`
 
 export const P = styled.p`
  color: ${(props) => props.color};
- 
  a{
   color: ${(props) => props.color};
   font-weight: bold;

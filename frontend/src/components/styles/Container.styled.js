@@ -19,7 +19,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: auto;
   font-family: 'Poppins';
 `
 
@@ -29,19 +28,5 @@
   right: -190px;
   font-size: 14px;
   align-items: end;
-  a{
-   color: grey;
-  }
+  a{color: grey;}
  `
-
- export const LoginStyle = styled.div`
-  height:550px;
-  .forgot{ // Forgot Password
-   color: #A7A3FF;
-   position: relative;
-   right: -190px;
-   font-size: 14px;
-   font-family: 'Poppins';
-   align-items: end;
-  }
-`

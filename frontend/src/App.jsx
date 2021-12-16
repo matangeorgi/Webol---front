@@ -7,13 +7,13 @@ import Register from "./components/login/register";
 import Home from "./components/home/home";
 
 const App = () => {
+    const verified = true;
     return (
         <div>
             <Router>
                 <Switch>
-                    <Route path="/" exact component={Home}><Home /></Route>
-                    <Route path="/login" component={Login}><Login /></Route>
-                    <Route path="/register" component={Register}><Register /></Route>
+                    <Route path="/" exact component={verified ? Home : Login}></Route>
+                    <Route path="/register" component={Register}></Route>
                 </Switch>
             </Router>
         </div>

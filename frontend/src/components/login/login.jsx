@@ -1,82 +1,75 @@
 import React, {useState, useEffect} from "react";
+import GoogleLogin from "react-google-login";
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
-import "./style.scss"
+import { Container, InsideContent,ForgotPass} from "../styles/Container.styled";
+import {Logo, P} from "../styles/Text.styled";
+import {Input, Button} from "../styles/Forms.styled";
+import {Img} from "../styles/Images.styled";
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState();
 
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-            const foundUser = JSON.parse(loggedInUser);
-            setUser(foundUser);
-        }
-    }, []);
-
-    // logout the user
-    const handleLogout = () => {
-        setUser({});
-        setUsername("");
-        setPassword("");
-        localStorage.clear();
-    };
-
-    // login the user
     const submit = async e => {
         e.preventDefault();
         const user = { username, password };
-        // send the username and password to the server
         const response = await axios.post(
-            "https://8080-2a0d-6fc0-6f7-400-9181-b26-ad3f-2c4e.ngrok.io/login",
-            //"https://httpbin.org/post",
+            //"http://3381-82-80-173-170.ngrok.io/login",
+            "https://httpbin.org/post",
             user
         );
-        // set the state of the user
-        setUser(response.data);
-        // store the user in localStorage
-        localStorage.setItem("user", JSON.stringify(response.data.token));
+        localStorage.setItem("user", JSON.stringify(response.data));
         console.log(response.data);
     };
 
-    //if there's a user show the message below
-    if (user) {
+
+    //if there's a user logged in redirect to home
+    if (localStorage.getItem("user")) {
         return (<Redirect to={"/"}/>);
     }
 
+    // const reponseGoogle = response => {
+    //     console.log(response);
+    //     console.log(response.profileObj);
+    // }
+
     return(
-        <div className="base-container">
-            <div className="content">
-                <div className="logo mt-4">
-                    <h2>Webol</h2>
-                </div>
-                <form className="form" onSubmit={submit}>
-                    <div className="form-group">
-                        <input className="" type="text" name="username" placeholder="Email or username"
-                               onChange={e => setUsername(e.target.value)}/>
-                    </div>
-                    <div className="form-group">
-                        <input className="mt-3" type="password" name="password" placeholder="Password"
-                               onChange={e => setPassword(e.target.value)}/>
-                    </div>
-
-                    <Link className="forgot" style={{ textDecoration: 'none' }} to="/register"> Forgot password?</Link>
-
-                    <div className="footer mb-4">
-                        <button type="submit" className="">Log In</button>
-                    </div>
-                </form>
-
-                <p className="orContinue">or continue with</p>
-                <img src="https://developers.google.com/identity/images/g-logo.png"
-                     alt="Google auth icon" className="mb-4"/>
-
-                <p className="registerOption">Don't have an account?
-                    <span><Link style={{ textDecoration: 'none' }}to="/register"> Sign Up</Link></span></p>
+        <Container><InsideContent>
+            <div className="mt-3">
+                <Logo>Webol</Logo>
             </div>
-        </div>
+            <form onSubmit={submit}>
+                <div>
+                    <Input className="mt-3 mb-3" type="text" name="username" placeholder="Email or username"
+                           onChange={e => setUsername(e.target.value)} />
+                </div>
+                <div>
+                    <Input className="mt-3 mb-1" type="password" name="password" placeholder="Password"
+                           onChange={e => setPassword(e.target.value)}/>
+                </div>
+                <ForgotPass>
+                    <Link style={{ textDecoration: 'none' }} to="/register"><span>Forgot password?</span></Link>
+                </ForgotPass>
+                <div className="mb-4 mt-5">
+                    <Button type="submit" className="">Log In</Button>
+                </div>
+            </form>
+
+            <P color="grey">or</P>
+            <GoogleLogin
+                clientId="154816287506-sglrc0mgmm4kms578ura2uuaaas211s1.apps.googleusercontent.com"
+                buttonText="Sign in with Google"
+                onSuccess={(e) => console.log(e)}
+                onFailure={(e) => console.log(e)}
+                cookiePolicy={'single_host_origin'}
+            />
+
+            <P color="#4D47C3" className="mt-4">Don't have an account?
+                <Link style={{ textDecoration: 'none' }} to="/register"> Sign Up</Link></P>
+        </InsideContent></Container>
     )
 }
 

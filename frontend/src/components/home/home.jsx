@@ -5,9 +5,9 @@ import "./style.scss"
 
 
 const Home = () => {
-    console.log("home");
-    if (!localStorage.getItem("user"))
-        return (<Redirect to={"/login"}/>);
+    // console.log("home");
+    // if (!localStorage.getItem("user"))
+    //     return (<Redirect to={"/login"}/>);
 
     let fullname = "";
     // const token = localStorage.getItem('user');
