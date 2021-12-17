@@ -5,34 +5,26 @@ import axios from "axios";
 import { Container, InsideContent,ForgotPass} from "../styles/Container.styled";
 import {Logo, P} from "../styles/Text.styled";
 import {Input, Button} from "../styles/Forms.styled";
+import Cookies from 'js-cookie';
+
 
 const Login = () => {
+    axios.defaults.withCredentials = true;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState();
 
     const submit = async e => {
         e.preventDefault();
-        const user = { username, password };
+        const user = {username, password};
         const response = await axios.post(
-            //"http://3381-82-80-173-170.ngrok.io/login",
-            "https://httpbin.org/post",
-            user
+            "http://a3ea-2a0d-6fc0-6ca-4600-6c4f-5b05-e0bd-d3e1.ngrok.io/login",
+            //"https://httpbin.org/post",
+            user,
+            { withCredentials: true }
         );
-        localStorage.setItem("user", JSON.stringify(response.data));
         console.log(response.data);
     };
-
-
-    //if there's a user logged in redirect to home
-    if (localStorage.getItem("user")) {
-        return (<Redirect to={"/"}/>);
-    }
-
-    // const reponseGoogle = response => {
-    //     console.log(response);
-    //     console.log(response.profileObj);
-    // }
 
     return(
         <Container><InsideContent>
@@ -58,7 +50,7 @@ const Login = () => {
 
             <P color="grey">or</P>
             <GoogleLogin
-                clientId=""
+                clientId={process.env.REACT_APP_GOOGLE_KEY}
                 buttonText="Sign in with Google"
                 onSuccess={(e) => console.log(e)}
                 onFailure={(e) => console.log(e)}

@@ -5,8 +5,10 @@ import React, {useEffect, useState} from "react";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Home from "./components/home/home";
+import dotenv from "dotenv"
 
 const App = () => {
+    dotenv.config();
     const verified = true;
     return (
         <div>

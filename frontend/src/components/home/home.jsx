@@ -1,37 +1,19 @@
 import React, {useState,useEffect} from "react";
-import {Link, Redirect} from "react-router-dom";
-import axios from "axios";
-import "./style.scss"
+import { ImHome,ImSearch,ImBell,ImUser } from "react-icons/im";
+import {Navbar} from "../styles/Navbar.styled";
+import {IconContext} from "react-icons";
 
 
 const Home = () => {
-    // console.log("home");
-    // if (!localStorage.getItem("user"))
-    //     return (<Redirect to={"/login"}/>);
-
-    let fullname = "";
-    // const token = localStorage.getItem('user');
-    // useEffect(async() => {
-    //     try {
-    //         const name = await axios.get(
-    //             'http://3381-82-80-173-170.ngrok.io/login-success',
-    //             {headers: {'auth-token':JSON.parse(token)}}
-    //         );
-    //         fullname = name.data.fullname;
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // })
-
-    const handleLogout = () => {
-        localStorage.clear();
-        window.location.reload(false);
-    }
-
     return (
         <div>
-            {fullname + ' You are logged in'}
-            <button onClick={handleLogout}>Logout</button>
+            <IconContext.Provider value={{ color: '5450bd', size: '30px' }}>
+            <Navbar className ='navbar d-flex justify-content-center'>
+                <a href="#home"><ImHome/></a>
+                <a href="#news"><ImBell/></a>
+                <a href="#contact">Contact</a>
+            </Navbar>
+            </IconContext.Provider>
         </div>
     );
 }

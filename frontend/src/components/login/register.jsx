@@ -4,10 +4,10 @@ import {Link} from "react-router-dom";
 import { Container, InsideContent} from "../styles/Container.styled";
 import {Logo, P} from "../styles/Text.styled";
 import {Input, Button} from "../styles/Forms.styled";
-import {Img} from "../styles/Images.styled";
 import GoogleLogin from "react-google-login";
 
 const Register = () => {
+    axios.defaults.withCredentials = true;
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,12 +18,11 @@ const Register = () => {
         const userDetails = {email, fullname, username, password};
         // send the username and password to the server
         const response = await axios.post(
-            "http://3381-82-80-173-170.ngrok.io/register",
+            "http://a3ea-2a0d-6fc0-6ca-4600-6c4f-5b05-e0bd-d3e1.ngrok.io/register",
             //"https://httpbin.org/post",
-            userDetails
+            userDetails,
+            { withCredentials: true }
         );
-        // console.log(email,fullname,username,password);
-        // const content = await response.data();
         console.log(response.data);
     }
 
@@ -35,7 +34,7 @@ const Register = () => {
                 <P color="grey">Sign up and watch your favorite creators.</P>
 
                 <GoogleLogin
-                    clientId=""
+                    clientId={process.env.REACT_APP_GOOGLE_KEY}
                     buttonText="Sign in with Google"
                     onSuccess={(e) => console.log(e)}
                     onFailure={(e) => console.log(e)}
@@ -65,7 +64,7 @@ const Register = () => {
                     </div>
                 </form>
                 <P color="#4D47C3" className="mt-5 mb-4">have an account?
-                    <Link style={{ textDecoration: 'none' }}to="/login"> Log in</Link></P>
+                    <Link style={{ textDecoration: 'none' }}to="/"> Log in</Link></P>
         </InsideContent></Container>
     )
 }
