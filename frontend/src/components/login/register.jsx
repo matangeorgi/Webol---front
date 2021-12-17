@@ -35,7 +35,7 @@ const Register = () => {
                 <P color="grey">Sign up and watch your favorite creators.</P>
 
                 <GoogleLogin
-                    clientId="154816287506-sglrc0mgmm4kms578ura2uuaaas211s1.apps.googleusercontent.com"
+                    clientId=""
                     buttonText="Sign in with Google"
                     onSuccess={(e) => console.log(e)}
                     onFailure={(e) => console.log(e)}

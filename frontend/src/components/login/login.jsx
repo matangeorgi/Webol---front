@@ -5,8 +5,6 @@ import axios from "axios";
 import { Container, InsideContent,ForgotPass} from "../styles/Container.styled";
 import {Logo, P} from "../styles/Text.styled";
 import {Input, Button} from "../styles/Forms.styled";
-import {Img} from "../styles/Images.styled";
-
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -60,7 +58,7 @@ const Login = () => {
 
             <P color="grey">or</P>
             <GoogleLogin
-                clientId="154816287506-sglrc0mgmm4kms578ura2uuaaas211s1.apps.googleusercontent.com"
+                clientId=""
                 buttonText="Sign in with Google"
                 onSuccess={(e) => console.log(e)}
                 onFailure={(e) => console.log(e)}
