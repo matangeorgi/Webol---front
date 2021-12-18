@@ -28,7 +28,7 @@ export const Input = styled.input`
 `
 
 export const TopBarLeft = styled.div`
-    flex: 3;
+    flex: 6;
 `
 
 export const TopBarCenter = styled.div`

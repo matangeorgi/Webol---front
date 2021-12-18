@@ -18,11 +18,12 @@ const Register = () => {
         const userDetails = {email, fullname, username, password};
         // send the username and password to the server
         const response = await axios.post(
-            "http://a3ea-2a0d-6fc0-6ca-4600-6c4f-5b05-e0bd-d3e1.ngrok.io/register",
+            "https://7fb0-2a0d-6fc0-6ca-4600-51db-7e54-170d-b3d0.ngrok.io/register",
             //"https://httpbin.org/post",
             userDetails,
-            { withCredentials: true }
-        );
+            {headers: {'auth_token': 'wowww'}}
+        )
+
         console.log(response.data);
     }
 

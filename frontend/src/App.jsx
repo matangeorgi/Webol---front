@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import React, {useEffect, useState} from "react";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Home from "./components/home/home";
@@ -9,7 +8,8 @@ import dotenv from "dotenv"
 
 const App = () => {
     dotenv.config();
-    const verified = true;
+    const verified = localStorage.getItem('token');
+    //const verified = true;
     return (
         <div>
             <Router>
