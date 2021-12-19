@@ -46,7 +46,7 @@ const Login = () => {
                            onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <ForgotPass>
-                    <Link style={{ textDecoration: 'none' }} to="/register"><span>Forgot password?</span></Link>
+                    <Link style={{ textDecoration: 'none' }} to="/forgotpass"><span>Forgot password?</span></Link>
                 </ForgotPass>
                 <div className="mb-4 mt-5">
                     <Button type="submit" className="">Log In</Button>

@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import Home from "./components/home/home";
+import ForgotPass from "./components/login/forgotPass";
+import ResetPass from "./components/login/resetPass";
 import dotenv from "dotenv"
 
 const App = () => {
@@ -16,6 +18,8 @@ const App = () => {
                 <Switch>
                     <Route path="/" exact component={verified ? Home : Login}></Route>
                     <Route path="/register" component={Register}></Route>
+                    <Route path="/forgotpass" component={ForgotPass}></Route>
+                    <Route path="/resetpass/:id" component={ResetPass}></Route>
                 </Switch>
             </Router>
         </div>
