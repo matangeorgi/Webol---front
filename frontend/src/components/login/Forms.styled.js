@@ -26,9 +26,23 @@ export const Button = styled.button`
  transition: all 0.2s;
  background-color: #5450bd;
  box-shadow: 0px 0px 10px #6f6cd2;
- &:hover {
+
+ :hover {
   outline: none;
   color: white;
-  background-color: #433ebd;;
+  background-color: #433ebd;
+ }
+`
+
+export const Logo = styled.h2`
+  font-size: 58px;
+  font-weight: bold;
+ `
+
+export const P = styled.p`
+ color: ${(props) => props.color};
+ a{
+  color: ${(props) => props.color};
+  font-weight: bold;
  }
 `

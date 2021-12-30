@@ -1,35 +1,31 @@
-import {Container, InsideContent} from "../styles/Container.styled";
-import {Button, Input} from "../styles/Forms.styled";
+import { Container, InsideContent} from "../Container.styled.js";
+import {Button, Input , P} from "../Forms.styled";
 import React, {useState} from "react";
 import axios from "axios";
-import {Redirect, useParams} from "react-router";
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ResetPass = () => {
-    const { id } = useParams()
-    const [reset, setReset] = useState(false);
+    const navigate = useNavigate();
+    const { id, token} = useParams();
+    const [errorMessage, setError] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
 
     const submit = async (e) => {
         e.preventDefault();
-
         const data = {
+            id: id,
             password: password,
             passwordConfirm: passwordConfirm
         }
 
-        const response = await axios.post(
-            "http://bdac-2a0d-6fc0-6ca-4600-1973-9ff9-e55-c247.ngrok.io/updatenewpass",
-            data,
-            {headers:{'auth_token':id}}
-        )
-
-        console.log(response.data)
-        setReset(true);
+        try{
+             await axios.post('updatenewpass', data, {headers:{'mail_token':token}});
+             navigate('/');
+        }catch (error){
+            setError(error.response.data.error);
+        }
     }
-
-    if (reset)
-        return <Redirect to={'/'} />
 
     return (
         <Container><InsideContent>
@@ -48,9 +44,10 @@ const ResetPass = () => {
                 <div className="mb-4 mt-4">
                     <Button type="submit" className="">Reset</Button>
                 </div>
+                <P className="text-center mx-auto w-75 mt-4" color="red">{errorMessage}</P>
             </form>
         </InsideContent></Container>
-)
+    )
 }
 
 export default  ResetPass;

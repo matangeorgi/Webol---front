@@ -1,6 +1,6 @@
- import styled from "styled-components"
+import styled from "styled-components";
 
- export const Container = styled.div`
+export const Container = styled.div`
   position: absolute;
   background-color: white;
   height:fit-content;
@@ -14,19 +14,11 @@
   @media only screen and (max-width:400px) {
    width:95%;
   }
-  `
- export const InsideContent = styled.div`
+`
+
+export const InsideContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Poppins';
 `
-
- export const ForgotPass = styled.div`
-  color: #A7A3FF;
-  position: relative;
-  right: -190px;
-  font-size: 14px;
-  align-items: end;
-  a{color: grey;}
- `

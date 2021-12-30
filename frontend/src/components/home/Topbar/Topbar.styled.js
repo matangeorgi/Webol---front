@@ -13,29 +13,41 @@ export const TopBar = styled.div`
 `
 
 export const Logo = styled.span`
-  font-size: 24px;
+  padding-left: 35px;
+  font-size: 30px;
   font-weight: bold;
   cursor: pointer;
 `
 
 export const Input = styled.input`
-  width: 400px;
-  height: 30px;
-  background-color: white;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
+  border: none;
+  outline: none;
+  width: 70%;
 `
 
 export const TopBarLeft = styled.div`
-    flex: 6;
 `
 
 export const TopBarCenter = styled.div`
-    flex: 5;
+  border: 1px solid #989898;
+  border-radius: 20px;
+  .searchbar {
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border: 1px solid #989898;
+  }
+  .searchIcon{
+    font-size: 35px;
+    padding-right: 20px ;
+    margin-left: 10px;
+    cursor: pointer;
+  }
 `
+
 export const TopBarRight = styled.div`
-  flex: 4;
   display: flex;
   align-items: center;
   justify-content: space-around;

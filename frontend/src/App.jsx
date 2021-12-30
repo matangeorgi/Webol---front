@@ -1,26 +1,28 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Login from "./components/login/login";
-import Register from "./components/login/register";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { Login, Register, ForgotPass, ResetPass } from '../src/components/login/index';
 import Home from "./components/home/home";
-import ForgotPass from "./components/login/forgotPass";
-import ResetPass from "./components/login/resetPass";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import axios from "axios";
+
+dotenv.config();
+axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
+axios.defaults.headers.common['auth_token'] = localStorage.getItem('token');
 
 const App = () => {
-    dotenv.config();
+
     const verified = localStorage.getItem('token');
-    //const verified = true;
     return (
         <div>
             <Router>
-                <Switch>
-                    <Route path="/" exact component={verified ? Home : Login}></Route>
-                    <Route path="/register" component={Register}></Route>
-                    <Route path="/forgotpass" component={ForgotPass}></Route>
-                    <Route path="/resetpass/:id" component={ResetPass}></Route>
-                </Switch>
+                <Routes>
+                    <Route exact path="/" element={verified ? <Home /> : <Login />}/>
+                    <Route path="/register" element={<Register />}/>
+                    <Route path="/forgotpass" element={<ForgotPass />}/>
+                    <Route path="/resetpass/:id/:token" element={<ResetPass />}/>
+                    {/*<Route render={() => <Redirect to={{pathname: "/"}} />} />*/}
+                </Routes>
             </Router>
         </div>
     );

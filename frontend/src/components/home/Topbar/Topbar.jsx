@@ -1,5 +1,5 @@
 import { ImHome,ImSearch,ImBell,ImUser,ImBubble2 } from "react-icons/im";
-import {TopBar, TopBarLeft, TopBarCenter, TopBarRight, Logo, Input} from "../styles/Navbar.styled";
+import { TopBar, TopBarLeft, TopBarCenter, TopBarRight, Logo, Input } from "./Topbar.styled";
 
 export default function Topbar(){
     const Logout = () => {
@@ -9,31 +9,29 @@ export default function Topbar(){
 
     return (
         <TopBar>
-            <TopBarLeft>
+            <TopBarLeft className="col-5">
                 <Logo>Webol</Logo>
             </TopBarLeft>
-            <TopBarCenter>
-                <div className="searchBar">
-                    <ImSearch ></ImSearch>
-                    <Input placeholder="Discover creators" className="searchInput" />
-                </div>
+            <TopBarCenter className="col-2 d-flex justify-content-center">
+                <ImSearch className="searchIcon"></ImSearch>
+                <Input placeholder="Discover creators" />
             </TopBarCenter>
-            <TopBarRight>
+            <TopBarRight className="col-5">
                 <div className="topbarLinks">
-                    <span className="topbarLink" onClick={Logout}><ImHome size={'25px'}/></span>
+                    <span className="topbarLink" onClick={Logout}><ImHome size='25px'/></span>
                     <span className="topbarLink">Timeline</span>
                 </div>
                 <div className="topbarIcons">
                     <div className="topbarIconItem">
-                        <ImUser></ImUser>
+                        <ImUser size='25px'></ImUser>
                         <span className="topbarIconBadge">1</span>
                     </div>
                     <div className="topbarIconItem">
-                        <ImBell></ImBell>
+                        <ImBell size='25px'></ImBell>
                         <span className="topbarIconBadge">2</span>
                     </div>
                     <div className="topbarIconItem">
-                        <ImBubble2></ImBubble2>
+                        <ImBubble2 size='25px'></ImBubble2>
                         <span className="topbarIconBadge">1</span>
                     </div>
                 </div>
