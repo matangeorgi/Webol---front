@@ -12,50 +12,57 @@ export const TopBar = styled.div`
   
 `
 
+// --------------------------- Left side ---------------------------------
+export const TopBarLeft = styled.div`
+  margin-right: 10px;
+  flex: 3;
+`
+
 export const Logo = styled.span`
-  padding-left: 35px;
+  padding-left: 25px;
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
 `
 
-export const Input = styled.input`
-  border: none;
-  outline: none;
-  width: 70%;
-`
-
-export const TopBarLeft = styled.div`
-`
-
+// --------------------------- Center side -------------------------------
 export const TopBarCenter = styled.div`
+  flex: 5;
+  margin-right: 10px;
   border: 1px solid #989898;
   border-radius: 20px;
-  .searchbar {
-    width: 100%;
-    height: 30px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    border: 1px solid #989898;
-  }
+  
   .searchIcon{
-    font-size: 35px;
-    padding-right: 20px ;
+    font-size: 40px;
     margin-left: 10px;
+    margin-right: 0px;
+    padding-right: 20px ;
     cursor: pointer;
   }
 `
 
+export const SearchBar = styled.input`
+  border: none;
+  outline: none;
+  width: 100%;
+  margin-left: -10px;
+  margin-right: auto;
+  border-radius: 20px;
+`
+
+// --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
+  flex: 4;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  .topbarIcons {
-    display: flex;
-  }
+  justify-content: right;
+  padding-right: 10%;
+`
+
+export const TopBarIcons = styled.div`
+  display: flex;
   .topbarIconItem {
-    margin-right: 15px;
+    margin-right: 25px;
     cursor: pointer;
     position: relative;
   }
@@ -73,9 +80,12 @@ export const TopBarRight = styled.div`
     justify-content: center;
     font-size: 12px;
   }
-  .topbarLink {
-    margin-right: 10px;
-    font-size: 14px;
-    cursor: pointer;
-  }
+`
+
+export const ProfileImage = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 `

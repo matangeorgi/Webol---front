@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 
 dotenv.config();
-axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
+
 axios.defaults.headers.common['auth_token'] = localStorage.getItem('token');
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={verified ? <Home /> : <Login />}/>
+                    <Route exact path="/" element={true ? <Home /> : <Login />}/>
                     <Route path="/register" element={<Register />}/>
                     <Route path="/forgotpass" element={<ForgotPass />}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass />}/>

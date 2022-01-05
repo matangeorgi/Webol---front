@@ -1,4 +1,4 @@
-import Topbar from "./Topbar/Topbar";
+import Topbar from "../Topbar/Topbar";
 import ImageUpload from "./ImageUpload"
 import axios from "axios";
 
@@ -20,8 +20,8 @@ const Home = () => {
     return (
         <div>
             <Topbar></Topbar>
-            <button onClick={test}>Hey</button>
-            <ImageUpload></ImageUpload>
+            {/*<button onClick={test}>Hey</button>*/}
+            {/*<ImageUpload></ImageUpload>*/}
         </div>
     );
 }

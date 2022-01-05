@@ -6,25 +6,32 @@ const FileUpload = () => {
 
     const submitFile = async (e) => {
         e.preventDefault();
-        try {
-            if (!file) {
-                throw new Error('Select a file first!');
-            }
-            const formData = new FormData();
-            formData.append('file', file[0]);
-            await axios.post(`upload`, formData, {
-                headers: {'Content-Type': 'multipart/form-data'}
-            });
-            // handle success
-        } catch (error) {
-            // handle error
-        }
+        // get Secure URL
+        const url = await axios.get('s3/geturl').then(res => res.data);
+
+        //post image to s3
+        // axios.put(url, {
+        //     headers: {
+        //         "Content-Type": "multipart/form-data",
+        //     },
+        //     body: file[0]
+        // })
+        await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+            body: file[0]
+        })
+
+        //post to server data
+        const imageUrl = url.split('?')[0]
+
     };
 
     return (
         <form onSubmit={submitFile}>
-            <label>Upload file</label>
-            <input type="file" onChange={event => setFile(event.target.files)} />
+            <input type="file" accept="image/*" onChange={event => setFile(event.target.files)}/>
             <button type="submit">Send</button>
         </form>
     );

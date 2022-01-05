@@ -16,6 +16,7 @@ const Register = () => {
         e.preventDefault();
         const userDetails = {email, full_name, password};
         try{
+            console.log(userDetails);
             await axios.post('register', userDetails);
             navigate('/');
         }catch (error){
