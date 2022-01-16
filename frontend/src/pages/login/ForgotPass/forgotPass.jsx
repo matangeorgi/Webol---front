@@ -1,6 +1,7 @@
 import {AiOutlineLock} from 'react-icons/ai'
 import { Container, InsideContent} from "../Container.styled.js";
-import {Button, Input , P} from "../Forms.styled";
+import { Input , P} from "../Forms.styled";
+import { Button } from "../../../components/GeneralStyles/General.styled";
 import {Link} from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
@@ -42,7 +43,7 @@ const ForgotPass = () => {
                                onChange={e => setEmail(e.target.value)} />
                     </div>
                     <div className="mb-4 mt-4">
-                        <Button type="submit" className="">Reset your password</Button>
+                        <Button type="submit"  width="320px" height="53px">Reset your password</Button>
                     </div>
                     <P className="text-center mx-auto w-75 mt-4" color="red">{errorMessage}</P>
                 </form>

@@ -10,12 +10,11 @@ const FileUpload = () => {
         const url = await axios.get('s3/geturl').then(res => res.data);
 
         //post image to s3
-        // axios.put(url, {
-        //     headers: {
-        //         "Content-Type": "multipart/form-data",
-        //     },
+        // await axios.put({url:url, baseURL: ''},{
+        //     headers: {"Content-Type": "multipart/form-data"},
         //     body: file[0]
         // })
+
         await fetch(url, {
             method: "PUT",
             headers: {
@@ -24,9 +23,11 @@ const FileUpload = () => {
             body: file[0]
         })
 
+        console.log(1)
         //post to server data
-        const imageUrl = url.split('?')[0]
-
+        const imageUrl = url.split('?')[0];
+        await axios.post('user/userimage/profile_image',{imgurl:imageUrl});
+        console.log(2)
     };
 
     return (

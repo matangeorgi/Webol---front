@@ -4,21 +4,22 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import { Container, InsideContent} from "../Container.styled.js";
 import { ForgotPass } from "./Login.styled";
-import {Input, Button , Logo, P} from "../Forms.styled";
+import {Input, Logo, P} from "../Forms.styled";
+import { Button } from "../../../components/GeneralStyles/General.styled";
 
 const Login = () => {
     const [errorMessage, setError] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     // Login in the regular way
     const submit = async e => {
         e.preventDefault();
-        const user = {email, password};
+        const user = {username, password};
         try{
             const response = await axios.post('login', user);
-            console.log(response)
             localStorage.setItem("token", response.data.UserInfo.auth_token);
+            localStorage.setItem("username", response.data.UserInfo.username);
             window.location.reload();
         }catch (error){
             console.log(error.response.data.error);
@@ -45,8 +46,8 @@ const Login = () => {
             </div>
             <form onSubmit={submit}>
                 <div>
-                    <Input className="mt-3 mb-3" type="text" name="email" placeholder="Email" required
-                           onChange={e => setEmail(e.target.value)} />
+                    <Input className="mt-3 mb-3" type="text" name="emailORusername" placeholder="Email or username" required
+                           onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div>
                     <Input className="mt-3 mb-1" type="password" name="password" placeholder="Password" required
@@ -56,7 +57,7 @@ const Login = () => {
                     <Link style={{ textDecoration: 'none' }} to="/forgotpass"><span>Forgot password?</span></Link>
                 </ForgotPass>
                 <div className="mb-4 mt-5">
-                    <Button type="submit" className="btn" disabled={!email || !password}>Log In</Button>
+                    <Button type="submit" className="btn" disabled={!username || !password} width="320px" height="53px">Log In</Button>
                 </div>
                 <P className="text-center mx-auto" color="red">{errorMessage}</P>
             </form>

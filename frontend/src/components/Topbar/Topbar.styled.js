@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const TopBar = styled.div`
   top: 0;
-  width: 100%;
+  z-index: 1;
   height: 60px;
   display: flex;
   position: sticky;
@@ -39,6 +39,10 @@ export const TopBarCenter = styled.div`
     padding-right: 20px ;
     cursor: pointer;
   }
+  @media only screen and (max-width:610px) {
+    flex: auto;
+    width: 500px;
+  }
 `
 
 export const SearchBar = styled.input`
@@ -52,17 +56,15 @@ export const SearchBar = styled.input`
 
 // --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
-  flex: 4;
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  padding-right: 10%;
+  flex: 3;
+
 `
 
 export const TopBarIcons = styled.div`
   display: flex;
   .topbarIconItem {
-    margin-right: 25px;
+    top: 5px;
+    margin-right: 20px;
     cursor: pointer;
     position: relative;
   }
@@ -79,6 +81,10 @@ export const TopBarIcons = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 12px;
+  }
+  @media only screen and (max-width:610px) {
+    position: relative;
+    right: 20px;
   }
 `
 

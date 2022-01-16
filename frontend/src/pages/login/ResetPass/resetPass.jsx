@@ -1,8 +1,9 @@
 import { Container, InsideContent} from "../Container.styled.js";
-import {Button, Input , P} from "../Forms.styled";
+import { Input, P} from "../Forms.styled";
 import React, {useState} from "react";
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from "../../../components/GeneralStyles/General.styled";
 
 const ResetPass = () => {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const ResetPass = () => {
                            onChange={e => setPasswordConfirm(e.target.value)} />
                 </div>
                 <div className="mb-4 mt-4">
-                    <Button type="submit" className="">Reset</Button>
+                    <Button type="submit"  width="320px" height="53px">Reset</Button>
                 </div>
                 <P className="text-center mx-auto w-75 mt-4" color="red">{errorMessage}</P>
             </form>

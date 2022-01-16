@@ -2,32 +2,27 @@ import React, {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate } from "react-router-dom";
 import { Container, InsideContent} from "../Container.styled.js";
-import {Button, Input , Logo, P} from "../Forms.styled";
+import {Input , Logo, P} from "../Forms.styled";
+import { Button } from "../../../components/GeneralStyles/General.styled";
 import GoogleLogin from "react-google-login";
 
 const Register = () => {
     const navigate = useNavigate();
     const [errorMessage, setError] = useState('');
     const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [full_name, setFullname] = useState('');
 
     const submit = async (e) => {
         e.preventDefault();
-        const userDetails = {email, full_name, password};
+        const userDetails = {email,username, full_name, password};
         try{
-            console.log(userDetails);
             await axios.post('register', userDetails);
             navigate('/');
         }catch (error){
             setError(error.response.data.error);
         }
-    }
-
-    const test = () => {
-        console.log(1);
-        navigate('/');
-        console.log(2);
     }
 
     return(
@@ -52,6 +47,10 @@ const Register = () => {
                            onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div className="mb-3">
+                    <Input type="text" name="username" placeholder="Username" required
+                           onChange={e => setUsername(e.target.value)}/>
+                </div>
+                <div className="mb-3">
                     <Input type="text" name="fullname" placeholder="Full Name" required
                            onChange={e => setFullname(e.target.value)}/>
                 </div>
@@ -60,7 +59,7 @@ const Register = () => {
                            onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div>
-                    <Button type="submit" className="btn mt-5" disabled={!password || !full_name || !email}>
+                    <Button type="submit" className="btn mt-5" disabled={!password || !full_name || !email} width="320px" height="53px">
                         Sign up</Button>
                 </div>
                 <div>
@@ -70,7 +69,6 @@ const Register = () => {
             <P color="#4D47C3" className="mt-3 mb-4">have an account?
                 <Link style={{ textDecoration: 'none' }} to="/"> Log in</Link></P>
 
-            <button onClick={test}>asd</button>
         </InsideContent></Container>
     )
 }

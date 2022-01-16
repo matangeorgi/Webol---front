@@ -16,24 +16,6 @@ export const Input = styled.input`
  }
  `
 
-export const Button = styled.button`
- width: 320px;
- height: 53px;
- border: 0px;
- color: white;
- font-weight: bold;
- border-radius: 10px;
- transition: all 0.2s;
- background-color: #5450bd;
- box-shadow: 0px 0px 10px #6f6cd2;
-
- :hover {
-  outline: none;
-  color: white;
-  background-color: #433ebd;
- }
-`
-
 export const Logo = styled.h2`
   font-size: 58px;
   font-weight: bold;
