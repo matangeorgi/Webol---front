@@ -7,10 +7,10 @@ export const Body = styled.div`
   position: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   box-shadow: 0px 0px 10px #b9b9b9;
   border-radius: 5px;
-  width: 95%;
+  width: 100%;
 
   @media only screen and (min-width:920px) {
     width: 900px;
@@ -27,6 +27,7 @@ export const ProfileImg = styled.img`
   border-radius: 50% 50%;
   object-fit: cover;
   border: 1px white solid;
+  cursor: pointer;
 `
 
 export const ProfileImgDiv = styled.div`
@@ -47,13 +48,13 @@ export const ThemeImage = styled.img`
   object-fit: cover;
   width:820px;
   height:300px;
+  cursor: pointer;
 `
 
 export const MiddleDiv = styled.div`
   flex-direction: column;
   display: flex;
   align-items: center;
-
   button{
     margin-right: 15px;
   }
@@ -63,12 +64,15 @@ export const MiddleDiv = styled.div`
       display: Inline-block;
     }
   }
-  
+
   @media only screen and (min-width:920px){
     position: relative;
     top: -260px;
-    right: -100px;
+    right: -250px;
     display: Inline-block;
+  }
+  .skeleton{
+    display: flex;
   }
 `
 
@@ -79,5 +83,8 @@ export const Content = styled.div`
     position: relative;
     top: -230px;
   }
+`
+
+export const middleSkeleton = styled.div`
 `
 

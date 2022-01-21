@@ -17,13 +17,15 @@ import {BsThreeDotsVertical} from "react-icons/bs";
 import {AiFillHeart} from "react-icons/ai";
 
 const Post = (props) => {
-    const [like,setLike] = useState(false)
-    const [isLiked,setIsLiked] = useState(false)
+    const [liked,setLiked] = useState(props.liked)
+    const [likes,setLikes] = useState(props.likes);
 
     const likeHandler =()=>{
-        setLike(isLiked ? like-1 : like+1)
-        setIsLiked(!isLiked)
+        setLiked(!liked)
+        setLikes(liked? likes-1 : likes+1)
+        // Post to server this have been liked.
     }
+
     return (
         <PostBody>
             <PostWrapper>
@@ -43,11 +45,11 @@ const Post = (props) => {
                 </PostCenter>
                 <PostBottom>
                     <PostBottomLeft>
-                        <AiFillHeart onClick={likeHandler}/>
-                        <LikeCounter>&nbsp; {props.likes} people like it</LikeCounter>
+                        <AiFillHeart onClick={likeHandler} color={liked? 'red': ''} size={liked? '20px' : ''}/>
+                        <LikeCounter>&nbsp; {likes} people liked it</LikeCounter>
                     </PostBottomLeft>
                     <div className="postBottomRight">
-                        <span>{props.comment} comments</span>
+                        <LikeCounter>{props.comment} comments</LikeCounter>
                     </div>
                 </PostBottom>
             </PostWrapper>

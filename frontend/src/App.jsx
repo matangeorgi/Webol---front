@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { Login, Register, ForgotPass, ResetPass } from './pages/login/index';
 import Home from "./pages/home/home";
 import Profile from "./pages/profile/profile";
+import NotFound from "./pages/notFound/notFound";
 import dotenv from "dotenv";
 import axios from "axios";
 
@@ -22,8 +23,8 @@ const App = () => {
                     <Route path="/register" element={<Register />}/>
                     <Route path="/forgotpass" element={<ForgotPass />}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass />}/>
-                    <Route path="/:username" element={<Profile />}/>
-                    {/*<Route render={() => <Redirect to={{pathname: "/"}} />} />*/}
+                    <Route path="/:username" element={true ? <Profile /> : <Login />}/>
+                    <Route path="/NotFound" element={<NotFound />}/>
                 </Routes>
             </Router>
         </div>

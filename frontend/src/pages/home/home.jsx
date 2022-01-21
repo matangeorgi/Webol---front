@@ -17,11 +17,6 @@ const Home = () => {
         }
     }
 
-    const Logout = () => {
-        localStorage.removeItem('token')
-        window.location.reload();
-    };
-
     const test2 = async(e) => {
         const data = {imgurl: "hesadsay"};
         const res = await axios.post('user/userimage/profile_image',data);
@@ -30,10 +25,7 @@ const Home = () => {
 
     return (
         <div>
-            <Topbar></Topbar>
-            {/*<button onClick={test2}>Hey</button>*/}
-            <button onClick={Logout}>Logout</button>
-            {/*<ImageUpload></ImageUpload>*/}
+            <Topbar/>
         </div>
     );
 }

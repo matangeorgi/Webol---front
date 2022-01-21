@@ -8,3 +8,7 @@ export const ForgotPass = styled.div`
   align-items: end;
   a{color: grey;}
  `
+
+export const ForgotPassDiv = styled.div`
+ position: absolute;
+`

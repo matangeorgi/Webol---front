@@ -9,7 +9,6 @@ export const TopBar = styled.div`
   align-items: center;
   background-color: white;
   box-shadow: 0px 0px 5px #b9b9b9;
-  
 `
 
 // --------------------------- Left side ---------------------------------
@@ -41,7 +40,7 @@ export const TopBarCenter = styled.div`
   }
   @media only screen and (max-width:610px) {
     flex: auto;
-    width: 500px;
+    width: ${(props) => props.width};
   }
 `
 
@@ -57,21 +56,19 @@ export const SearchBar = styled.input`
 // --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
   flex: 3;
-
 `
 
 export const TopBarIcons = styled.div`
   display: flex;
+
   .topbarIconItem {
-    top: 5px;
-    margin-right: 20px;
-    cursor: pointer;
-    position: relative;
+    
   }
+
   .topbarIconBadge {
     width: 15px;
     height: 15px;
-    background-color: red;
+    background-color: #bcbbe3;
     border-radius: 50%;
     color: white;
     position: absolute;
@@ -82,9 +79,37 @@ export const TopBarIcons = styled.div`
     justify-content: center;
     font-size: 12px;
   }
-  @media only screen and (max-width:610px) {
+
+  @media only screen and (max-width: 610px) {
     position: relative;
     right: 20px;
+  }
+`
+
+export const TopBarIconItem = styled.div`
+  top: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+  position: relative;
+
+  :hover:before {
+    display:block;
+  }
+  :before{
+    content: '${(props) => props.content}';
+    position:absolute;
+    opacity: 50%;
+    transform:translateY(-50%);
+    
+    left:-35px;
+    top:50px;
+    width:100px;
+    height:fit-content;
+    border-radius:10px;
+    background:#6f6cd2;
+    color: white;
+    text-align:center;
+    display:none;
   }
 `
 

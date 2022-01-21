@@ -3,7 +3,7 @@ import GoogleLogin from "react-google-login";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import { Container, InsideContent} from "../Container.styled.js";
-import { ForgotPass } from "./Login.styled";
+import { ForgotPass, ForgotPassDiv } from "./Login.styled";
 import {Input, Logo, P} from "../Forms.styled";
 import { Button } from "../../../components/GeneralStyles/General.styled";
 
@@ -53,9 +53,11 @@ const Login = () => {
                     <Input className="mt-3 mb-1" type="password" name="password" placeholder="Password" required
                            onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <ForgotPass>
-                    <Link style={{ textDecoration: 'none' }} to="/forgotpass"><span>Forgot password?</span></Link>
-                </ForgotPass>
+                <ForgotPassDiv>
+                    <ForgotPass>
+                        <Link style={{ textDecoration: 'none' }} to="/forgotpass"><span>Forgot password?</span></Link>
+                    </ForgotPass>
+                </ForgotPassDiv>
                 <div className="mb-4 mt-5">
                     <Button type="submit" className="btn" disabled={!username || !password} width="320px" height="53px">Log In</Button>
                 </div>

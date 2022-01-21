@@ -5,7 +5,6 @@ export const Button = styled.button`
  height: ${(props) => props.height};
  border: 0px;
  color: white;
- //font-weight: bold;
  border-radius: 10px;
  transition: all 0.2s;
  background-color: #5450bd;

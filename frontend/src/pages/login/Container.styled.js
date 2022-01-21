@@ -12,7 +12,7 @@ export const Container = styled.div`
   box-shadow: 0px 0px 10px #b9b9b9;
 
   @media only screen and (max-width:400px) {
-   width:95%;
+    width:95%;
   }
 `
 

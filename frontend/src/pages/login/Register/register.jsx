@@ -12,11 +12,11 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [full_name, setFullname] = useState('');
+    const [fullName, setFullname] = useState('');
 
     const submit = async (e) => {
         e.preventDefault();
-        const userDetails = {email,username, full_name, password};
+        const userDetails = {email,username, fullName, password};
         try{
             await axios.post('register', userDetails);
             navigate('/');
@@ -51,7 +51,7 @@ const Register = () => {
                            onChange={e => setUsername(e.target.value)}/>
                 </div>
                 <div className="mb-3">
-                    <Input type="text" name="fullname" placeholder="Full Name" required
+                    <Input type="text" name="fullName" placeholder="Full Name" required
                            onChange={e => setFullname(e.target.value)}/>
                 </div>
                 <div>
@@ -59,7 +59,7 @@ const Register = () => {
                            onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div>
-                    <Button type="submit" className="btn mt-5" disabled={!password || !full_name || !email} width="320px" height="53px">
+                    <Button type="submit" className="btn mt-5" disabled={!password || !fullName || !email} width="320px" height="53px">
                         Sign up</Button>
                 </div>
                 <div>
