@@ -1,7 +1,7 @@
 import Topbar from "../../components/Topbar/Topbar";
-import Skeleton, {Bone, SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content, middleSkeleton} from "./Profile.styled";
+import { ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content} from "./Profile.styled";
 import {P,Button} from "../../components/GeneralStyles/General.styled";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
@@ -131,15 +131,15 @@ const Profile = () => {
                 </Images>
 
                 <MiddleDiv>
-                    <div className={'skeleton'}>
-                        <Skeleton width={105} height={45}/>
-                        <Skeleton width={105} height={45}/>
+                    <div>
+                        <Skeleton className='skeleton' width={105} height={45}/>
+                        <Skeleton className='skeleton' width={105} height={45}/>
                     </div>
-                    <div className={'skeleton'}>
-                        <Skeleton width={50} height={30}/>
-                        <Skeleton width={50} height={30}/>
-                        <Skeleton width={50} height={30}/>
-                    </div>
+                    {/*<div>*/}
+                    {/*    <Skeleton width={50} height={30}/>*/}
+                    {/*    <Skeleton width={50} height={30}/>*/}
+                    {/*    <Skeleton width={50} height={30}/>*/}
+                    {/*</div>*/}
                 </MiddleDiv>
 
                 <Content className="mx-auto">

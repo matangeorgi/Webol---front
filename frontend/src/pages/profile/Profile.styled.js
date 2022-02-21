@@ -18,6 +18,7 @@ export const Body = styled.div`
 `
 
 export const Images= styled.div`
+  z-index: 0;
   margin-top: 10px;
 `
 
@@ -52,13 +53,18 @@ export const ThemeImage = styled.img`
 `
 
 export const MiddleDiv = styled.div`
+  z-index: 0;
   flex-direction: column;
-  display: flex;
+  //display: flex;
   align-items: center;
   button{
     margin-right: 15px;
   }
   div{
+    .skeleton{
+      width: 10px;
+      display:inline-block ;
+    }
     margin-bottom: 20px;
     @media only screen and (min-width:920px) {
       display: Inline-block;
@@ -71,20 +77,14 @@ export const MiddleDiv = styled.div`
     right: -250px;
     display: Inline-block;
   }
-  .skeleton{
-    display: flex;
-  }
 `
 
 export const Content = styled.div`
+  z-index: 0;
   width: 80%;
   @media only screen and (min-width:920px) {
-    
     position: relative;
     top: -230px;
   }
-`
-
-export const middleSkeleton = styled.div`
 `
 
