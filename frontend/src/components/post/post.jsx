@@ -1,3 +1,9 @@
+import {useState} from "react";
+
+import {AiFillHeart} from "react-icons/ai";
+import {BsThreeDotsVertical} from "react-icons/bs";
+
+import {P} from "../GeneralStyles/General.styled";
 import {
     PostBody,
     PostBottom,
@@ -10,21 +16,17 @@ import {
     PostWrapper,
     PostBottomLeft
 }
-from "./Post.styled";
-import {P} from "../GeneralStyles/General.styled";
-import {useState} from "react";
-import {BsThreeDotsVertical} from "react-icons/bs";
-import {AiFillHeart} from "react-icons/ai";
+    from "./Post.styled";
 
 const Post = (props) => {
-    const [liked,setLiked] = useState(props.liked)
-    const [likes,setLikes] = useState(props.likes);
+    const [liked, setLiked] = useState(props.liked);
+    const [likes, setLikes] = useState(props.likes);
 
-    const likeHandler =()=>{
-        setLiked(!liked)
-        setLikes(liked? likes-1 : likes+1)
+    const likeHandler = () => {
+        setLiked(!liked);
+        setLikes(liked ? likes - 1 : likes + 1);
         // Post to server this have been liked.
-    }
+    };
 
     return (
         <PostBody>
@@ -36,7 +38,7 @@ const Post = (props) => {
                         <P color="grey">{props.date}</P>
                     </PostTopLeft>
                     <div className="postTopRight">
-                        <BsThreeDotsVertical />
+                        <BsThreeDotsVertical/>
                     </div>
                 </PostTop>
                 <PostCenter>
@@ -45,7 +47,7 @@ const Post = (props) => {
                 </PostCenter>
                 <PostBottom>
                     <PostBottomLeft>
-                        <AiFillHeart onClick={likeHandler} color={liked? 'red': ''} size={liked? '20px' : ''}/>
+                        <AiFillHeart onClick={likeHandler} color={liked ? 'red' : ''} size={liked ? '20px' : ''}/>
                         <LikeCounter>&nbsp; {likes} people liked it</LikeCounter>
                     </PostBottomLeft>
                     <div className="postBottomRight">
@@ -55,6 +57,6 @@ const Post = (props) => {
             </PostWrapper>
         </PostBody>
     );
-}
+};
 
 export default Post;

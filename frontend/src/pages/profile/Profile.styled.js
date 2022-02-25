@@ -1,5 +1,4 @@
-import styled from "styled-components"
-
+import styled from "styled-components";
 
 export const Body = styled.div`
   z-index: -1;
@@ -15,12 +14,12 @@ export const Body = styled.div`
   @media only screen and (min-width:920px) {
     width: 900px;
   }
-`
+`;
 
 export const Images= styled.div`
   z-index: 0;
   margin-top: 10px;
-`
+`;
 
 export const ProfileImg = styled.img`
   width:230px;
@@ -29,7 +28,7 @@ export const ProfileImg = styled.img`
   object-fit: cover;
   border: 1px white solid;
   cursor: pointer;
-`
+`;
 
 export const ProfileImgDiv = styled.div`
   margin: auto;
@@ -43,19 +42,19 @@ export const ProfileImgDiv = styled.div`
     top: -160px;
     right: 310px;
   }
-`
+`;
 
 export const ThemeImage = styled.img`
   object-fit: cover;
   width:820px;
   height:300px;
   cursor: pointer;
-`
+`;
 
 export const MiddleDiv = styled.div`
   z-index: 0;
   flex-direction: column;
-  //display: flex;
+  display: flex;
   align-items: center;
   button{
     margin-right: 15px;
@@ -77,7 +76,7 @@ export const MiddleDiv = styled.div`
     right: -250px;
     display: Inline-block;
   }
-`
+`;
 
 export const Content = styled.div`
   z-index: 0;
@@ -86,5 +85,5 @@ export const Content = styled.div`
     position: relative;
     top: -230px;
   }
-`
+`;
 

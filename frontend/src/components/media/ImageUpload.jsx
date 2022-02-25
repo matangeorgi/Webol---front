@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef} from 'react';
+
 import axios from 'axios';
 
 const FileUpload = () => {
@@ -21,13 +22,13 @@ const FileUpload = () => {
                 "Content-Type": "multipart/form-data"
             },
             body: file[0]
-        })
+        });
 
-        console.log(1)
+        console.log(1);
         //post to server data
         const imageUrl = url.split('?')[0];
-        await axios.post('user/userimage/profile_image',{imgurl:imageUrl});
-        console.log(2)
+        await axios.post('user/userimage/profile_image', {imgurl: imageUrl});
+        console.log(2);
     };
 
     return (

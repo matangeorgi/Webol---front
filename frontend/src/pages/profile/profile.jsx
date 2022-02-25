@@ -1,13 +1,16 @@
-import Topbar from "../../components/Topbar/Topbar";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import { ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content} from "./Profile.styled";
-import {P,Button} from "../../components/GeneralStyles/General.styled";
+import 'react-loading-skeleton/dist/skeleton.css';
 import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton';
+import {useNavigate, useParams} from "react-router-dom";
+
+import {P, Button} from "../../components/GeneralStyles/General.styled";
 import Post from "../../components/post/post";
+import Topbar from "../../components/Topbar/Topbar";
+import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import ChangeImage from "./changeImage/changeImage";
+import {ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content} from "./Profile.styled";
 
 const Profile = () => {
     const data = {
@@ -15,21 +18,21 @@ const Profile = () => {
         followers: 1456,
         media: 120,
         bio: 'Dick Broken 3rd year cs student. looking for cool ways to die, anyone is invited to die with me. asd asd asd as d',
-        role : 'Musician/Band',
+        role: 'Musician/Band',
         profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
-    }
+    };
 
     const navigate = useNavigate();
-    const { username } = useParams();
+    const {username} = useParams();
     const [themeImage, setThemeImage] = useState(window.innerWidth >= 920);
     //const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false); // always should be false
-    const [modalOpen, setModalOpen] = useState(false);
+    const {visible, setVisible, ref} = useOutsiderAlerter();
     const [modalDetails, setModalDetails] = useState();
 
-    async function getData () {
-        try{
+    async function getData() {
+        try {
             const res = await axios.get(`user/${username}`);
             //setData(res.data);
             setLoaded(true);
@@ -40,40 +43,42 @@ const Profile = () => {
 
     const handleFollow = async () => {
 
-    }
+    };
 
-    useEffect(async() => {
+    useEffect(async () => {
         function handleResize() {
             if (window.innerWidth < 920) // const
                 setThemeImage(false);
             else
                 setThemeImage(true);
         }
-        window.addEventListener('resize', handleResize)
-    },[])
+
+        window.addEventListener('resize', handleResize);
+    }, []);
 
     const ChangeProfile = () => {
         setModalDetails({
-            image:'Profile Image',
+            image: 'Profile Image',
             url: data.profileImage
-        })
-        setModalOpen(true);
-    }
+        });
+        setVisible(true);
+    };
 
     const ChangeTheme = () => {
         setModalDetails({
-            image:'Theme Image',
+            image: 'Theme Image',
             url: data.themeImage
-        })
-        setModalOpen(true);
-    }
+        });
+        setVisible(true);
+    };
 
-    return loaded ? (
+    return loaded ? ( // should be loaded instead of true
         <>
             <Topbar/>
             <ChangeImage
-                open={modalOpen}
-                onClose={()=> setModalOpen(false)}
+                ref = {ref}
+                open={visible}
+                onClose={() => setVisible(false)}
                 data={modalDetails}>
             </ChangeImage>
 
@@ -81,7 +86,7 @@ const Profile = () => {
                 <Images className="mt-2">
                     <ThemeImage
                         src={data.themeImage}
-                        className={`mx-auto d-block rounded ${themeImage? '':'d-none'}`}
+                        className={`mx-auto d-block rounded ${themeImage ? '' : 'd-none'}`}
                         alt="Theme image"
                         onClick={ChangeTheme}/>
                     <ProfileImgDiv>
@@ -113,7 +118,7 @@ const Profile = () => {
                           desc={'Wakin up in the morning'}
                           likes={20}
                           comment={3}
-                          liked = {false}
+                          liked={false}
                     />
                 </Content>
             </Body>
@@ -123,17 +128,19 @@ const Profile = () => {
             <Topbar/>
             <Body className="bg-white mx-auto mt-2">
                 <Images className="mt-2">
-                    <Skeleton width={820} height={300} className={`mx-auto d-block rounded ${themeImage? '':'d-none'}`} />
+                    <Skeleton width={820} height={300}
+                              className={`mx-auto d-block rounded ${themeImage ? '' : 'd-none'}`}/>
                     <ProfileImgDiv>
                         <Skeleton width={230} height={230} circle={true}/>
-                        <Skeleton width={200} height={30}/>
+                        <Skeleton className="mb-3" width={200} height={30}/>
                     </ProfileImgDiv>
                 </Images>
 
                 <MiddleDiv>
                     <div>
-                        <Skeleton className='skeleton' width={105} height={45}/>
-                        <Skeleton className='skeleton' width={105} height={45}/>
+                        <Button width="105px" height="45px" className="">Follow</Button>
+                        <Button width="105px" height="45px">Message</Button>
+                        <Skeleton width={300} height={30}/>
                     </div>
                     {/*<div>*/}
                     {/*    <Skeleton width={50} height={30}/>*/}
@@ -144,7 +151,7 @@ const Profile = () => {
 
                 <Content className="mx-auto">
                     <div className="mx-auto">
-                        <Skeleton width={themeImage? 750 : 400} height={30} count={2}/>
+                        <Skeleton width={themeImage ? 750 : 400} height={30} count={2}/>
                     </div>
                     <Post className="col-5"
                           profileurl={data.profileImage}
@@ -154,12 +161,12 @@ const Profile = () => {
                           desc={'Wakin up in the morning'}
                           likes={20}
                           comment={3}
-                          liked = {false}
+                          liked={false}
                     />
                 </Content>
             </Body>
         </>
-    )
-}
+    );
+};
 
 export default Profile;

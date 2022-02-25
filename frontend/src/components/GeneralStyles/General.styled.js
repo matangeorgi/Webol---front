@@ -1,24 +1,24 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const Button = styled.button`
- width: ${(props) => props.width};
- height: ${(props) => props.height};
- border: 0px;
- color: white;
- border-radius: 10px;
- transition: all 0.2s;
- background-color: #5450bd;
- box-shadow: 0px 0px 10px #6f6cd2;
-
- :hover {
-  outline: none;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  border: 0px;
   color: white;
-  background-color: #433ebd;
- }
-`
+  border-radius: 10px;
+  transition: all 0.2s;
+  background-color: #5450bd;
+  box-shadow: 0px 0px 10px #6f6cd2;
+
+  :hover {
+    outline: none;
+    color: white;
+    background-color: #433ebd;
+  }
+`;
 
 export const P = styled.p`
   font-family: 'Poppins';
   font-size: ${(props) => props.size};
   color: ${(props) => props.color};
-`
+`;
