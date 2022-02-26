@@ -6,9 +6,12 @@ export const ForgotPass = styled.div`
   right: -190px;
   font-size: 14px;
   align-items: end;
-  a{color: grey;}
- `
+
+  a {
+    color: grey;
+  }
+`;
 
 export const ForgotPassDiv = styled.div`
- position: absolute;
-`
+  position: absolute;
+`;

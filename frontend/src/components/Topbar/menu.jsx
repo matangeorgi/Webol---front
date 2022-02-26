@@ -1,39 +1,32 @@
-import {Navrow, DropDownDiv, IconButton, IconRight, MenuDiv, MenuItem, NavbarItem } from "./Menu.styled"
-import {ReactComponent as CaretIcon} from "./icons/caret.svg";
+import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import {ReactComponent as BellIcon} from "./icons/bell.svg";
-import React, {useEffect, useRef, useState} from "react";
-import {CSSTransition} from "react-transition-group";
+import {ReactComponent as CaretIcon} from "./icons/caret.svg";
 import {ReactComponent as CogIcon} from "./icons/cog.svg";
 import {ReactComponent as HelpIcon} from "./icons/help.svg";
 import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
-import {ReactComponent as BoltIcon} from "./icons/bolt.svg";
+import {Navrow, DropDownDiv, IconButton, IconRight, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
 
 const Menu = () => {
+    const {visible, setVisible, ref} = useOutsiderAlerter();
 
     function NavItem(props) {
-        const [open, setOpen] = useState(false);
-
+        const handleClick = () => {
+            setVisible(() => !visible);
+        };
         return (
             <NavbarItem>
-                <IconButton href="#" onClick={() => setOpen(!open)}>
+                <IconButton href="#" onClick={handleClick}>
                     {props.icon}
                 </IconButton>
 
-                {open && props.children}
+                {visible && props.children}
             </NavbarItem>
         );
     }
 
     function DropdownMenu() {
-        const [menuHeight, setMenuHeight] = useState(230);
-
-        function calcHeight(el) {
-            const height = el.offsetHeight+20;
-            setMenuHeight(height);
-        }
-
         const Logout = () => {
-            localStorage.removeItem('token')
+            localStorage.removeItem('token');
             window.location.reload();
         };
 
@@ -48,42 +41,43 @@ const Menu = () => {
             );
         }
 
-        const ColoredLine = ({ color }) => (
+        const ColoredLine = ({color}) => (
             <hr
                 style={{
                     color,
                     backgroundColor: color,
                     height: 1.5,
-                    margin:2
+                    margin: 2
                 }}
             />
         );
 
         return (
-            <DropDownDiv style={{ height: menuHeight }} >
-                    <MenuDiv>
-                        <DropdownItem profile={true}> My Profile</DropdownItem>
-                        <DropdownItem leftIcon={<CogIcon />}>Settings</DropdownItem>
-                        <DropdownItem leftIcon={<HelpIcon/>}>Contact us</DropdownItem>
-                        <ColoredLine color="red"/>
-                        <DropdownItem function={Logout} leftIcon={<LogoutIcon/>} height ={'20px'} color ="red">Log out</DropdownItem>
+            <DropDownDiv>
+                <MenuDiv ref={ref}>
+                    <DropdownItem profile={true}> My Profile</DropdownItem>
+                    <DropdownItem leftIcon={<CogIcon/>}>Settings</DropdownItem>
+                    <DropdownItem leftIcon={<HelpIcon/>}>Contact us</DropdownItem>
+                    <ColoredLine color="red"/>
+                    <DropdownItem function={Logout} leftIcon={<LogoutIcon/>} height={'20px'} color="red">Log
+                        out</DropdownItem>
 
-                    </MenuDiv>
+                </MenuDiv>
             </DropDownDiv>
         );
     }
 
-    return(
+    return (
         <Navrow>
-            <NavItem icon={<BellIcon />}>
+            <NavItem icon={<BellIcon/>}>
 
             </NavItem>
-            <NavItem icon={<CaretIcon />}>
+            <NavItem icon={<CaretIcon/>}>
                 <DropdownMenu/>
             </NavItem>
 
         </Navrow>
-    )
-}
+    );
+};
 
 export default Menu;

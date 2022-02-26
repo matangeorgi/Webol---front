@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const TopBar = styled.div`
   top: 0;
@@ -9,20 +9,20 @@ export const TopBar = styled.div`
   align-items: center;
   background-color: white;
   box-shadow: 0px 0px 5px #b9b9b9;
-`
+`;
 
 // --------------------------- Left side ---------------------------------
 export const TopBarLeft = styled.div`
   margin-right: 10px;
   flex: 3;
-`
+`;
 
 export const Logo = styled.span`
   padding-left: 25px;
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
-`
+`;
 
 // --------------------------- Center side -------------------------------
 export const TopBarCenter = styled.div`
@@ -30,19 +30,20 @@ export const TopBarCenter = styled.div`
   margin-right: 10px;
   border: 1px solid #989898;
   border-radius: 20px;
-  
-  .searchIcon{
+
+  .searchIcon {
     font-size: 40px;
     margin-left: 10px;
     margin-right: 0px;
-    padding-right: 20px ;
+    padding-right: 20px;
     cursor: pointer;
   }
-  @media only screen and (max-width:610px) {
+
+  @media only screen and (max-width: 610px) {
     flex: auto;
     width: ${(props) => props.width};
   }
-`
+`;
 
 export const SearchBar = styled.input`
   border: none;
@@ -51,18 +52,18 @@ export const SearchBar = styled.input`
   margin-left: -10px;
   margin-right: auto;
   border-radius: 20px;
-`
+`;
 
 // --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
   flex: 3;
-`
+`;
 
 export const TopBarIcons = styled.div`
   display: flex;
 
   .topbarIconItem {
-    
+
   }
 
   .topbarIconBadge {
@@ -84,7 +85,7 @@ export const TopBarIcons = styled.div`
     position: relative;
     right: 20px;
   }
-`
+`;
 
 export const TopBarIconItem = styled.div`
   top: 5px;
@@ -93,25 +94,26 @@ export const TopBarIconItem = styled.div`
   position: relative;
 
   :hover:before {
-    display:block;
+    display: block;
   }
-  :before{
+
+  :before {
     content: '${(props) => props.content}';
-    position:absolute;
+    position: absolute;
     opacity: 50%;
-    transform:translateY(-50%);
-    
-    left:-35px;
-    top:50px;
-    width:100px;
-    height:fit-content;
-    border-radius:10px;
-    background:#6f6cd2;
+    transform: translateY(-50%);
+
+    left: -35px;
+    top: 50px;
+    width: 100px;
+    height: fit-content;
+    border-radius: 10px;
+    background: #6f6cd2;
     color: white;
-    text-align:center;
-    display:none;
+    text-align: center;
+    display: none;
   }
-`
+`;
 
 export const ProfileImage = styled.img`
   width: 40px;
@@ -119,4 +121,4 @@ export const ProfileImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-`
+`;
