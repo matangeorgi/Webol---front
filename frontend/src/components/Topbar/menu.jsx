@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import {ReactComponent as BellIcon} from "./icons/bell.svg";
 import {ReactComponent as CaretIcon} from "./icons/caret.svg";
@@ -7,7 +9,11 @@ import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
 import {Navrow, DropDownDiv, IconButton, IconRight, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
 
 const Menu = () => {
-    const {visible, setVisible, ref} = useOutsiderAlerter();
+    const [visible, setVisible] = useState();
+
+    const ref = useOutsiderAlerter(() => {
+        setVisible(false);
+    });
 
     function NavItem(props) {
         const handleClick = () => {

@@ -11,13 +11,14 @@ export const ModalBody = styled.div`
   width: fit-content;
   height: fit-content;
   border-radius: 10px;
-`
+`;
 
 export const CloseButton = styled.span`
+  cursor: pointer;
   position: absolute;
   top: 10px;
   right: 10px;
-`
+`;
 
 export const OverlayDiv = styled.div`
   position: fixed;
@@ -27,7 +28,7 @@ export const OverlayDiv = styled.div`
   bottom: 0;
   background-color: rgba(0,0,0,0.7);
   z-index: 1000;
-`
+`;
 
 export const IconButton = styled.span`
   --button-size: ${(props) => props.size};
@@ -49,12 +50,12 @@ export const IconButton = styled.span`
     width: 50px;
     height: 50px;
   }
-`
+`;
 
 export const ButtonDiv = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 export const Button = styled.div`
   flex-direction: column;
@@ -76,4 +77,4 @@ export const Button = styled.div`
     background-color: #2e353b;
     filter: brightness(1.5);
   }
-`
+`;

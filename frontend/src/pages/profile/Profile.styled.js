@@ -38,17 +38,22 @@ export const ProfileImgDiv = styled.div`
   align-items: center;
 
   @media only screen and (min-width:920px) {
-    position: relative;
     top: -160px;
     right: 310px;
   }
 `;
 
 export const ThemeImage = styled.img`
+  display: none;
   object-fit: cover;
   width:820px;
   height:300px;
   cursor: pointer;
+  display: block;
+  
+  @media only screen and (max-width:920px) {
+    display: none;
+  }
 `;
 
 export const MiddleDiv = styled.div`
@@ -79,8 +84,8 @@ export const MiddleDiv = styled.div`
 `;
 
 export const Content = styled.div`
-  z-index: 0;
   width: 80%;
+
   @media only screen and (min-width:920px) {
     position: relative;
     top: -230px;

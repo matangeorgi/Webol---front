@@ -2,6 +2,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import {useEffect, useState} from "react";
 
 import axios from "axios";
+import { LoremIpsum } from "lorem-ipsum";
 import Skeleton from 'react-loading-skeleton';
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -17,7 +18,7 @@ const Profile = () => {
         fullname: 'Matan George',
         followers: 1456,
         media: 120,
-        bio: 'Dick Broken 3rd year cs student. looking for cool ways to die, anyone is invited to die with me. asd asd asd as d',
+        bio: new LoremIpsum().generateWords(30),
         role: 'Musician/Band',
         profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
@@ -25,11 +26,14 @@ const Profile = () => {
 
     const navigate = useNavigate();
     const {username} = useParams();
-    const [themeImage, setThemeImage] = useState(window.innerWidth >= 920);
     //const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false); // always should be false
-    const {visible, setVisible, ref} = useOutsiderAlerter();
+    const [visible, setVisible] = useState(false);
     const [modalDetails, setModalDetails] = useState();
+
+    const ref = useOutsiderAlerter(() => {
+        setVisible(false);
+    });
 
     async function getData() {
         try {
@@ -40,21 +44,6 @@ const Profile = () => {
             navigate('/NotFound');
         }
     }
-
-    const handleFollow = async () => {
-
-    };
-
-    useEffect(async () => {
-        function handleResize() {
-            if (window.innerWidth < 920) // const
-                setThemeImage(false);
-            else
-                setThemeImage(true);
-        }
-
-        window.addEventListener('resize', handleResize);
-    }, []);
 
     const ChangeProfile = () => {
         setModalDetails({
@@ -72,11 +61,11 @@ const Profile = () => {
         setVisible(true);
     };
 
-    return loaded ? ( // should be loaded instead of true
+    return !loaded ? ( // should be loaded instead of true
         <>
             <Topbar/>
             <ChangeImage
-                ref = {ref}
+                forwardRef={ref}
                 open={visible}
                 onClose={() => setVisible(false)}
                 data={modalDetails}>
@@ -86,21 +75,23 @@ const Profile = () => {
                 <Images className="mt-2">
                     <ThemeImage
                         src={data.themeImage}
-                        className={`mx-auto d-block rounded ${themeImage ? '' : 'd-none'}`}
+                        className='mx-auto rounded'
                         alt="Theme image"
                         onClick={ChangeTheme}/>
+
                     <ProfileImgDiv>
                         <ProfileImg
                             src={data.profileImage}
                             alt="Profile image"
                             onClick={ChangeProfile}/>
+
                         <P size="20px">{data.fullName}</P>
                     </ProfileImgDiv>
                 </Images>
 
                 <MiddleDiv>
                     <div>
-                        <Button width="105px" height="45px" className="">Follow</Button>
+                        <Button width="105px" height="45px">Follow</Button>
                         <Button width="105px" height="45px">Message</Button>
                     </div>
                     <div>
@@ -129,7 +120,7 @@ const Profile = () => {
             <Body className="bg-white mx-auto mt-2">
                 <Images className="mt-2">
                     <Skeleton width={820} height={300}
-                              className={`mx-auto d-block rounded ${themeImage ? '' : 'd-none'}`}/>
+                              className='mx-auto rounded'/>
                     <ProfileImgDiv>
                         <Skeleton width={230} height={230} circle={true}/>
                         <Skeleton className="mb-3" width={200} height={30}/>
@@ -140,18 +131,16 @@ const Profile = () => {
                     <div>
                         <Button width="105px" height="45px" className="">Follow</Button>
                         <Button width="105px" height="45px">Message</Button>
+
+                    </div>
+                    <div>
                         <Skeleton width={300} height={30}/>
                     </div>
-                    {/*<div>*/}
-                    {/*    <Skeleton width={50} height={30}/>*/}
-                    {/*    <Skeleton width={50} height={30}/>*/}
-                    {/*    <Skeleton width={50} height={30}/>*/}
-                    {/*</div>*/}
                 </MiddleDiv>
 
                 <Content className="mx-auto">
                     <div className="mx-auto">
-                        <Skeleton width={themeImage ? 750 : 400} height={30} count={2}/>
+                        <Skeleton width={400} height={30} count={2}/>
                     </div>
                     <Post className="col-5"
                           profileurl={data.profileImage}
