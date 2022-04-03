@@ -3,6 +3,7 @@ import {useState, useEffect} from "react";
 import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 
+import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import Menu from "./menu";
 import {
     TopBar,
@@ -16,46 +17,55 @@ import {
 
 export default function Topbar() {
     const navigate = useNavigate();
-    const [search, setSearch] = useState(window.innerWidth >= 610);
-    const [iconsVisible, setIconsVisible] = useState(true);
+    const [isWide, setWide] = useState(window.innerWidth > 610);
+    const [search, setSearch] = useState(isWide);
+    const [input, setInput] = useState();
 
-    const toggleSearch = () => {
-        if (window.innerWidth < 610) {// consttttttttt!
-            setSearch(!search);
-            setIconsVisible(search);
+    const checkWidth = () => {
+        if (window.innerWidth > 610) {
+            setSearch(true);
+            setWide(true);
+        }
+        else {
+            setSearch(false);
+            setWide(true);
         }
     };
 
+
     useEffect(() => {
-        function handleResize() {
-            if (window.innerWidth < 610)
-                setSearch(false);
-            else
-                setSearch(true);
+        window.addEventListener('resize', checkWidth);
+    });
 
-            setIconsVisible(true);
-        }
+    const clickedSearch = () => {
+        if (input)
+            console.log("test");
+        //     Preform search.
+        else if (!isWide)
+            setSearch(!search);
+    };
 
-        window.addEventListener('resize', handleResize);
+    const ref = useOutsiderAlerter(() => {
+        if(!isWide)
+            setSearch(false);
     });
 
     return (
         <TopBar>
             <TopBarLeft>
-                <Logo onClick={() => {
-                    navigate('/');
-                }}>Webol</Logo>
+                <Logo onClick={() => navigate('/')}>Webol</Logo>
             </TopBarLeft>
 
-            <TopBarCenter width={search ? '500px' : '0'}
-                          className={`d-flex justify-content-center ${search ? 'border-1' : 'border-0'}`}>
-                <ImSearch onClick={toggleSearch} className="searchIcon"/>
-                <SearchBar className={`searchbar ${search ? '' : 'd-none'}`} placeholder="Discover creators"/>
+            <TopBarCenter ref={ref} width={search ? 'auto' : '0'} className={search ? 'border-1' : 'border-0'}>
+                <ImSearch onClick={clickedSearch} className="searchIcon"/>
+
+                {search ? <SearchBar placeholder="Discover creators" onChange={e => {setInput(e.target.value);}} /> : null}
             </TopBarCenter>
 
-            <TopBarRight className={iconsVisible ? '' : 'd-none'}>
+            <TopBarRight className={(isWide || !search) ? '': 'd-none'}>
                 <Menu/>
             </TopBarRight>
+
         </TopBar>
     );
 }

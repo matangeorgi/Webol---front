@@ -36,6 +36,7 @@ export const ProfileImgDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 230px;
 
   @media only screen and (min-width:920px) {
     top: -160px;

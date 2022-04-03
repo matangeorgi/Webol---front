@@ -13,8 +13,10 @@ export const TopBar = styled.div`
 
 // --------------------------- Left side ---------------------------------
 export const TopBarLeft = styled.div`
-  margin-right: 10px;
-  flex: 3;
+  flex :3;
+  @media only screen and (max-width: 610px) {
+    flex: 1;
+  }
 `;
 
 export const Logo = styled.span`
@@ -26,10 +28,12 @@ export const Logo = styled.span`
 
 // --------------------------- Center side -------------------------------
 export const TopBarCenter = styled.div`
-  flex: 5;
-  margin-right: 10px;
+
   border: 1px solid #989898;
   border-radius: 20px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
 
   .searchIcon {
     font-size: 40px;
@@ -40,7 +44,7 @@ export const TopBarCenter = styled.div`
   }
 
   @media only screen and (max-width: 610px) {
-    flex: auto;
+    flex: 3;
     width: ${(props) => props.width};
   }
 `;
@@ -48,7 +52,6 @@ export const TopBarCenter = styled.div`
 export const SearchBar = styled.input`
   border: none;
   outline: none;
-  width: 100%;
   margin-left: -10px;
   margin-right: auto;
   border-radius: 20px;
@@ -57,15 +60,12 @@ export const SearchBar = styled.input`
 // --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
   flex: 3;
+  float: right;
 `;
 
 export const TopBarIcons = styled.div`
   display: flex;
-
-  .topbarIconItem {
-
-  }
-
+  
   .topbarIconBadge {
     width: 15px;
     height: 15px;
@@ -113,12 +113,4 @@ export const TopBarIconItem = styled.div`
     text-align: center;
     display: none;
   }
-`;
-
-export const ProfileImage = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
 `;
