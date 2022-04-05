@@ -23,7 +23,7 @@ export default function Topbar() {
 
     useEffect(() => {
         window.addEventListener('resize', () => setWide(window.innerWidth > 610));
-    },[]);
+    }, []);
 
     const clickedSearch = () => {
         if (input)
@@ -35,7 +35,7 @@ export default function Topbar() {
     };
 
     const ref = useOutsiderAlerter(() => {
-        if(!isWide)
+        if (!isWide)
             setSearch(false);
     });
 
@@ -45,15 +45,15 @@ export default function Topbar() {
                 <Logo onClick={() => navigate('/')}>Webol</Logo>
             </TopBarLeft>
 
-            <TopBarCenter ref={ref} className={search ? 'border-1' : 'border-0'}>
+            <TopBarCenter ref={ref} className={search || isWide ? 'border-1' : 'border-0'}>
                 {isWide || search ? <ImSearch onClick={clickedSearch} className="searchIcon"/> : null}
-                {search ? <SearchBar placeholder="Discover creators" onChange={e => {setInput(e.target.value);}} /> : null}
+                {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {setInput(e.target.value);}}/> : null}
             </TopBarCenter>
 
-            <TopBarRight className={(isWide || !search) ? '': 'd-none'}>
-                <Menu wideMode={isWide} openSearch={() => setSearch(true)}/>
-            </TopBarRight>
-
+            {isWide || !search ?
+                <TopBarRight>
+                    <Menu wideMode={isWide} openSearch={() => setSearch(true)}/>
+                </TopBarRight> : null}
         </TopBar>
     );
 }

@@ -93,3 +93,22 @@ export const Content = styled.div`
   }
 `;
 
+export const LockIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  background-color: #5450bd;
+  color: #ffffff;
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 300ms;
+  box-shadow: 0px 0px 10px #6f6cd2;
+  cursor: pointer;
+
+  :hover {
+    background-color: #433ebd;
+  }
+`;
+

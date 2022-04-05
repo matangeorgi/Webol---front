@@ -2,7 +2,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import {useEffect, useState} from "react";
 
 import axios from "axios";
-import { LoremIpsum } from "lorem-ipsum";
+import {LoremIpsum} from "lorem-ipsum";
+import {BsFillUnlockFill} from "react-icons/bs";
 import Skeleton from 'react-loading-skeleton';
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -11,11 +12,11 @@ import Post from "../../components/post/post";
 import Topbar from "../../components/Topbar/Topbar";
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import ChangeImage from "./changeImage/changeImage";
-import {ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content} from "./Profile.styled";
+import {ProfileImg, ProfileImgDiv, ThemeImage, Images, Body, MiddleDiv, Content, LockIcon} from "./Profile.styled";
 
 const Profile = () => {
     const data = {
-        fullname: 'Matan George',
+        fullname: 'Matan',
         followers: 1456,
         media: 120,
         bio: new LoremIpsum().generateWords(30),
@@ -27,9 +28,10 @@ const Profile = () => {
     const navigate = useNavigate();
     const {username} = useParams();
     //const [data, setData] = useState(getData);
-    const [loaded, setLoaded] = useState(false); // always should be false
+    const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
     const [modalDetails, setModalDetails] = useState();
+    const [isFollowed, setFollowed] = useState();
 
     const ref = useOutsiderAlerter(() => {
         setVisible(false);
@@ -39,6 +41,7 @@ const Profile = () => {
         try {
             const res = await axios.get(`user/${username}`);
             //setData(res.data);
+            setFollowed(res.data[0]);
             setLoaded(true);
         } catch {
             navigate('/NotFound');
@@ -59,6 +62,22 @@ const Profile = () => {
             url: data.themeImage
         });
         setVisible(true);
+    };
+
+    const handleFollow = () => {
+
+    };
+
+    const ContentLocked = () => {
+        return (
+            <div className="mt-5 mb-5">
+                <hr style={{color: "#5450bd"}}/>
+                <P className="d-flex justify-content-center">{`Follow ${data.fullname} to unlock new content!`}</P>
+                <LockIcon onClick={handleFollow}>
+                    <BsFillUnlockFill size="25px"/>
+                </LockIcon>
+            </div>
+        );
     };
 
     return !loaded ? ( // should be loaded instead of true
@@ -84,32 +103,34 @@ const Profile = () => {
                             src={data.profileImage}
                             alt="Profile image"
                             onClick={ChangeProfile}/>
-                        <P size="20px">{data.fullName}</P>
+                        <P size="20px" className="mt-2">{data.fullname}</P>
                     </ProfileImgDiv>
                 </Images>
 
                 <MiddleDiv>
                     <div>
-                        <Button width="105px" height="45px">Follow</Button>
+                        <Button width="105px" height="45px" onClick={handleFollow}>Follow</Button>
                         <Button width="105px" height="45px">Message</Button>
                     </div>
                     <div>
-                        <P size="14px"><b>{data.media} followers &emsp; {data.media} media &emsp; {data.role}</b></P>
+                        <P size="14px"><b>{data.followers} followers &emsp; {data.media} media &emsp; {data.role}</b></P>
                     </div>
                 </MiddleDiv>
 
                 <Content className="mx-auto">
                     <P>{data.bio}</P>
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                    />
+                    {isFollowed ?
+                        <Post className="col-5"
+                              profileurl={data.profileImage}
+                              url={data.themeImage}
+                              fullname={data.fullName}
+                              date={'10/12/21'}
+                              desc={'Wakin up in the morning'}
+                              likes={20}
+                              comment={3}
+                              liked={false}
+                        /> :
+                        <ContentLocked/>}
                 </Content>
             </Body>
         </>

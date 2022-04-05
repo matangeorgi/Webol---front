@@ -77,8 +77,13 @@ const Menu = props => {
 
     return (
         <Navrow>
+            {props.wideMode ? null :
+                <NavbarItem onClick={() => {props.openSearch();}}>
+                    <IconButton>
+                        <ImSearch />
+                    </IconButton>
+                </NavbarItem>}
 
-            {props.wideMode ? null : <NavItem icon={<ImSearch onClick={() => {props.openSearch();}}/>} />}
             <NavItem icon={<BellIcon/>}/>
             <NavItem icon={<CaretIcon/>}>
                 <DropdownMenu/>
