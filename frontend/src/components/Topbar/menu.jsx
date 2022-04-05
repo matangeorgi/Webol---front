@@ -1,5 +1,7 @@
 import {useState} from "react";
 
+import {ImSearch} from "react-icons/im";
+
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import {ReactComponent as BellIcon} from "./icons/bell.svg";
 import {ReactComponent as CaretIcon} from "./icons/caret.svg";
@@ -8,7 +10,7 @@ import {ReactComponent as HelpIcon} from "./icons/help.svg";
 import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
 import {Navrow, DropDownDiv, IconButton, IconRight, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
 
-const Menu = () => {
+const Menu = props => {
     const [visible, setVisible] = useState();
 
     const ref = useOutsiderAlerter(() => {
@@ -75,9 +77,9 @@ const Menu = () => {
 
     return (
         <Navrow>
-            <NavItem icon={<BellIcon/>}>
 
-            </NavItem>
+            {props.wideMode ? null : <NavItem icon={<ImSearch onClick={() => {props.openSearch();}}/>} />}
+            <NavItem icon={<BellIcon/>}/>
             <NavItem icon={<CaretIcon/>}>
                 <DropdownMenu/>
             </NavItem>

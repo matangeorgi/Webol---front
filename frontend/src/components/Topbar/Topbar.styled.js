@@ -15,7 +15,7 @@ export const TopBar = styled.div`
 export const TopBarLeft = styled.div`
   flex :3;
   @media only screen and (max-width: 610px) {
-    flex: 1;
+    flex: 1.5;
   }
 `;
 
@@ -28,7 +28,6 @@ export const Logo = styled.span`
 
 // --------------------------- Center side -------------------------------
 export const TopBarCenter = styled.div`
-
   border: 1px solid #989898;
   border-radius: 20px;
   width: 300px;
@@ -45,7 +44,8 @@ export const TopBarCenter = styled.div`
 
   @media only screen and (max-width: 610px) {
     flex: 3;
-    width: ${(props) => props.width};
+    margin-right: 10px;
+    width: 90px;
   }
 `;
 

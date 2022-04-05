@@ -84,7 +84,6 @@ const Profile = () => {
                             src={data.profileImage}
                             alt="Profile image"
                             onClick={ChangeProfile}/>
-
                         <P size="20px">{data.fullName}</P>
                     </ProfileImgDiv>
                 </Images>
