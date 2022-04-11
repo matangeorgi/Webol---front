@@ -77,8 +77,3 @@ export const MenuItem = styled.a`
     color: #635fc2;
   }
 `;
-
-export const IconRight = styled.span`
-  margin-left: auto;
-`;
-

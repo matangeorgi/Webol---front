@@ -1,5 +1,5 @@
 
-import React, {useRef, useState} from "react";
+import React, {useRef} from "react";
 
 import axios from "axios";
 
@@ -9,7 +9,6 @@ import {ProfileImg, ThemeImage} from "../Profile.styled";
 import {ModalBody, OverlayDiv, IconButton, CloseButton, ButtonDiv, Button} from "./ChangeImage.styled";
 
 const ChangeImage = (props) => {
-    const [file, setFile] = useState(null);
     const hiddenFileInput = useRef(null);
 
     function Image() {
@@ -31,28 +30,14 @@ const ChangeImage = (props) => {
     );
 
     const UploadImage = async (event) => {
-        setFile(event.target.files);
-
-        // get Secure URL
         const url = await axios.get('s3/geturl').then(res => res.data);
 
-        //post image to s3
-        await axios.put({url: url, baseURL: ''}, {
-            headers: {"Content-Type": "multipart/form-data"},
-            body: file[0]
-        });
+        const instance = axios.create();
+        instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+        await instance.put(url, event.target.files[0]);
 
-        await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "multipart/form-data"
-            },
-            body: file[0]
-        });
-
-        //post to server data
         const imageUrl = url.split('?')[0];
-        await axios.post('user/userimage/profile_image', {imgurl: imageUrl});
+        await axios.post(`user/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
         window.location.reload();
     };
 

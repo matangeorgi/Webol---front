@@ -8,7 +8,7 @@ import {ReactComponent as CaretIcon} from "./icons/caret.svg";
 import {ReactComponent as CogIcon} from "./icons/cog.svg";
 import {ReactComponent as HelpIcon} from "./icons/help.svg";
 import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
-import {Navrow, DropDownDiv, IconButton, IconRight, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
+import {Navrow, DropDownDiv, IconButton, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
 
 const Menu = props => {
     const [visible, setVisible] = useState();
@@ -63,7 +63,7 @@ const Menu = props => {
         return (
             <DropDownDiv>
                 <MenuDiv ref={ref}>
-                    <DropdownItem profile={true}> My Profile</DropdownItem>
+                    <DropdownItem profile={true}> {localStorage.getItem('username')}</DropdownItem>
                     <DropdownItem leftIcon={<CogIcon/>}>Settings</DropdownItem>
                     <DropdownItem leftIcon={<HelpIcon/>}>Contact us</DropdownItem>
                     <ColoredLine color="red"/>
