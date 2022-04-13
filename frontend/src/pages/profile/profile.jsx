@@ -9,6 +9,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {P, Button} from "../../components/GeneralStyles/General.styled";
 import NewPost from "../../components/newPost/newPost";
 import Post from "../../components/post/post";
+import ResizeTextArea from "../../components/resizeTextArea/resizeTextArea";
 import Topbar from "../../components/Topbar/Topbar";
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import ChangeImage from "./changeImage/changeImage";
@@ -25,48 +26,47 @@ import {
 } from "./Profile.styled";
 
 const Profile = () => {
-    // const data = {
-    //     fullName: 'Matan',
-    //     follow: 1456,
-    //     media: 120,
-    //     bio: new LoremIpsum().generateWords(30),
-    //     role: 'Musician/Band',
-    //     profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    //     themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
-    // };
+    const data = {
+        fullName: 'Matan',
+        followers: 1456,
+        media: 120,
+        bio: new LoremIpsum().generateWords(30),
+        role: 'Musician/Band',
+        profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
+    };
 
     const navigate = useNavigate();
     const {username} = useParams();
-    const [data, setData] = useState(getData);
+    //const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
     const [modalDetails, setModalDetails] = useState();
     const [isFollowed, setFollowed] = useState(false);
     const [isMyProfile, setIsMyProfile] = useState(true);
     const [editBio, setEditBio] = useState(false);
-    const [bioInput, setBioInput] = useState(data.bio || `Welcome to ${data.fullName} profile!`);
+    const [bioInput, setBioInput] = useState(data.bio || `Welcome to ${username} profile!`);
 
     const refChangeImage = useOutsiderAlerter(() => {
         setVisible(false);
     });
 
-    const refBio = useOutsiderAlerter(() => {
+    let refBio = useOutsiderAlerter(() => {
         setEditBio(false);
         // Send new bio to backend
     });
 
-    async function getData() {
-        try {
-            const res = await axios.get(`user/${username}`);
-            console.log(res.data);
-            setIsMyProfile(res.data[0]);
-            setFollowed(res.data[1]);
-            setData(res.data[2]);
-            setLoaded(true);
-        } catch {
-            navigate('/NotFound');
-        }
-    }
+    // async function getData() {
+    //     try {
+    //         const res = await axios.get(`user/${username}`);
+    //         setIsMyProfile(res.data[0]);
+    //         setFollowed(res.data[1]);
+    //         setData(res.data[2]);
+    //         setLoaded(true);
+    //     } catch {
+    //         navigate('/NotFound');
+    //     }
+    // }
 
     const ChangeProfile = () => {
         if (isMyProfile) {
@@ -120,7 +120,7 @@ const Profile = () => {
                               id={post.id}
                               profileurl={data.profileImage}
                               url={post.url}
-                              fullname={data.fullName}
+                              fullname={data.username}
                               date={post.createdAt}
                               desc={post.description}
                               likes={post.likes}
@@ -132,7 +132,7 @@ const Profile = () => {
         );
     };
 
-    return loaded ? ( // should be loaded instead of true
+    return !loaded ? ( // should be loaded instead of true
         <>
             <Topbar/>
             <ChangeImage
@@ -171,22 +171,35 @@ const Profile = () => {
                         </div> : null}
 
                     <div>
-                        <P size="14px"><b>{data.followers} followers &emsp; {data.media} media &emsp; {data.role}</b></P>
+                        <P size="14px"><b>{data.followers} followers &emsp; {data.posts} posts &emsp; {data.role}</b></P>
                     </div>
 
                 </MiddleDiv>
 
                 <Content className="mx-auto">
                     {isMyProfile && editBio ?
-                        <BioInput
-                            maxLength="150"
-                            ref={refBio}
-                            defaultValue={bioInput}
-                            onChange={e => setBioInput(e.target.value)}/> :
+                        <BioInput>
+                            <ResizeTextArea
+                                ForwardRef={refBio}
+                                text={bioInput}
+                                setText={setBioInput}
+                                borderStyle="dashed"/>
+                        </BioInput> :
                         <P onClick={() => setEditBio(true)} style={{cursor: "pointer"}}>{bioInput}</P>}
 
                     {isMyProfile ? <NewPost profileurl={data.profileImage}/> : null}
                     {isFollowed || isMyProfile ? <Posts/> : <ContentLocked/>}
+
+                    {/*<Post className="col-5"*/}
+                    {/*      profileurl={data.profileImage}*/}
+                    {/*      url={data.themeImage}*/}
+                    {/*      fullname={data.fullName}*/}
+                    {/*      date={'10/12/21'}*/}
+                    {/*      desc={'Wakin up in the morning'}*/}
+                    {/*      likes={20}*/}
+                    {/*      comment={3}*/}
+                    {/*      liked={false}*/}
+                    {/*/>*/}
                 </Content>
             </Body>
         </>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Body = styled.div`
   z-index: -1;
-  height: fit-content;
+  //height: fit-content;
   position: center;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ export const Body = styled.div`
   box-shadow: 0px 0px 10px #b9b9b9;
   border-radius: 5px;
   width: 100%;
-
+  
   @media only screen and (min-width: 920px) {
     width: 900px;
   }
@@ -114,18 +114,14 @@ export const LockIcon = styled.div`
   }
 `;
 
-export const BioInput = styled.textarea`
+export const BioInput = styled.div`
+  position: relative;
+  right: 13px;
   width: 100%;
-  border-radius: 10px;
-  outline: none;
-  line-height: 2em;
-  border-style: dashed;
-  font-family: 'Poppins';
-
+  top: -3px;
+  
   @media only screen and (min-width: 920px) {
-    position: absolute;
-    right: 3px;
-    top: -6.5px;
+    
   }
 `;
 

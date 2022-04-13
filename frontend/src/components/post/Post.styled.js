@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const PostBody = styled.div`
+  background-color: white;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   margin: 30px 0;
@@ -41,6 +42,7 @@ export const PostImage = styled.img`
   width: 100%;
   max-height: 500px;
   object-fit: contain;
+  cursor: pointer;
 `;
 
 export const PostBottom = styled.div`

@@ -15,7 +15,7 @@ export const IconButton = styled.span`
   --button-size: calc(60px * 0.5);
   width: var(--button-size);
   height: var(--button-size);
-  background-color: #484a4d;
+  background-color: #635fc2;
   border-radius: 50%;
   padding: 5px;
   margin: 2px;
@@ -29,7 +29,7 @@ export const IconButton = styled.span`
   }
 
   svg {
-    fill: #dadce1;
+    fill: #ffffff;
     width: 20px;
     height: 20px;
   }
@@ -70,10 +70,5 @@ export const MenuItem = styled.a`
     :hover {
       filter: none;
     }
-  }
-
-  :hover {
-    background-color: #e1dfea;
-    color: #635fc2;
   }
 `;

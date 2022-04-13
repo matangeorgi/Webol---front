@@ -80,7 +80,7 @@ const Menu = props => {
             {props.wideMode ? null :
                 <NavbarItem onClick={() => {props.openSearch();}}>
                     <IconButton>
-                        <ImSearch />
+                        <ImSearch/>
                     </IconButton>
                 </NavbarItem>}
 

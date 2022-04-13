@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 
 import axios from "axios";
 import {MdPermMedia} from "react-icons/md";
 
 import {ProfileImg} from "../post/Post.styled";
+import ResizeTextArea from "../resizeTextArea/resizeTextArea";
 import {
     Container,
     ContainerWrapepr,
@@ -16,18 +17,13 @@ import {
     SpanForIcon, IconMedia, PostButton, Img
 } from "./newPost.styled";
 
+
 const NewPost = props => {
 
     const [desc, setDesc] = useState();
     const [file, setFile] = useState(null);
     const hiddenFileInput = useRef(null);
     const [src, setSrc] = useState();
-    const textAreaRef = useRef();
-    const [textAreaHeight, setTextAreaHeight] = useState("auto");
-
-    useEffect(() => {
-        setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
-    }, [desc]);
 
     const SharePost = async () => {
         let imageUrl;
@@ -56,22 +52,16 @@ const NewPost = props => {
             reader.readAsDataURL(e.target.files[0]);
     };
 
-    const handleDescChange = e =>{
-        setTextAreaHeight("auto");
-        setDesc(e.target.value);
-    };
-
-
     return (
         <Container>
             <ContainerWrapepr>
                 <Top>
                     <ProfileImg src={props.profileurl} alt="Post image" className="mb-3"/>
-                    <TextArea
+                    <ResizeTextArea
                         placeholder={`Have anything to share ${localStorage.getItem('username')}?`}
-                        onChange={handleDescChange}
-                        height={textAreaHeight}
-                        ref={textAreaRef}
+                        setText={setDesc}
+                        text={desc}
+                        borderStyle="none"
                     />
                 </Top>
                 {src ? <Img src={src} alt="your image" className="mt-5"/> : null}

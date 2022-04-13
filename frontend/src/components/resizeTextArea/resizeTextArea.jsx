@@ -1,26 +1,36 @@
 import React, {useEffect, useRef, useState} from "react";
 
-import {TextArea} from "../newPost/newPost.styled";
+import {TextArea} from "./resizeTextArea.styled";
 
 const ResizeTextArea = props => {
 
     const textAreaRef = useRef();
-    const [text, setText] = useState("");
     const [textAreaHeight, setTextAreaHeight] = useState("auto");
 
     useEffect(() => {
-        setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
-    }, [text]);
+        if (props.ForwardRef)
+            setTextAreaHeight(`${props.ForwardRef.current?.scrollHeight}px`);
+        else
+            setTextAreaHeight(`${textAreaRef.current?.scrollHeight}px`);
+
+    }, [props.text]);
+
+    const onChangeHandler = e => {
+        setTextAreaHeight("auto");
+        props.setText(e.target.value);
+    };
 
     return (
-        <div>
-            {/*<TextArea*/}
-            {/*    placeholder={`Have anything to share ${localStorage.getItem('username')}?`}*/}
-            {/*    onChange={handleDescChange}*/}
-            {/*    height={textAreaHeight}*/}
-            {/*    ref={textAreaRef}*/}
-            {/*/>*/}
-        </div>
+        <TextArea
+            placeholder={props.placeholder}
+            onChange={onChangeHandler}
+            height={textAreaHeight}
+            ref={props.ForwardRef ? props.ForwardRef : textAreaRef}
+            value={props.text}
+            borderStyle={props.borderStyle}
+            maxLength="150"
+            rows={1}
+        />
     );
 };
 

@@ -18,7 +18,9 @@ export const Button = styled.button`
 `;
 
 export const P = styled.p`
+  line-height: 2em;
   font-family: 'Poppins';
+  white-space: pre-wrap;
   font-size: ${(props) => props.size};
   color: ${(props) => props.color};
 `;

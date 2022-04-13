@@ -7,7 +7,6 @@ const Google = () => {
     const googleLogin = async e => {
         try {
             const response = await axios.post('googlelogin', e.profileObj);
-            console.log(response);
             localStorage.setItem("token", response.data.UserInfo.auth_token);
             window.location.reload();
         } catch (error) {
