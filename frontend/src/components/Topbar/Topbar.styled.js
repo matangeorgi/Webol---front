@@ -14,7 +14,6 @@ export const TopBar = styled.div`
 // --------------------------- Left side ---------------------------------
 export const TopBarLeft = styled.div`
   flex :3;
-  color: #635fc2;
   @media only screen and (max-width: 610px) {
     flex: 1.5;
   }

@@ -8,6 +8,7 @@ export const Page = styled.div`
   flex-direction: column;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  overflow-x: hidden;
 `;
 
 export const CommentsDiv = styled.div`
@@ -24,4 +25,13 @@ export const Comment = styled.div`
     position: relative;
     right: 20px;
   }
+`;
+
+export const CloseButton = styled.span`
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: -20px;
+  border-radius: 50%;
+  background-color: #5450bd;
 `;

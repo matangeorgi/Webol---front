@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Body = styled.div`
   z-index: -1;
-  //height: fit-content;
+  background-color: white;
+  margin: 10px auto auto;
   position: center;
   display: flex;
   flex-direction: column;
@@ -10,7 +11,7 @@ export const Body = styled.div`
   box-shadow: 0px 0px 10px #b9b9b9;
   border-radius: 5px;
   width: 100%;
-  
+
   @media only screen and (min-width: 920px) {
     width: 900px;
   }
@@ -88,6 +89,7 @@ export const MiddleDiv = styled.div`
 
 export const Content = styled.div`
   width: 80%;
+  margin: auto;
 
   @media only screen and (min-width: 920px) {
     position: relative;

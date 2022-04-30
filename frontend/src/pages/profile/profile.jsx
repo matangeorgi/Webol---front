@@ -93,7 +93,7 @@ const Profile = () => {
     const handleFollow = async() => {
         try {
             await axios.get(`user/addordeletefollower/${data.id}`);
-            window.location.reload();
+            setFollowed(true);
         } catch {
 
         }
@@ -142,7 +142,7 @@ const Profile = () => {
                 data={modalDetails}>
             </ChangeImage>
 
-            <Body className="bg-white mx-auto mt-2">
+            <Body>
                 <Images className="mt-2">
                     <ThemeImage
                         src={data.themeImage}
@@ -176,7 +176,7 @@ const Profile = () => {
 
                 </MiddleDiv>
 
-                <Content className="mx-auto">
+                <Content>
                     {isMyProfile && editBio ?
                         <BioInput>
                             <ResizeTextArea
@@ -185,21 +185,21 @@ const Profile = () => {
                                 setText={setBioInput}
                                 borderStyle="dashed"/>
                         </BioInput> :
-                        <P onClick={() => setEditBio(true)} style={{cursor: "pointer"}}>{bioInput}</P>}
+                        <P onClick={() => setEditBio(true)} style={{cursor: isMyProfile? "pointer" : ""}}>{bioInput}</P>}
 
                     {isMyProfile ? <NewPost profileurl={data.profileImage}/> : null}
                     {isFollowed || isMyProfile ? <Posts/> : <ContentLocked/>}
 
-                    {/*<Post className="col-5"*/}
-                    {/*      profileurl={data.profileImage}*/}
-                    {/*      url={data.themeImage}*/}
-                    {/*      fullname={data.fullName}*/}
-                    {/*      date={'10/12/21'}*/}
-                    {/*      desc={'Wakin up in the morning'}*/}
-                    {/*      likes={20}*/}
-                    {/*      comment={3}*/}
-                    {/*      liked={false}*/}
-                    {/*/>*/}
+                    <Post className="col-5"
+                          profileurl={data.profileImage}
+                          url={data.themeImage}
+                          fullname={data.fullName}
+                          date={'10/12/21'}
+                          desc={'Wakin up in the morning'}
+                          likes={20}
+                          comment={3}
+                          liked={false}
+                    />
                 </Content>
             </Body>
         </>

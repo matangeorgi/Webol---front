@@ -47,7 +47,7 @@ export const DropDownDiv = styled.div`
   overflow: hidden;
   transition: height 500ms ease;
   box-shadow: 0px 0px 10px #b9b9b9;
-
+  cursor: pointer;
 `;
 
 export const MenuDiv = styled.div`
@@ -66,9 +66,12 @@ export const MenuItem = styled.a`
 
   span { // Icon button
     margin-right: 0.5rem;
-
     :hover {
       filter: none;
     }
+  }
+
+  :hover {
+    background-color: #c4c3e0;;
   }
 `;

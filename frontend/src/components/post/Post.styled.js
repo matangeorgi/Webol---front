@@ -14,6 +14,10 @@ export const PostTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
+  span{
+    cursor: pointer;
+  }
 `;
 
 export const PostTopLeft = styled.div`

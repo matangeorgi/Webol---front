@@ -10,6 +10,10 @@ import {P} from "../GeneralStyles/General.styled";
 import Likes from "../likes/likes";
 import {PostButton} from "../newPost/newPost.styled";
 import ResizeTextArea from "../resizeTextArea/resizeTextArea";
+import {ReactComponent as CogIcon} from "../Topbar/icons/cog.svg";
+import {ReactComponent as HelpIcon} from "../Topbar/icons/help.svg";
+import {ReactComponent as LogoutIcon} from "../Topbar/icons/logout.svg";
+import {DropDownDiv, MenuDiv} from "../Topbar/Menu.styled";
 import {
     PostBody,
     PostBottom,
@@ -27,7 +31,6 @@ import {
 
 const Post = (props) => {
     const navigate = useNavigate();
-    const commentRef = useRef();
     const [liked, setLiked] = useState(props.liked);
     const [likes, setLikes] = useState(props.likes);
     const [likesList, setLikesList] = useState();
@@ -76,6 +79,10 @@ const Post = (props) => {
         }
     };
 
+    const openOptions = () =>{
+
+    };
+
     return (
         <PostBody key={props.id}>
             {likesModal?
@@ -93,9 +100,9 @@ const Post = (props) => {
                         <P>{props.fullname}</P>
                         <P color="grey">{props.date}</P>
                     </PostTopLeft>
-                    <div className="postTopRight">
+                    <span>
                         <BsThreeDotsVertical/>
-                    </div>
+                    </span>
                 </PostTop>
                 <PostCenter>
                     <P>{props.desc}</P>

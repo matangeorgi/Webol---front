@@ -46,7 +46,7 @@ export default function Topbar() {
             </TopBarLeft>
 
             <TopBarCenter ref={ref} className={search || isWide ? 'border-1' : 'border-0'}>
-                {isWide || search ? <ImSearch color={"#635fc2"} onClick={clickedSearch} className="searchIcon"/> : null}
+                {isWide || search ? <ImSearch onClick={clickedSearch} className="searchIcon"/> : null}
                 {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {setInput(e.target.value);}}/> : null}
             </TopBarCenter>
 

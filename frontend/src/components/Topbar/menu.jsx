@@ -1,6 +1,7 @@
 import {useState} from "react";
 
 import {ImSearch} from "react-icons/im";
+import {useNavigate} from "react-router-dom";
 
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
 import {ReactComponent as BellIcon} from "./icons/bell.svg";
@@ -11,6 +12,7 @@ import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
 import {Navrow, DropDownDiv, IconButton, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
 
 const Menu = props => {
+    const navigate = useNavigate();
     const [visible, setVisible] = useState();
 
     const ref = useOutsiderAlerter(() => {
@@ -41,8 +43,7 @@ const Menu = props => {
         function DropdownItem(props) {
             return (
                 <MenuItem color={props.color ? props.color : 'black'}
-                          href="#"
-                          onClick={props.function}>
+                          onClick={() => navigate(`/${props.path}`)}>
                     <IconButton>{props.leftIcon}</IconButton>
                     {props.children}
                 </MenuItem>
@@ -63,9 +64,12 @@ const Menu = props => {
         return (
             <DropDownDiv>
                 <MenuDiv ref={ref}>
-                    <DropdownItem profile={true}> {localStorage.getItem('username')}</DropdownItem>
-                    <DropdownItem leftIcon={<CogIcon/>}>Settings</DropdownItem>
-                    <DropdownItem leftIcon={<HelpIcon/>}>Contact us</DropdownItem>
+                    <DropdownItem path={localStorage.getItem('username')}>
+                        {localStorage.getItem('username')}
+                    </DropdownItem>
+
+                    <DropdownItem leftIcon={<CogIcon/>} path={'settings'}>Settings</DropdownItem>
+                    <DropdownItem leftIcon={<HelpIcon/>} path={'help'}>Contact us</DropdownItem>
                     <ColoredLine color="red"/>
                     <DropdownItem function={Logout} leftIcon={<LogoutIcon/>} height={'20px'} color="red">Log
                         out</DropdownItem>
