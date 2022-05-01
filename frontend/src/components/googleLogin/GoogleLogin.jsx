@@ -8,6 +8,8 @@ const Google = () => {
         try {
             const response = await axios.post('googlelogin', e.profileObj);
             localStorage.setItem("token", response.data.UserInfo.auth_token);
+            localStorage.setItem("username", response.data.UserInfo.username);
+            localStorage.setItem("profileImage", response.data.UserInfo.profileImage);
             window.location.reload();
         } catch (error) {
             console.log(error.response.data.error);

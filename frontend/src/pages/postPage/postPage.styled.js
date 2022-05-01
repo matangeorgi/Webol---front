@@ -4,7 +4,7 @@ export const Page = styled.div`
   width: fit-content;
   position: center;
   display: flex;
-  margin: auto;
+  margin: 40px auto auto;
   flex-direction: column;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

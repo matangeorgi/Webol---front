@@ -1,14 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+
+import axios from "axios";
 
 import {P} from "../../components/GeneralStyles/General.styled";
 import {Button} from "../../components/GeneralStyles/General.styled";
+import ResizeTextArea from "../../components/resizeTextArea/resizeTextArea";
 import Topbar from "../../components/Topbar/Topbar";
 import {Input} from "../login/Forms.styled";
 import {Body} from "../profile/Profile.styled";
-import {DivForm, Top, ProfileImg, Field,FieldsDiv, Hr} from "./settings.styled";
+import {DivForm, Top, ProfileImg, Field, FieldsDiv, Hr} from "./settings.styled";
 
 const Settings = () => {
-    const [name, setName] = useState(localStorage.getItem('fullname'));
+    const [bio, setBio] = useState("");
+    const [name, setName] = useState("");
     const [username, setUsername] = useState(localStorage.getItem('username'));
     const [password, setPassword] = useState();
     const [newPassword, setNewPassword] = useState();
@@ -17,34 +21,47 @@ const Settings = () => {
     const [usernameError, setUsernameError] = useState();
     const [passwordError, setPasswordError] = useState();
 
-    const submitChanges = () =>{
+
+    useEffect(async() => {
+        try {
+            const res = await axios.get('update/userinfo');
+            setName(res.data.fullName);
+            setBio(res.data.bio || "");
+        } catch {
+            console.error("couldn't retrieve data from the server");
+        }
+    }, []);
+
+
+    const submitChanges = () => {
         let error = false;
 
         if (!name) {
             setNameError("Name can not be empty");
             error = true;
-        }
-        else
+        } else
             setNameError("");
 
         if (!username) {
             setUsernameError("Username can not be empty");
             error = true;
-        }
-        else
+        } else
             setUsernameError("");
 
         if ((password || newPassword || retypePassword) &&
-                !(password && newPassword && retypePassword)) {
+            !(password && newPassword && retypePassword)) {
             setPasswordError("In case of password change, all passwords fields must be entered.");
             error = true;
-        }
-        else
+        } else
             setPasswordError("");
 
-        if (!error){
-            const data = {name, username, password, newPassword, retypePassword};
-            console.log(data);
+        if (!error) {
+            const data = {name, username, password, newPassword, retypePassword, bio};
+            try {
+
+            } catch {
+
+            }
         }
     };
 
@@ -55,7 +72,7 @@ const Settings = () => {
                 <DivForm>
                     <Top>
                         <ProfileImg
-                            src={"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}
+                            src={localStorage.getItem('profileImage')}
                             alt="Profile image"/>
                         <P size={'18px'}>{localStorage.getItem('username')}</P>
                     </Top>
@@ -75,6 +92,15 @@ const Settings = () => {
                         <P size={'14px'} color={'#a09cd5'}>Choose a name that wil help people find you with ease.</P>
                         <P size={'14px'} color={'red'}>{usernameError}</P>
 
+                        <Field>
+                            <P>Bio:</P>
+                            <ResizeTextArea
+                                text={bio}
+                                setText={setBio}
+                                borderStyle="dashed"/>
+                        </Field>
+                        <P size={'14px'} color={'#a09cd5'}>Bio can have 150 characters.</P>
+                        <P size={'14px'} color={'red'}>{usernameError}</P>
                         <Hr/>
 
                         <P size={'18px'} color={'grey'}>Change password</P>

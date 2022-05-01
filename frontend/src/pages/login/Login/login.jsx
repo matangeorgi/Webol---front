@@ -22,6 +22,7 @@ const Login = () => {
             const response = await axios.post('login', user);
             localStorage.setItem("token", response.data.UserInfo.auth_token);
             localStorage.setItem("username", response.data.UserInfo.username);
+            localStorage.setItem("profileImage", response.data.UserInfo.profileImage);
             window.location.reload();
         } catch (error) {
             console.log(error.response.data.error);

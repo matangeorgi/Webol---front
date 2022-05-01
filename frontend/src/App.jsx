@@ -24,13 +24,13 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={false ? <Home/> : <Login/>}/>
+                    <Route exact path="/" element={verified ? <Home/> : <Login/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>
-                    <Route path="/:username" element={true ? <Profile/> : <Login/>}/>
+                    <Route path="/:username" element={verified ? <Profile/> : <Login/>}/>
                     <Route path="/NotFound" element={<NotFound/>}/>
-                    <Route path="/settings" element={<Settings/>}/>
+                    <Route path="/settings" element={verified ? <Settings/> : <Login/>}/>
                     <Route path="/post/:id" element={<PostPage/>}/>
                 </Routes>
             </Router>

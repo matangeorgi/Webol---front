@@ -30,7 +30,7 @@ const PostPage = () => {
 
     async function deleteComment(id) {
         try {
-            await axios.post(``, {id: id});
+            await axios.get(`global/deletecomment/${id}`);
             window.location.reload();
         } catch {
 
@@ -85,7 +85,7 @@ const PostPage = () => {
                                     username={comment.user["username"]}
                                     comment={comment.content}
                                     date={comment.createdAt}
-                                    isMine={comment.isMine}
+                                    isMine={comment.isMe}
                                 />
                             ))}
                         </Ul>

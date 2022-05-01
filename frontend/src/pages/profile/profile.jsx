@@ -27,49 +27,56 @@ import {
 } from "./Profile.styled";
 
 const Profile = () => {
-    const data = {
-        fullName: 'Matan',
-        followers: 1456,
-        media: 120,
-        bio: new LoremIpsum().generateWords(30),
-        role: 'Musician/Band',
-        profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
-    };
+    // const data = {
+    //     fullName: 'Matan',
+    //     followers: 1456,
+    //     media: 120,
+    //     bio: new LoremIpsum().generateWords(30),
+    //     role: 'Musician/Band',
+    //     profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    //     themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
+    // };
 
-    const scrollRef = useRef();
     const navigate = useNavigate();
     const {username} = useParams();
     const [offset, setOffset] = useState(0);
-    //const [data, setData] = useState(getData);
+    const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
     const [modalDetails, setModalDetails] = useState();
     const [isFollowed, setFollowed] = useState(false);
     const [isMyProfile, setIsMyProfile] = useState(true);
     const [editBio, setEditBio] = useState(false);
-    const [bioInput, setBioInput] = useState(data.bio || `Welcome to ${username} profile!`);
+    const [bioInput, setBioInput] = useState();
 
     const refChangeImage = useOutsiderAlerter(() => {
         setVisible(false);
     });
 
-    let refBio = useOutsiderAlerter(() => {
+    let refBio = useOutsiderAlerter(async() => {
         setEditBio(false);
-        // Send new bio to backend
+        if(editBio)
+        {
+            try{
+                await axios.put('update/updatebio',{bio:bioInput});
+            }catch{
+                console.error("Couldn't update bio");
+            }
+        }
     });
 
-    // async function getData() {
-    //     try {
-    //         const res = await axios.get(`user/${username}`);
-    //         setIsMyProfile(res.data[0]);
-    //         setFollowed(res.data[1]);
-    //         setData(res.data[2]);
-    //         setLoaded(true);
-    //     } catch {
-    //         navigate('/NotFound');
-    //     }
-    // }
+    async function getData() {
+        try {
+            const res = await axios.get(`user/${username}`);
+            setIsMyProfile(res.data[0]);
+            setFollowed(res.data[1]);
+            setData(res.data[2]);
+            setBioInput(res.data[2].bio);
+            setLoaded(true);
+        } catch {
+            navigate('/NotFound');
+        }
+    }
 
     const ChangeProfile = () => {
         if (isMyProfile) {
@@ -135,11 +142,8 @@ const Profile = () => {
         );
     };
 
-    return !loaded ? ( // should be loaded instead of true
-        <div
-            onScroll={() => console.log("hey")}
-            ref={scrollRef}
-            style={{overflowY:'auto'}}>
+    return loaded ? ( // should be loaded instead of true
+        <div>
             <Topbar/>
             <ChangeImage
                 forwardRef={refChangeImage}
@@ -196,16 +200,6 @@ const Profile = () => {
                     {isMyProfile ? <NewPost profileurl={data.profileImage}/> : null}
                     {isFollowed || isMyProfile ? <Posts/> : <ContentLocked/>}
 
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                    />
                 </Content>
             </Body>
         </div>

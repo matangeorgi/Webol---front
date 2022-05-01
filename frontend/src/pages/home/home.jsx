@@ -1,61 +1,98 @@
-import {LoremIpsum} from "lorem-ipsum";
+import {useEffect, useState} from "react";
+
+import axios from "axios";
 
 import NewPost from "../../components/newPost/newPost";
 import Post from "../../components/post/post";
 import Topbar from "../../components/Topbar/Topbar";
+import UsePagination from "../../hooks/usePagination";
 import {Body} from "../profile/Profile.styled";
 import {Content} from "./home.styled";
 
 const Home = () => {
-    //const [data, setData] = useState(getData);
+    const [data, setData] = useState(getData);
 
-    const data = {
-        fullName: 'Matan',
-        followers: 1456,
-        media: 120,
-        bio: new LoremIpsum().generateWords(30),
-        role: 'Musician/Band',
-        profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
-    };
-
-    // async function getData() {
-    //     try {
-    //         const res = await axios.get(`user/${username}`);
-    //         setData(res.data);
-    //     } catch {
-    //         navigate('/NotFound');
-    //     }
-    // }
+    const paginationRef = UsePagination(() => {
+        console.log("bottom");
+    });
 
     const Posts = () => {
-        return (data.post ?
+        return (data.length ?
                 <div>
-                    {data.post.map(post => (
+                    {data.map(post => (
                         <Post className="col-5"
                               key={post.id}
                               id={post.id}
-                              profileurl={data.profileImage}
+                              profileurl={post.user.profileImage}
                               url={post.url}
-                              fullname={data.username}
+                              fullname={post.user.username}
                               date={post.createdAt}
                               desc={post.description}
                               likes={post.likes}
                               comment={post.comments}
-                              liked={post.like}
+                              liked={!!post.like}
                         />
                     ))}
                 </div> : null
         );
     };
 
+    async function getData() {
+        try {
+            const res = await axios.get('global/gethomepage');
+            setData(res.data);
+        } catch {
+            console.error("Couldn't retrieve data from server");
+        }
+    }
+
     return (
-        <div>
+        <div ref={paginationRef}>
             <Topbar/>
             <Body>
                 <Content>
                     <NewPost profileurl={data.profileImage}/>
                     <Posts/>
+                    <Post className="col-5"
+                          profileurl={data.profileImage}
+                          url={data.themeImage}
+                          fullname={data.fullName}
+                          date={'10/12/21'}
+                          desc={'Wakin up in the morning'}
+                          likes={20}
+                          comment={3}
+                          liked={false}
+                    />
+                    <Post className="col-5"
+                          profileurl={data.profileImage}
+                          url={data.themeImage}
+                          fullname={data.fullName}
+                          date={'10/12/21'}
+                          desc={'Wakin up in the morning'}
+                          likes={20}
+                          comment={3}
+                          liked={false}
+                    />
+                    <Post className="col-5"
+                          profileurl={data.profileImage}
+                          url={data.themeImage}
+                          fullname={data.fullName}
+                          date={'10/12/21'}
+                          desc={'Wakin up in the morning'}
+                          likes={20}
+                          comment={3}
+                          liked={false}
+                    />
+                    <Post className="col-5"
+                          profileurl={data.profileImage}
+                          url={data.themeImage}
+                          fullname={data.fullName}
+                          date={'10/12/21'}
+                          desc={'Wakin up in the morning'}
+                          likes={20}
+                          comment={3}
+                          liked={false}
+                    />
                 </Content>
             </Body>
         </div>

@@ -34,6 +34,14 @@ export const Field = styled.div`
     margin-right: 10px;
     margin-top: 15px;
   }
+  textarea{
+    width: 320px;
+    margin-left: auto;
+    margin-right: 0;
+    @media only screen and (max-width: 610px) {
+      width: 60%;
+    }
+  }
   input{
     margin-left: auto;
     margin-right: 0;

@@ -56,7 +56,7 @@ const NewPost = props => {
         <Container>
             <ContainerWrapepr>
                 <Top>
-                    <ProfileImg src={props.profileurl} alt="Post image" className="mb-3"/>
+                    <ProfileImg src={localStorage.getItem('profileImage')} alt="Post image" className="mb-3"/>
                     <ResizeTextArea
                         placeholder={`Have anything to share ${localStorage.getItem('username')}?`}
                         setText={setDesc}

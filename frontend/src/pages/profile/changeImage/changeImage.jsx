@@ -37,7 +37,7 @@ const ChangeImage = (props) => {
         await instance.put(url, event.target.files[0]);
 
         const imageUrl = url.split('?')[0];
-        await axios.post(`user/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
+        await axios.post(`update/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
         window.location.reload();
     };
 
