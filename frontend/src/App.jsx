@@ -10,6 +10,7 @@ import {Login, Register, ForgotPass, ResetPass} from './pages/login/index';
 import NotFound from "./pages/notFound/notFound";
 import PostPage from "./pages/postPage/postPage";
 import Profile from "./pages/profile/profile";
+import Settings from "./pages/settings/settings";
 
 
 dotenv.config();
@@ -23,12 +24,13 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={true ? <Home/> : <Login/>}/>
+                    <Route exact path="/" element={false ? <Home/> : <Login/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>
                     <Route path="/:username" element={true ? <Profile/> : <Login/>}/>
                     <Route path="/NotFound" element={<NotFound/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
                     <Route path="/post/:id" element={<PostPage/>}/>
                 </Routes>
             </Router>

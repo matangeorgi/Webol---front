@@ -63,7 +63,7 @@ const Login = () => {
                 </ForgotPassDiv>
 
                 <div className="mb-4 mt-5">
-                    <Button type="submit" className="btn" disabled={!username || !password} width="320px" height="53px">Log
+                    <Button type="submit" disabled={!username || !password} width="320px" height="53px">Log
                         In</Button>
                 </div>
 
