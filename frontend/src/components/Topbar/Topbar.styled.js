@@ -5,7 +5,8 @@ export const TopBar = styled.div`
   z-index: 1;
   height: 60px;
   display: flex;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   align-items: center;
   background-color: white;
   box-shadow: 0px 0px 5px #b9b9b9;

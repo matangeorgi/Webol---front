@@ -1,5 +1,5 @@
 import 'react-loading-skeleton/dist/skeleton.css';
-import {useState} from "react";
+import {useRef, useState} from "react";
 
 import axios from "axios";
 import {LoremIpsum} from "lorem-ipsum";
@@ -7,6 +7,7 @@ import {BsFillUnlockFill} from "react-icons/bs";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {P, Button} from "../../components/GeneralStyles/General.styled";
+import HandleScroll from "../../components/handleScroll/handleScroll";
 import NewPost from "../../components/newPost/newPost";
 import Post from "../../components/post/post";
 import ResizeTextArea from "../../components/resizeTextArea/resizeTextArea";
@@ -36,8 +37,10 @@ const Profile = () => {
         themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
     };
 
+    const scrollRef = useRef();
     const navigate = useNavigate();
     const {username} = useParams();
+    const [offset, setOffset] = useState(0);
     //const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -133,7 +136,10 @@ const Profile = () => {
     };
 
     return !loaded ? ( // should be loaded instead of true
-        <>
+        <div
+            onScroll={() => console.log("hey")}
+            ref={scrollRef}
+            style={{overflowY:'auto'}}>
             <Topbar/>
             <ChangeImage
                 forwardRef={refChangeImage}
@@ -202,7 +208,7 @@ const Profile = () => {
                     />
                 </Content>
             </Body>
-        </>
+        </div>
     ) : (<></>);
 };
 

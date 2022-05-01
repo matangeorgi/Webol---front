@@ -12,9 +12,8 @@ export const NavbarItem = styled.div`
 `;
 
 export const IconButton = styled.span`
-  --button-size: calc(60px * 0.5);
-  width: var(--button-size);
-  height: var(--button-size);
+  width: 30px;
+  height: 30px;
   background-color: #635fc2;
   border-radius: 50%;
   padding: 5px;
@@ -30,6 +29,25 @@ export const IconButton = styled.span`
 
   svg {
     fill: #ffffff;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
+export const OptionButton = styled.span`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 300ms;
+
+  :hover {
+    filter: brightness(1.5);
+  }
+
+  svg {
+    fill: #635fc2;
     width: 20px;
     height: 20px;
   }
@@ -66,12 +84,13 @@ export const MenuItem = styled.a`
 
   span { // Icon button
     margin-right: 0.5rem;
+    color: #635fc2;
     :hover {
       filter: none;
     }
   }
 
   :hover {
-    background-color: #c4c3e0;;
+    background-color: #c4c3e0;
   }
 `;

@@ -1,15 +1,16 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
 import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
+import {ProfileImg} from "../post/Post.styled";
 import {ReactComponent as BellIcon} from "./icons/bell.svg";
 import {ReactComponent as CaretIcon} from "./icons/caret.svg";
 import {ReactComponent as CogIcon} from "./icons/cog.svg";
 import {ReactComponent as HelpIcon} from "./icons/help.svg";
 import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
-import {Navrow, DropDownDiv, IconButton, MenuDiv, MenuItem, NavbarItem} from "./Menu.styled";
+import {Navrow, DropDownDiv, IconButton, MenuDiv, MenuItem, NavbarItem, OptionButton} from "./Menu.styled";
 
 const Menu = props => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Menu = props => {
         };
         return (
             <NavbarItem>
-                <IconButton href="#" onClick={handleClick}>
+                <IconButton onClick={handleClick}>
                     {props.icon}
                 </IconButton>
 
@@ -37,6 +38,7 @@ const Menu = props => {
     function DropdownMenu() {
         const Logout = () => {
             localStorage.removeItem('token');
+            localStorage.removeItem('username');
             window.location.reload();
         };
 
@@ -44,7 +46,7 @@ const Menu = props => {
             return (
                 <MenuItem color={props.color ? props.color : 'black'}
                           onClick={() => navigate(`/${props.path}`)}>
-                    <IconButton>{props.leftIcon}</IconButton>
+                    <OptionButton>{props.leftIcon}</OptionButton>
                     {props.children}
                 </MenuItem>
             );
@@ -64,7 +66,7 @@ const Menu = props => {
         return (
             <DropDownDiv>
                 <MenuDiv ref={ref}>
-                    <DropdownItem path={localStorage.getItem('username')}>
+                    <DropdownItem path={localStorage.getItem('username')} leftIcon={<ProfileImg src={"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"} alt="Profile image"/>}>
                         {localStorage.getItem('username')}
                     </DropdownItem>
 
@@ -82,7 +84,9 @@ const Menu = props => {
     return (
         <Navrow>
             {props.wideMode ? null :
-                <NavbarItem onClick={() => {props.openSearch();}}>
+                <NavbarItem onClick={() => {
+                    props.openSearch();
+                }}>
                     <IconButton>
                         <ImSearch/>
                     </IconButton>

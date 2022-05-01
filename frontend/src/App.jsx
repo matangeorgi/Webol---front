@@ -27,7 +27,7 @@ const App = () => {
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>
-                    <Route path="/:username" element={verified ? <Profile/> : <Login/>}/>
+                    <Route path="/:username" element={true ? <Profile/> : <Login/>}/>
                     <Route path="/NotFound" element={<NotFound/>}/>
                     <Route path="/post/:id" element={<PostPage/>}/>
                 </Routes>

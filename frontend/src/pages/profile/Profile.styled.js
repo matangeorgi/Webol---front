@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Body = styled.div`
   z-index: -1;
   background-color: white;
-  margin: 10px auto auto;
+  margin: 70px auto auto;
   position: center;
   display: flex;
   flex-direction: column;
