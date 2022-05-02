@@ -25,6 +25,7 @@ import {
     PostTopLeft,
     PostWrapper,
     PostBottomLeft,
+    Options
 }
     from "./Post.styled";
 
@@ -37,9 +38,14 @@ const Post = (props) => {
     const [likesModal, setLikesModal] = useState(false);
     const [comments, setComments] = useState(props.comment);
     const [text, setText] = useState("");
+    const [openOptions, setOpenOptions] = useState(false);
 
     const likesRef = useOutsiderAlerter(() => {
         setLikesModal(false);
+    });
+
+    const optionsRef = useOutsiderAlerter(() => {
+        setOpenOptions(false);
     });
 
     const likeHandler = async () => {
@@ -63,24 +69,18 @@ const Post = (props) => {
         }
     };
 
-    const openLikes = async () => {
-        try {
-            //axios here
-            setLikesList([{
-                src: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                username: "Matan"
-            }, {
-                src: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                username: "Matan"
-            }]);
-            setLikesModal(true);
-        } catch {
+    const CopyLink = async() => {
+        setOpenOptions(false);
 
+        if ('clipboard' in navigator) {
+            return await navigator.clipboard.writeText(`http://localhost:3000/post/${props.id}`);
+        } else {
+            return document.execCommand('copy', true, `http://localhost:3000/post/${props.id}`);
         }
     };
 
-    const openOptions = () =>{
-
+    const DeletePost = async() => {
+        window.location.reload();
     };
 
     return (
@@ -96,12 +96,19 @@ const Post = (props) => {
             <PostWrapper>
                 <PostTop>
                     <PostTopLeft>
-                        <ProfileImg src={props.profileurl} alt="Post image"/>
+                        <ProfileImg src={props.profileurl} alt="Profile"/>
                         <P>{props.fullname}</P>
                         <P color="grey">{props.date}</P>
                     </PostTopLeft>
                     <span>
-                        <BsThreeDotsVertical/>
+                        <BsThreeDotsVertical onClick={() => setOpenOptions(!openOptions)}/>
+                        {openOptions?
+                        <Options ref={optionsRef}>
+                                <P size='14px' onClick={CopyLink}>Copy link</P>
+                                {props.isMe?
+                                    <P size='14px' onClick={DeletePost} color='red'>Delete</P>:
+                                    <P size='14px'>Report</P>}
+                        </Options> : null}
                     </span>
                 </PostTop>
                 <PostCenter>
@@ -111,7 +118,7 @@ const Post = (props) => {
                 <PostBottom>
                     <PostBottomLeft>
                         <AiFillHeart onClick={likeHandler} color={liked ? 'red' : ''} size={liked ? '20px' : ''}/>
-                        <LikeCounter onClick={openLikes}>&nbsp; {likes} people liked it</LikeCounter>
+                        <LikeCounter onClick={() => setLikesModal(true)}>&nbsp; {likes} people liked it</LikeCounter>
                     </PostBottomLeft>
                     <div className="postBottomRight">
                         <LikeCounter onClick={() => navigate(`/post/${props.id}`)}>{comments} comments</LikeCounter>

@@ -12,7 +12,7 @@ import {Content} from "./home.styled";
 const Home = () => {
     const [data, setData] = useState(getData);
 
-    const paginationRef = UsePagination(true,() => {
+    UsePagination(true,() => {
         console.log("Page bottom");
     });
 
@@ -49,8 +49,7 @@ const Home = () => {
     return (
         <div>
             <Topbar/>
-
-            <Body ref={paginationRef}>
+            <Body>
                 <Content>
                     <NewPost profileurl={data.profileImage}/>
                     <Posts/>
@@ -73,6 +72,7 @@ const Home = () => {
                           likes={20}
                           comment={3}
                           liked={false}
+                          isMe={true}
                     />
                     <Post className="col-5"
                           profileurl={data.profileImage}

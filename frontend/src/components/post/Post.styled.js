@@ -72,3 +72,27 @@ export const CommentArea = styled.textarea`
   height:${(props) => props.height};
   font-family: 'Poppins';
 `;
+
+export const Options = styled.div`
+  position: absolute;
+  z-index: 1000;
+  height: 100px;
+  width: 100px;
+  transform: translateX(-45%);
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 500ms ease;
+  box-shadow: 0px 0px 10px #b9b9b9;
+  cursor: auto;
+
+  p {
+    transition: all 300ms ease;
+    border-radius: 8px;
+    cursor: pointer;
+
+    :hover {
+      background-color: #d9d9ec;
+    }
+  }
+`;

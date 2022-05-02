@@ -11,7 +11,7 @@ import {Body} from "../profile/Profile.styled";
 import {DivForm, Top, ProfileImg, Field, FieldsDiv, Hr} from "./settings.styled";
 
 const Settings = () => {
-    const [bio, setBio] = useState("");
+    const [bio, setBio] = useState(); // maybe ""
     const [name, setName] = useState("");
     const [username, setUsername] = useState(localStorage.getItem('username'));
     const [password, setPassword] = useState();
