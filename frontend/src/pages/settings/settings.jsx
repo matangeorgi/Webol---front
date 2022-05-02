@@ -57,6 +57,7 @@ const Settings = () => {
 
         if (!error) {
             const data = {name, username, password, newPassword, retypePassword, bio};
+            console.log(data);
             try {
 
             } catch {

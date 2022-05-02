@@ -1,15 +1,23 @@
 import {useEffect, useRef} from "react";
 
-const UsePagination = (handler) => {
+const UsePagination = (isFullPage,handler) => {
     const ref = useRef();
 
     useEffect(() => {
-        const handleScroll = e => {
-            if (window.innerHeight + e.target.documentElement.scrollTop + 1 >=
-                e.target.documentElement.scrollHeight) {
-                handler();
+        const handleScroll = isFullPage?
+            e => {
+                if (window.innerHeight + e.target.documentElement?.scrollTop >=
+                    e.target.documentElement?.scrollHeight) {
+                    handler();
+                }
             }
-        };
+        :
+            () => {
+                if(ref.current.clientHeight + ref.current.scrollTop >=
+                    ref.current.scrollHeight)
+                    handler();
+            };
+
 
         window.addEventListener('scroll',handleScroll,true);
         return () => {

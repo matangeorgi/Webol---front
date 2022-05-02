@@ -21,10 +21,10 @@ const App = () => {
 
     const verified = localStorage.getItem('token');
     return (
-        <div>
+        <div style={{overflow: 'hidden'}}>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={verified ? <Home/> : <Login/>}/>
+                    <Route exact path="/" element={verified ? <Home/> : <Login/>} />
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>
