@@ -1,5 +1,5 @@
 import 'react-loading-skeleton/dist/skeleton.css';
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 import axios from "axios";
 import {LoremIpsum} from "lorem-ipsum";
@@ -7,12 +7,12 @@ import {BsFillUnlockFill} from "react-icons/bs";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {P, Button} from "../../components/GeneralStyles/General.styled";
-import HandleScroll from "../../components/handleScroll/handleScroll";
 import NewPost from "../../components/newPost/newPost";
 import Post from "../../components/post/post";
 import ResizeTextArea from "../../components/resizeTextArea/resizeTextArea";
 import Topbar from "../../components/Topbar/Topbar";
 import useOutsiderAlerter from "../../hooks/outsideAlerter";
+import UsePagination from "../../hooks/usePagination";
 import ChangeImage from "./changeImage/changeImage";
 import {
     ProfileImg,
@@ -27,19 +27,9 @@ import {
 } from "./Profile.styled";
 
 const Profile = () => {
-    // const data = {
-    //     fullName: 'Matan',
-    //     followers: 1456,
-    //     media: 120,
-    //     bio: new LoremIpsum().generateWords(30),
-    //     role: 'Musician/Band',
-    //     profileImage: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    //     themeImage: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/325/325466/man-walking-dog.jpg'
-    // };
-
     const navigate = useNavigate();
     const {username} = useParams();
-    const [offset, setOffset] = useState(0);
+    const [offset, setOffset] = useState(20);
     const [data, setData] = useState(getData);
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -48,9 +38,21 @@ const Profile = () => {
     const [isMyProfile, setIsMyProfile] = useState(true);
     const [editBio, setEditBio] = useState(false);
     const [bioInput, setBioInput] = useState();
+    const [posts, setPosts] = useState([]);
+    const [endOfPosts, setEndOfPosts] = useState();
 
     const refChangeImage = useOutsiderAlerter(() => {
         setVisible(false);
+    });
+
+    UsePagination(true,offset,async() => {
+        try{
+            const res = await axios.get(`user/getmoreuserpost/${username}/${offset}`);
+            setOffset(offset + 20);
+            setPosts(posts => [...posts,...res.data]);
+        }catch{
+
+        }
     });
 
     let refBio = useOutsiderAlerter(async() => {
@@ -68,6 +70,7 @@ const Profile = () => {
     async function getData() {
         try {
             const res = await axios.get(`user/${username}`);
+            setPosts(res.data[2].post);
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
             setData(res.data[2]);
@@ -103,7 +106,7 @@ const Profile = () => {
     const handleFollow = async() => {
         try {
             await axios.get(`user/addordeletefollower/${data.id}`);
-            setFollowed(true);
+            window.location.reload();
         } catch {
 
         }
@@ -124,7 +127,7 @@ const Profile = () => {
     const Posts = () => {
         return (data.post ?
                 <div>
-                    {data.post.map(post => (
+                    {posts.map(post => (
                         <Post className="col-5"
                               key={post.id}
                               id={post.id}
@@ -136,13 +139,14 @@ const Profile = () => {
                               likes={post.likes}
                               comment={post.comments}
                               liked={post.like}
+                              isMe={isMyProfile}
                         />
                     ))}
                 </div> : null
         );
     };
 
-    return loaded ? ( // should be loaded instead of true
+    return loaded ? (
         <div>
             <Topbar/>
             <ChangeImage

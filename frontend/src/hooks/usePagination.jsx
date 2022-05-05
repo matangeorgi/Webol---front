@@ -1,6 +1,6 @@
 import {useEffect, useRef} from "react";
 
-const UsePagination = (isFullPage,handler) => {
+const UsePagination = (isFullPage,offset,handler) => {
     const ref = useRef();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const UsePagination = (isFullPage,handler) => {
         return () => {
             window.removeEventListener('scroll',handleScroll,true);
         };
-    },[]);
+    },[offset]);
 
     return ref;
 };

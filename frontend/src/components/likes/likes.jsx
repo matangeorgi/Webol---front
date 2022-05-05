@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from "react";
 
 import axios from "axios";
@@ -12,24 +11,24 @@ import {Modal, TopDiv, Ul, CloseButton} from "./likes.styled";
 
 
 const Likes = props => {
-    const [data,setData] = useState();
+    const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
-    const ref = UsePagination(false,() => {
+    const ref = UsePagination(false, () => {
         console.log("Likes bottom");
     });
 
-    // useEffect(async() => {
-    //     try{
-    //         const res = await axios.get(`global/getlikes/${props.postId}/0`);
-    //         setData(res.data);
-    //         setLoaded(true);
-    //     }catch{
-    //
-    //     }
-    // },[]);
+    useEffect(async () => {
+        try {
+            const res = await axios.get(`global/getlikes/${props.postId}/0`);
+            setData(res.data);
+            setLoaded(true);
+        } catch {
 
-    return (true? //props.visible && loaded?
-            <Modal ref={props.ForwardRef} >
+        }
+    }, []);
+
+    return (props.visible && loaded ?
+            <Modal ref={props.ForwardRef}>
                 <TopDiv>
                     <P>Likes</P>
                     <CloseButton>
@@ -37,22 +36,11 @@ const Likes = props => {
                     </CloseButton>
                 </TopDiv>
                 <Ul ref={ref}>
-                    {/*{data.map(like => (*/}
-                    {/*    <ProfileInList username={like.username} src={like.profileImage}/>*/}
-                    {/*))}*/}
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
-                    <ProfileInList username={'asdas'} src={'asdas'}/>
+                    {data.map(like => (
+                        <ProfileInList username={like.username} src={like.profileImage}/>
+                    ))}
                 </Ul>
-            </Modal>:null
+            </Modal> : null
     );
 };
 

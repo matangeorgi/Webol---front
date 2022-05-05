@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import axios from "axios";
 
@@ -10,16 +10,24 @@ import {Body} from "../profile/Profile.styled";
 import {Content} from "./home.styled";
 
 const Home = () => {
-    const [data, setData] = useState(getData);
+    const [posts, setPosts] = useState(getData);
+    const [offset, setOffset] = useState(20);
 
-    UsePagination(true,() => {
-        console.log("Page bottom");
+    UsePagination(true,offset,async() => {
+        try{
+            const res = await axios.get(`global/gethomepage/${offset}`);
+            setOffset(offset + 20);
+            setPosts(posts => [...posts,...res.data]);
+        }catch{
+
+        }
     });
 
+
     const Posts = () => {
-        return (data.length ?
+        return (posts.length ?
                 <div>
-                    {data.map(post => (
+                    {posts.map(post => (
                         <Post className="col-5"
                               key={post.id}
                               id={post.id}
@@ -31,6 +39,7 @@ const Home = () => {
                               likes={post.likes}
                               comment={post.comments}
                               liked={!!post.like}
+                              isMe={post.isMe}
                         />
                     ))}
                 </div> : null
@@ -39,8 +48,8 @@ const Home = () => {
 
     async function getData() {
         try {
-            const res = await axios.get('global/gethomepage');
-            setData(res.data);
+            const res = await axios.get('global/gethomepage/0');
+            setPosts(res.data);
         } catch {
             console.error("Couldn't retrieve data from server");
         }
@@ -51,49 +60,8 @@ const Home = () => {
             <Topbar/>
             <Body>
                 <Content>
-                    <NewPost profileurl={data.profileImage}/>
+                    <NewPost profileurl={posts.profileImage}/>
                     <Posts/>
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                    />
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                          isMe={true}
-                    />
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                    />
-                    <Post className="col-5"
-                          profileurl={data.profileImage}
-                          url={data.themeImage}
-                          fullname={data.fullName}
-                          date={'10/12/21'}
-                          desc={'Wakin up in the morning'}
-                          likes={20}
-                          comment={3}
-                          liked={false}
-                    />
                 </Content>
             </Body>
         </div>

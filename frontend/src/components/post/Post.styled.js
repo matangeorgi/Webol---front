@@ -75,7 +75,8 @@ export const CommentArea = styled.textarea`
 
 export const Options = styled.div`
   position: absolute;
-  z-index: 1000;
+  z-index: 1;
+  margin-top: 10px;
   height: 100px;
   width: 100px;
   transform: translateX(-45%);

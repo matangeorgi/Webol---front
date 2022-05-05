@@ -64,9 +64,22 @@ const Post = (props) => {
             await axios.post('global/addcomment', data);
             setComments(comments + 1);
             setText("");
+            if (props.setIsCommented)
+                props.setIsCommented(true);
         } catch (e) {
             console.log("Couldn't pass the comment to the server.");
         }
+    };
+
+    const OptionsList = () => {
+        return openOptions?(
+            <Options>
+                <P size='14px' onClick={CopyLink}>Copy link</P>
+                {props.isMe?
+                    <P size='14px' onClick={DeletePost} color='red'>Delete</P>:
+                    <P size='14px'>Report</P>}
+            </Options>
+        ) : null;
     };
 
     const CopyLink = async() => {
@@ -80,7 +93,13 @@ const Post = (props) => {
     };
 
     const DeletePost = async() => {
-        window.location.reload();
+        try{
+            await axios.delete(`user/deletepost/${props.id}`);
+            window.location.reload();
+        }catch{
+
+        }
+
     };
 
     return (
@@ -89,32 +108,30 @@ const Post = (props) => {
                 <Likes
                     ForwardRef={likesRef}
                     visible={likesModal}
-                    likesList={likesList}
                     onClose={() => setLikesModal(false)}
                     postId={props.id}
                 />:null}
             <PostWrapper>
+
                 <PostTop>
                     <PostTopLeft>
                         <ProfileImg src={props.profileurl} alt="Profile"/>
                         <P>{props.fullname}</P>
                         <P color="grey">{props.date}</P>
                     </PostTopLeft>
-                    <span>
+
+                    <span ref={optionsRef}>
                         <BsThreeDotsVertical onClick={() => setOpenOptions(!openOptions)}/>
-                        {openOptions?
-                        <Options ref={optionsRef}>
-                                <P size='14px' onClick={CopyLink}>Copy link</P>
-                                {props.isMe?
-                                    <P size='14px' onClick={DeletePost} color='red'>Delete</P>:
-                                    <P size='14px'>Report</P>}
-                        </Options> : null}
+                        <OptionsList/>
                     </span>
+
                 </PostTop>
+
                 <PostCenter>
                     <P>{props.desc}</P>
                     {props.url ? <PostImage src={props.url} onClick={() => navigate(`/post/${props.id}`)}/> : null}
                 </PostCenter>
+
                 <PostBottom>
                     <PostBottomLeft>
                         <AiFillHeart onClick={likeHandler} color={liked ? 'red' : ''} size={liked ? '20px' : ''}/>
@@ -124,6 +141,7 @@ const Post = (props) => {
                         <LikeCounter onClick={() => navigate(`/post/${props.id}`)}>{comments} comments</LikeCounter>
                     </div>
                 </PostBottom>
+
                 <hr/>
                 <div className="d-flex">
                     <ResizeTextArea

@@ -17,20 +17,22 @@ const PostPage = () => {
     const {id} = useParams();
     const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
+    const [isCommented, setIsCommented] = useState(false);
 
     useEffect(async () => {
         try {
             const res = await axios.get(`global/getcomments/${id}`);
             setData(res.data);
             setLoaded(true);
+            setIsCommented(false);
         } catch {
-
+            console.error("Could not retrieve data from the server.");
         }
-    }, []);
+    }, [isCommented]);
 
     async function deleteComment(id) {
         try {
-            await axios.get(`global/deletecomment/${id}`);
+            await axios.delete(`global/deletecomment/${id}`);
             window.location.reload();
         } catch {
 
@@ -71,6 +73,7 @@ const PostPage = () => {
                           likes={data.likes}
                           comment={data.comments}
                           liked={data.like}
+                          setIsCommented={setIsCommented}
                     />
                     <CommentsDiv>
                         <TopDiv>

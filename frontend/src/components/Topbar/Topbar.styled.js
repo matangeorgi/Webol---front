@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const TopBar = styled.div`
   top: 0;
-  z-index: 1;
+  z-index: 10;
   height: 60px;
   display: flex;
   position: fixed;

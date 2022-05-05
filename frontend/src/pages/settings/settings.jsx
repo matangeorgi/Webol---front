@@ -11,13 +11,14 @@ import {Body} from "../profile/Profile.styled";
 import {DivForm, Top, ProfileImg, Field, FieldsDiv, Hr} from "./settings.styled";
 
 const Settings = () => {
-    const [bio, setBio] = useState(); // maybe ""
-    const [name, setName] = useState("");
+    const [bio, setBio] = useState("");
+    const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState(localStorage.getItem('username'));
-    const [password, setPassword] = useState();
-    const [newPassword, setNewPassword] = useState();
-    const [retypePassword, setRetypePassword] = useState();
+    const [password, setPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [nameError, setNameError] = useState();
+    const [bioError, setBioError] = useState();
     const [usernameError, setUsernameError] = useState();
     const [passwordError, setPasswordError] = useState();
 
@@ -25,7 +26,7 @@ const Settings = () => {
     useEffect(async() => {
         try {
             const res = await axios.get('update/userinfo');
-            setName(res.data.fullName);
+            setFullName(res.data.fullName);
             setBio(res.data.bio || "");
         } catch {
             console.error("couldn't retrieve data from the server");
@@ -33,10 +34,10 @@ const Settings = () => {
     }, []);
 
 
-    const submitChanges = () => {
+    const submitChanges = async() => {
         let error = false;
 
-        if (!name) {
+        if (!fullName) {
             setNameError("Name can not be empty");
             error = true;
         } else
@@ -48,20 +49,29 @@ const Settings = () => {
         } else
             setUsernameError("");
 
-        if ((password || newPassword || retypePassword) &&
-            !(password && newPassword && retypePassword)) {
+        if ((password || newPassword || passwordConfirmation) &&
+            !(password && newPassword && passwordConfirmation)) {
             setPasswordError("In case of password change, all passwords fields must be entered.");
             error = true;
         } else
             setPasswordError("");
 
         if (!error) {
-            const data = {name, username, password, newPassword, retypePassword, bio};
+            const data = {fullName, username, password, newPassword, passwordConfirmation, bio};
             console.log(data);
             try {
+                await axios.put('update/updatesettings',data);
+                if (username)
+                    localStorage.setItem("username", username);
 
-            } catch {
+                window.location.reload();
 
+            } catch (e){
+                console.log(e.response.data);
+                setNameError(e.response.data?.fullName);
+                setPasswordError(e.response.data?.password);
+                setBioError(e.response.data?.bio);
+                setUsernameError(e.response.data?.username);
             }
         }
     };
@@ -81,7 +91,7 @@ const Settings = () => {
                     <FieldsDiv>
                         <Field>
                             <P>Name:</P>
-                            <Input value={name} onChange={e => setName(e.target.value)}/>
+                            <Input value={fullName} onChange={e => setFullName(e.target.value)}/>
                         </Field>
                         <P size={'14px'} color={'#a09cd5'}>This name will be displayed in your profile page.</P>
                         <P size={'14px'} color={'red'}>{nameError}</P>
@@ -101,13 +111,13 @@ const Settings = () => {
                                 borderStyle="dashed"/>
                         </Field>
                         <P size={'14px'} color={'#a09cd5'}>Bio can have 150 characters.</P>
-                        <P size={'14px'} color={'red'}>{usernameError}</P>
+                        <P size={'14px'} color={'red'}>{bioError}</P>
                         <Hr/>
 
                         <P size={'18px'} color={'grey'}>Change password</P>
                         <Field>
                             <P>Current password:</P>
-                            <Input type='password' onChange={e => setPassword(e.target.value)}/>
+                            <Input value={password} type='password' onChange={e => setPassword(e.target.value)}/>
                         </Field>
 
                         <Field>
@@ -116,8 +126,8 @@ const Settings = () => {
                         </Field>
                         <P size={'14px'} color={'#a09cd5'}>Choose a password that it will be hard to guess.</P>
                         <Field>
-                            <P>Re-type new password:</P>
-                            <Input type='password' onChange={e => setRetypePassword(e.target.value)}/>
+                            <P>Password confirmation:</P>
+                            <Input type='password' onChange={e => setPasswordConfirmation(e.target.value)}/>
                         </Field>
                         <P size={'14px'} color={'red'}>{passwordError}</P>
                     </FieldsDiv>

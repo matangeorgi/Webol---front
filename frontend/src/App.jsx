@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import {useMemo} from "react";
+
 import axios from "axios";
 import dotenv from "dotenv";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useMatch} from "react-router-dom";
 
 import Home from "./pages/home/home";
 import {Login, Register, ForgotPass, ResetPass} from './pages/login/index';
@@ -19,12 +21,12 @@ axios.defaults.headers.common['auth_token'] = localStorage.getItem('token');
 
 const App = () => {
 
-    const verified = localStorage.getItem('token');
+    const verified = useMemo(() => (localStorage.getItem('token')),[localStorage.getItem('token')]);
     return (
-        <div style={{overflow: 'hidden'}}>
+        <div>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={verified ? <Home/> : <Login/>} />
+                    <Route exact path="/" element={true ? <Home/> : <Login/>} />
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>
