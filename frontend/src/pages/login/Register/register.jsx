@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
@@ -27,28 +27,30 @@ const Register = () => {
         }
     };
 
-    const inputFields = [
-        {
-            type: 'text',
-            placeholder: 'Email',
-            onChange: setEmail
-        },
-        {
-            type: 'text',
-            placeholder: 'Username',
-            onChange: setUsername
-        },
-        {
-            type: 'text',
-            placeholder: 'Full name',
-            onChange: setFullname
-        },
-        {
-            type: 'password',
-            placeholder: 'Password',
-            onChange: setPassword
-        }
-    ];
+    const inputFields = useMemo(() => (
+        [
+            {
+                type: 'text',
+                placeholder: 'Email',
+                onChange: setEmail
+            },
+            {
+                type: 'text',
+                placeholder: 'Username',
+                onChange: setUsername
+            },
+            {
+                type: 'text',
+                placeholder: 'Full name',
+                onChange: setFullname
+            },
+            {
+                type: 'password',
+                placeholder: 'Password',
+                onChange: setPassword
+            }
+        ]
+    ),[]);
 
     return (
         <Container><InsideContent>

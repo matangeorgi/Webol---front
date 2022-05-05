@@ -56,8 +56,8 @@ export const OptionButton = styled.span`
 export const DropDownDiv = styled.div`
   position: absolute;
   top: 68px;
-  height: 230px;
-  width: 300px;
+  width: fit-content;
+  min-width: 300px;
   transform: translateX(-45%);
   background-color: #ffffff;
   border-radius: 8px;
@@ -93,4 +93,37 @@ export const MenuItem = styled.a`
   :hover {
     background-color: #c4c3e0;
   }
+`;
+
+export const Ul = styled.ul`
+  list-style-type: none;
+  background-color: white;
+`;
+
+export const NotificationDiv = styled.div`
+  background-color: ${(props) => props.background? null : '#635fc2'};
+  color: ${(props) => props.background? null : 'white'};
+  border-radius: 8px;
+  height: 55px;
+  margin-top: 10px;
+  transition: background-color 500ms ease;
+  
+  :hover{
+    background-color: #c4c3e0;
+  }
+`;
+
+export const NumberBadge = styled.span`
+  width: 15px; 
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  top: -5px;
+  right: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
 `;

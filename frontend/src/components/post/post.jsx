@@ -52,14 +52,14 @@ const Post = (props) => {
         setLiked(!liked);
         setLikes(liked ? likes - 1 : likes + 1);
         try {
-            await axios.get(`global/addordeletelike/${props.id}`);
+            await axios.get(`global/addordeletelike/${props.id}/${props.userId}`);
         } catch {
             console.log("Couldn't pass the like to the server.");
         }
     };
 
     const postComment = async () => {
-        const data = {content: text, postId: props.id};
+        const data = {content: text, postId: props.id, userId: props.userId};
         try {
             await axios.post('global/addcomment', data);
             setComments(comments + 1);

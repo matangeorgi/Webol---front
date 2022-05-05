@@ -26,7 +26,7 @@ const App = () => {
         <div>
             <Router>
                 <Routes>
-                    <Route exact path="/" element={true ? <Home/> : <Login/>} />
+                    <Route exact path="/" element={verified ? <Home/> : <Login/>} />
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/forgotpass" element={<ForgotPass/>}/>
                     <Route path="/resetpass/:id/:token" element={<ResetPass/>}/>

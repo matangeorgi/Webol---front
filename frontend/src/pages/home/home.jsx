@@ -12,12 +12,16 @@ import {Content} from "./home.styled";
 const Home = () => {
     const [posts, setPosts] = useState(getData);
     const [offset, setOffset] = useState(20);
+    const [endOfData, setEndOfData] = useState(false);
 
-    UsePagination(true,offset,async() => {
+    UsePagination(true,offset,endOfData,async() => {
         try{
             const res = await axios.get(`global/gethomepage/${offset}`);
             setOffset(offset + 20);
-            setPosts(posts => [...posts,...res.data]);
+            if (res.data.length === 0)
+                setEndOfData(true);
+            else
+                setPosts(posts => [...posts,...res.data]);
         }catch{
 
         }
@@ -31,6 +35,7 @@ const Home = () => {
                         <Post className="col-5"
                               key={post.id}
                               id={post.id}
+                              userId={post.user.id}
                               profileurl={post.user.profileImage}
                               url={post.url}
                               fullname={post.user.username}
@@ -50,7 +55,7 @@ const Home = () => {
         try {
             const res = await axios.get('global/gethomepage/0');
             setPosts(res.data);
-        } catch {
+        } catch(e) {
             console.error("Couldn't retrieve data from server");
         }
     }
