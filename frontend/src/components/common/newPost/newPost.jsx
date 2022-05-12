@@ -18,7 +18,7 @@ import {
 } from "./newPost.styled";
 
 
-const NewPost = props => {
+const NewPost = () => {
 
     const [desc, setDesc] = useState();
     const [file, setFile] = useState(null);
