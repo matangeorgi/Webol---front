@@ -1,7 +1,7 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import {Button} from "../../../common/commonStyles/General.styled";
 import Google from "../../../common/googleLogin/GoogleLogin";
@@ -10,9 +10,14 @@ import {Input, Logo, P} from "../Forms.styled";
 import {ForgotPass, ForgotPassDiv} from "./Login.styled";
 
 const Login = () => {
+    const navigate = useNavigate();
     const [errorMessage, setError] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+       navigate('/');
+    },[])
 
     // Login in the regular way
     const submit = async e => {

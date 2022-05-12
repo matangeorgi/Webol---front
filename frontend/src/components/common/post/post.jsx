@@ -85,9 +85,9 @@ const Post = (props) => {
         setOpenOptions(false);
 
         if ('clipboard' in navigator) {
-            return await navigator.clipboard.writeText(`http://localhost:3000/post/${props.id}`);
+            return await navigator.clipboard.writeText(`https://webol-front.herokuapp.com/${props.id}`);
         } else {
-            return document.execCommand('copy', true, `http://localhost:3000/post/${props.id}`);
+            return document.execCommand('copy', true, `https://webol-front.herokuapp.com/${props.id}`);
         }
     };
 

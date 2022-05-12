@@ -20,8 +20,9 @@ const Likes = props => {
     useEffect(async () => {
         try {
             const res = await axios.get(`global/getlikes/${props.postId}/0`);
-            setData(res.data);
+            setData(res.data || []);
             setLoaded(true);
+            console.log(res.data);
         } catch {
 
         }

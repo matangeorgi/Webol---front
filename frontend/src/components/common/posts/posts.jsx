@@ -16,7 +16,7 @@ const Posts = props => {
                           likes={post.likes}
                           comment={post.comments}
                           liked={!!post.like}
-                          isMe={post.isMe}
+                          isMe={post.isMe || props.isMe}
                     />
                 ))}
             </div> : null

@@ -51,7 +51,7 @@ const Profile = () => {
         if(editBio)
         {
             try{
-                await axios.put('update/updatebio',{bio:bioInput});
+                await axios.put('update/updatesettings',{bio:bioInput});
             }catch{
                 console.error("Couldn't update bio");
             }
@@ -61,7 +61,6 @@ const Profile = () => {
     async function getData() {
         try {
             const res = await axios.get(`user/${username}`);
-            console.log(res.data);
             setPosts(res.data[2].post);
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
@@ -177,7 +176,8 @@ const Profile = () => {
                             posts={posts}
                             userId={data.id}
                             profileImage={data.profileImage}
-                            username={data.username}/>
+                            username={data.username}
+                            isMe={true}/>
                         :
                         <ContentLocked/>}
 

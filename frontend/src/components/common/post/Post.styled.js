@@ -4,7 +4,7 @@ export const PostBody = styled.div`
   background-color: white;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
-  margin: 30px 0;
+  margin-bottom: 20px;
 `;
 export const PostWrapper = styled.div`
   padding: 10px;

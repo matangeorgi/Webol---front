@@ -11,6 +11,7 @@ import {ReactComponent as CloseIcon} from "../../common/Topbar/icons/close.svg";
 import Topbar from "../../common/Topbar/Topbar";
 import {IconButton} from "../profile/changeImage/ChangeImage.styled";
 import {CommentsDiv, Page, Comment, CloseButton} from "./postPage.styled";
+import {Body} from "../profile/Profile.styled";
 
 const PostPage = () => {
     const navigate = useNavigate();
@@ -25,6 +26,7 @@ const PostPage = () => {
             setData(res.data);
             setLoaded(true);
             setIsCommented(false);
+            console.log(res.data);
         } catch {
             console.error("Could not retrieve data from the server.");
         }
@@ -62,38 +64,39 @@ const PostPage = () => {
     return (loaded ?
             <div>
                 <Topbar/>
-                <Page>
-                    <Post className="col-5"
-                          id={id}
-                          profileurl={data.user["profileImage"]}
-                          url={data.url}
-                          fullname={data.user["username"]}
-                          date={data.createdAt}
-                          desc={data.description}
-                          likes={data.likes}
-                          comment={data.comments}
-                          liked={data.like}
-                          setIsCommented={setIsCommented}
-                    />
-                    <CommentsDiv>
-                        <TopDiv>
-                            <P>Comments</P>
-                        </TopDiv>
-                        <Ul>
-                            {data.comment.map(comment => (
-                                <Comments
-                                    key={comment.id}
-                                    id={comment.id}
-                                    src={comment.user["profileImage"]}
-                                    username={comment.user["username"]}
-                                    comment={comment.content}
-                                    date={comment.createdAt}
-                                    isMine={comment.isMe}
-                                />
-                            ))}
-                        </Ul>
-                    </CommentsDiv>
-                </Page>
+                <Body>
+                        <Post className="col-5"
+                              id={id}
+                              profileurl={data.user["profileImage"]}
+                              url={data.url}
+                              fullname={data.user["username"]}
+                              date={data.createdAt}
+                              desc={data.description}
+                              likes={data.likes}
+                              comment={data.comments}
+                              liked={data.like}
+                              setIsCommented={setIsCommented}
+                              userId={data.user.id}
+                        />
+                        <CommentsDiv>
+                            <TopDiv>
+                                <P>Comments</P>
+                            </TopDiv>
+                            <Ul>
+                                {data.comment.map(comment => (
+                                    <Comments
+                                        key={comment.id}
+                                        id={comment.id}
+                                        src={comment.user["profileImage"]}
+                                        username={comment.user["username"]}
+                                        comment={comment.content}
+                                        date={comment.createdAt}
+                                        isMine={comment.isMe}
+                                    />
+                                ))}
+                            </Ul>
+                        </CommentsDiv>
+                </Body>
             </div> : null
     );
 };

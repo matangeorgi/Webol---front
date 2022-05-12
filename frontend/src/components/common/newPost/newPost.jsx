@@ -64,14 +64,17 @@ const NewPost = props => {
                         borderStyle="none"
                     />
                 </Top>
-                {src ? <Img src={src} alt="your image" className="mt-5"/> : null}
+                {src ?
+                    <div>
+                        <Img src={src} alt="your image" className="mt-5"/>
+                    </div>: null}
                 <Line/>
                 <Bottom>
                     <Options>
                         <PostOption onClick={() => hiddenFileInput.current.click()}>
                             <IconMedia><MdPermMedia/></IconMedia>
                             <SpanForIcon>Photo or Video</SpanForIcon>
-                            <input ref={hiddenFileInput} type="file" accept="image/*" onChange={handleChooseImage}/>
+                            <input ref={hiddenFileInput} type="file" accept="image/*,video/*" onChange={handleChooseImage}/>
                         </PostOption>
                     </Options>
 

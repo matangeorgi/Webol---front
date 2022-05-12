@@ -35,8 +35,8 @@ const Menu = props => {
     useEffect(() => {
         const interval = setInterval(async() => {
             try{
-                // const res = await axios.get('topbar/getcountnotification');
-                // setNotificationsNum(res.data);
+                const res = await axios.get('topbar/getcountnotification');
+                setNotificationsNum(res.data);
             }catch{
 
             }
