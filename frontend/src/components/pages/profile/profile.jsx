@@ -1,5 +1,5 @@
 import 'react-loading-skeleton/dist/skeleton.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import axios from "axios";
 import {BsFillUnlockFill} from "react-icons/bs";
@@ -24,12 +24,13 @@ import {
     LockIcon,
     BioInput
 } from "./Profile.styled";
+import {useHistory} from "react-router";
 
 const Profile = () => {
     const navigate = useNavigate();
     const {username} = useParams();
     const [offset, setOffset] = useState(20);
-    const [data, setData] = useState(getData);
+    const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
     const [modalDetails, setModalDetails] = useState();
@@ -38,11 +39,24 @@ const Profile = () => {
     const [editBio, setEditBio] = useState(false);
     const [bioInput, setBioInput] = useState();
     const [posts, setPosts] = useState([]);
-    const [endOfPosts, setEndOfPosts] = useState();
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
     });
+
+    useEffect(async() => {
+        try {
+            const res = await axios.get(`user/${username}`);
+            setPosts(res.data[2].post);
+            setIsMyProfile(res.data[0]);
+            setFollowed(res.data[1]);
+            setData(res.data[2]);
+            setBioInput(res.data[2].bio);
+            setLoaded(true);
+        } catch {
+            navigate('/NotFound');
+        }
+        }, [window.location.pathname]);
 
     UseInfiniteScroll(true,offset,setOffset, setPosts, posts, `user/getmoreuserpost/${username}/${offset}`);
 
@@ -57,20 +71,6 @@ const Profile = () => {
             }
         }
     });
-
-    async function getData() {
-        try {
-            const res = await axios.get(`user/${username}`);
-            setPosts(res.data[2].post);
-            setIsMyProfile(res.data[0]);
-            setFollowed(res.data[1]);
-            setData(res.data[2]);
-            setBioInput(res.data[2].bio);
-            setLoaded(true);
-        } catch {
-            navigate('/NotFound');
-        }
-    }
 
     const ChangeProfile = () => {
         if (isMyProfile) {

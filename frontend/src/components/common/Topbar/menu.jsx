@@ -57,15 +57,22 @@ const Menu = props => {
 
 
     function DropdownMenu() {
+
         const Logout = () => {
             localStorage.clear();
             window.location.reload();
         };
 
         function DropdownItem(props) {
+
+            const handleClick = () => {
+                navigate(`/${props.path}`)
+                setMenuVisible(false);
+            };
+
             return (
                 <MenuItem color={props.color ? props.color : 'black'}
-                          onClick={props.logout ? Logout : () => navigate(`/${props.path}`)}>
+                          onClick={props.logout ? Logout : handleClick}>
                     <OptionButton>{props.leftIcon}</OptionButton>
                     {props.children}
                 </MenuItem>

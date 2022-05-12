@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 import {ImSearch} from "react-icons/im";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import useClickOutside from "../../../hooks/useClickOutside";
 import Menu from "./menu";
@@ -43,15 +43,24 @@ export default function Topbar() {
             setSearch(false);
     });
 
+    const LogoClicked = () => {
+        if (window.location.pathname === '/')
+            window.location.reload();
+        else
+            navigate('/');
+    };
+
     return (
         <TopBar>
             <TopBarLeft>
-                <Logo onClick={() => navigate('/')}>Webol</Logo>
+                <Logo onClick={LogoClicked}>Webol</Logo>
             </TopBarLeft>
 
             <TopBarCenter ref={ref} className={search || isWide ? 'border-1' : 'border-0'}>
                 {isWide || search ? <ImSearch onClick={clickedSearch} className="searchIcon"/> : null}
-                {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {setInput(e.target.value);}}/> : null}
+                {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {
+                    setInput(e.target.value);
+                }}/> : null}
             </TopBarCenter>
 
             {isWide || !search ?
