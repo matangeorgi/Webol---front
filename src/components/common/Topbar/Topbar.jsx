@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 import {ImSearch} from "react-icons/im";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import useClickOutside from "../../../hooks/useClickOutside";
 import Menu from "./menu";

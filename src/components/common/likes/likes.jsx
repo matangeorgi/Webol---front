@@ -22,7 +22,6 @@ const Likes = props => {
             const res = await axios.get(`global/getlikes/${props.postId}/0`);
             setData(res.data || []);
             setLoaded(true);
-            console.log(res.data);
         } catch {
 
         }

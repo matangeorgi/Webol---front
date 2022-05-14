@@ -20,12 +20,12 @@ axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
 const App = () => {
 
     const verified = useMemo(() => (localStorage.getItem('token')), [localStorage.getItem('token')]);
-    axios.defaults.headers.common['auth_token'] = useMemo(() => verified,[verified]);
+    axios.defaults.headers.common['auth_token'] = useMemo(() => verified, [verified]);
 
     return (
         <Router>
             <Routes>
-                {verified?(
+                {verified ? (
                         <>
                             <Route exact path="/" element={<Home/>}/>
                             <Route path="/:username" element={<Profile/>}/>

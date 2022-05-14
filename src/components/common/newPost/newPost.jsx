@@ -9,7 +9,6 @@ import {
     Container,
     ContainerWrapepr,
     Top,
-    TextArea,
     Line,
     Bottom,
     Options,
