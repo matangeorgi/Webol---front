@@ -11,8 +11,10 @@ import {
     TopBarCenter,
     TopBarRight,
     Logo,
-    SearchBar
+    SearchBar,
+    ResultsDiv
 } from "./Topbar.styled";
+import SearchResults from "./searchResults/searchResults";
 
 
 export default function Topbar() {
@@ -31,7 +33,7 @@ export default function Topbar() {
 
     const clickedSearch = () => {
         if (input)
-            console.log("test");
+            console.log(input);
         //     Preform search.
         else if (!isWide)
             setSearch(!search);
@@ -61,6 +63,7 @@ export default function Topbar() {
                 {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {
                     setInput(e.target.value);
                 }}/> : null}
+                <SearchResults search={input}/>
             </TopBarCenter>
 
             {isWide || !search ?

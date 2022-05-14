@@ -9,6 +9,7 @@ const UseInfiniteScroll = (isFullPage, offset, setOffset, setData, data, apiLink
     useEffect(() => {
         const handler = async() => {
             try{
+                console.log("here");
                 const res = await axios.get(apiLink);
                 setOffset(offset + 20);
                 if (res.data.length === 0)

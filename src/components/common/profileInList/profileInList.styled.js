@@ -6,6 +6,7 @@ export const Li = styled.li`
   display: flex;
   padding: 5px;
   margin-left: 5px;
+  border-radius: 8px;
   
   p{
     margin-left: 10px;

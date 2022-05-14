@@ -32,7 +32,7 @@ export const TopDiv = styled.div`
 
 export const Ul = styled.ul`
   height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
   list-style-type: none;
   background-color: white;
 `;
