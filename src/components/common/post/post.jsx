@@ -10,10 +10,7 @@ import {P} from "../commonStyles/General.styled";
 import Likes from "../likes/likes";
 import {PostButton} from "../newPost/newPost.styled";
 import ResizeTextArea from "../resizeTextArea/resizeTextArea";
-import {ReactComponent as CogIcon} from "../Topbar/icons/cog.svg";
-import {ReactComponent as HelpIcon} from "../Topbar/icons/help.svg";
-import {ReactComponent as LogoutIcon} from "../Topbar/icons/logout.svg";
-import {DropDownDiv, MenuDiv} from "../Topbar/Menu.styled";
+
 import {
     PostBody,
     PostBottom,
@@ -85,9 +82,9 @@ const Post = (props) => {
         setOpenOptions(false);
 
         if ('clipboard' in navigator) {
-            return await navigator.clipboard.writeText(`https://webol-front.herokuapp.com/${props.id}`);
+            return await navigator.clipboard.writeText(`https://webol-front.herokuapp.com/post/${props.id}`);
         } else {
-            return document.execCommand('copy', true, `https://webol-front.herokuapp.com/${props.id}`);
+            return document.execCommand('copy', true, `https://webol-front.herokuapp.com/post/${props.id}`);
         }
     };
 
@@ -114,8 +111,8 @@ const Post = (props) => {
 
                 <PostTop>
                     <PostTopLeft>
-                        <ProfileImg src={props.profileurl} alt="Profile"/>
-                        <P>{props.fullname}</P>
+                        <ProfileImg src={props.profileurl} alt="Profile"  onClick={() => navigate(`/${props.fullname}`)}/>
+                        <P  onClick={() => navigate(`/${props.fullname}`)}><span>{props.fullname}</span></P>
                         <P color="grey">{props.date}</P>
                     </PostTopLeft>
 

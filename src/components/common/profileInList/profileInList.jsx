@@ -11,7 +11,7 @@ const ProfileInList = props => {
         <Li onClick={() => navigate(`/${props.username}`)}>
             <ProfileImg src={props.src}/>
             <div>
-                <P size={'14px'}>{props.username}{props?.message}</P>
+                <P size={'14px'}>{props.message || props.username}</P>
             </div>
         </Li>
     );

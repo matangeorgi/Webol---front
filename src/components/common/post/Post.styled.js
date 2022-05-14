@@ -23,7 +23,10 @@ export const PostTop = styled.div`
 export const PostTopLeft = styled.div`
   display: flex;
   align-items: center;
-
+  
+  span{
+    cursor: pointer;
+  }
   p {
     margin: 10px;
   }
@@ -34,6 +37,7 @@ export const ProfileImg = styled.img`
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 export const PostCenter = styled.div`
