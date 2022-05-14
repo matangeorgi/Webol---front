@@ -3,8 +3,8 @@ import React, {useRef} from "react";
 
 import axios from "axios";
 
-import {ReactComponent as CameraIcon} from "../../../common/Topbar/icons/camera.svg";
-import {ReactComponent as CloseIcon} from "../../../common/Topbar/icons/close.svg";
+import {ReactComponent as CameraIcon} from "../../../common/Navbar/icons/camera.svg";
+import {ReactComponent as CloseIcon} from "../../../common/Navbar/icons/close.svg";
 import {ProfileImg, ThemeImage} from "../Profile.styled";
 import {ModalBody, OverlayDiv, IconButton, CloseButton, ButtonDiv, Button} from "./ChangeImage.styled";
 

@@ -4,7 +4,7 @@ import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 
 import useClickOutside from "../../../hooks/useClickOutside";
-import Menu from "./menu";
+import Menu from "./menu/menu";
 import {
     TopBar,
     TopBarLeft,
@@ -13,15 +13,16 @@ import {
     Logo,
     SearchBar,
     ResultsDiv
-} from "./Topbar.styled";
+} from "./Navbar.styled";
 import SearchResults from "./searchResults/searchResults";
 
 
-export default function Topbar() {
+export default function Navbar() {
     const navigate = useNavigate();
     const [isWide, setWide] = useState(window.innerWidth > 610);
     const [search, setSearch] = useState(isWide);
     const [input, setInput] = useState();
+    const [searchResults, setSearchResults] = useState(true);
 
     useEffect(() => {
         window.addEventListener('resize', () => setWide(window.innerWidth > 610));
@@ -31,18 +32,20 @@ export default function Topbar() {
         };
     }, []);
 
-    const clickedSearch = () => {
-        if (input)
-            console.log(input);
-        //     Preform search.
-        else if (!isWide)
-            setSearch(!search);
+    useEffect(() => {
+        if(input)
+            setSearchResults(true);
+    },[input])
 
+    const clickedSearch = () => {
+        if (!isWide)
+            setSearch(!search);
     };
 
     const ref = useClickOutside(() => {
         if (!isWide)
             setSearch(false);
+        setSearchResults(false);
     });
 
     const LogoClicked = () => {
@@ -63,7 +66,13 @@ export default function Topbar() {
                 {search || isWide ? <SearchBar placeholder="Discover creators" onChange={e => {
                     setInput(e.target.value);
                 }}/> : null}
-                <SearchResults search={input}/>
+                {input && searchResults?
+                    <SearchResults
+                        search={input}
+                        setVisible={setSearchResults}
+                        visible={searchResults}/>
+                    : null}
+
             </TopBarCenter>
 
             {isWide || !search ?

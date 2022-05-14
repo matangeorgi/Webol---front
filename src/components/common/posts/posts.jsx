@@ -1,7 +1,7 @@
 import Post from "../post/post";
 
 const Posts = props => {
-    return (props.posts.length ?
+    return (props.posts ?
             <div>
                 {props.posts.map(post => (
                     <Post className="col-5"

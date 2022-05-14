@@ -11,7 +11,7 @@ import {P, Button} from "../../common/commonStyles/General.styled";
 import NewPost from "../../common/newPost/newPost";
 import Posts from "../../common/posts/posts";
 import ResizeTextArea from "../../common/resizeTextArea/resizeTextArea";
-import Topbar from "../../common/Topbar/Topbar";
+import Navbar from "../../common/Navbar/Navbar";
 import ChangeImage from "./changeImage/changeImage";
 import {
     ProfileImg,
@@ -24,7 +24,7 @@ import {
     LockIcon,
     BioInput
 } from "./Profile.styled";
-import {useHistory} from "react-router";
+import FollowersModal from "./followers/followersModal";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -39,10 +39,15 @@ const Profile = () => {
     const [editBio, setEditBio] = useState(false);
     const [bioInput, setBioInput] = useState();
     const [posts, setPosts] = useState([]);
+    const [followersModal, setFollowersModal] = useState(false);
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
     });
+
+    const followersRef = useClickOutside(() => {
+        setFollowersModal(false);
+    })
 
     useEffect(async() => {
         try {
@@ -117,13 +122,21 @@ const Profile = () => {
 
     return loaded ? (
         <div>
-            <Topbar/>
+            <Navbar/>
             <ChangeImage
                 forwardRef={refChangeImage}
                 open={visible}
                 onClose={() => setVisible(false)}
                 data={modalDetails}>
             </ChangeImage>
+
+            {followersModal?
+                <FollowersModal
+                    username={username}
+                    forwardRef={followersRef}
+                    visible={followersModal}
+                    onClose={() => setFollowersModal(false)}
+                />:null}
 
             <Body>
                 <Images className="mt-2">
@@ -154,7 +167,10 @@ const Profile = () => {
                         </div> : null}
 
                     <div>
-                        <P size="14px"><b>{data.followers} followers &emsp; {data.posts} posts &emsp; {data.role}</b></P>
+                        <div className='d-flex'>
+                            <P size="14px" onClick={() => setFollowersModal(true)}><span><b>{data.followers} followers &emsp;</b></span></P>
+                            <P size="14px"><b>{data.posts} posts &emsp; {data.role}</b></P>
+                        </div>
                     </div>
 
                 </MiddleDiv>

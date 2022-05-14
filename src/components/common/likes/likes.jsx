@@ -6,16 +6,13 @@ import UseInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import {IconButton} from "../../pages/profile/changeImage/ChangeImage.styled";
 import {P} from "../commonStyles/General.styled";
 import ProfileInList from "../profileInList/profileInList";
-import {ReactComponent as CloseIcon} from "../Topbar/icons/close.svg";
+import {ReactComponent as CloseIcon} from "../Navbar/icons/close.svg";
 import {Modal, TopDiv, Ul, CloseButton} from "./likes.styled";
 
 
 const Likes = props => {
     const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
-    const ref = UseInfiniteScroll(false, () => {
-        console.log("Likes bottom");
-    });
 
     useEffect(async () => {
         try {
@@ -35,7 +32,7 @@ const Likes = props => {
                         <IconButton size={'30px'}><CloseIcon onClick={props.onClose}/></IconButton>
                     </CloseButton>
                 </TopDiv>
-                <Ul ref={ref}>
+                <Ul>
                     {data.map(like => (
                         <ProfileInList username={like.username} src={like.profileImage}/>
                     ))}

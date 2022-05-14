@@ -5,7 +5,7 @@ import axios from "axios";
 import {P} from "../../common/commonStyles/General.styled";
 import {Button} from "../../common/commonStyles/General.styled";
 import ResizeTextArea from "../../common/resizeTextArea/resizeTextArea";
-import Topbar from "../../common/Topbar/Topbar";
+import Navbar from "../../common/Navbar/Navbar";
 import {Input} from "../login/Forms.styled";
 import {Body} from "../profile/Profile.styled";
 import {DivForm, Top, ProfileImg, Field, FieldsDiv, Hr} from "./settings.styled";
@@ -77,7 +77,7 @@ const Settings = () => {
 
     return (
         <div>
-            <Topbar/>
+            <Navbar/>
             <Body>
                 <DivForm>
                     <Top>

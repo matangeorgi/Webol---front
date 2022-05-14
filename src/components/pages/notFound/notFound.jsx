@@ -1,10 +1,10 @@
 
-import Topbar from "../../common/Topbar/Topbar";
+import Navbar from "../../common/Navbar/Navbar";
 
 const NotFound = () => {
     return(
         <>
-            <Topbar/>
+            <Navbar/>
             <h1>Page under construction</h1>
         </>
     );

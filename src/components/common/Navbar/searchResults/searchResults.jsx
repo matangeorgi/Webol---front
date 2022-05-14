@@ -9,29 +9,25 @@ import {P} from "../../../pages/login/Forms.styled";
 const SearchResults = props => {
     const [offset, setOffset] = useState(0);
     const [users, setUsers] = useState([]);
-    const [visible, setVisible] = useState(false);
 
     useEffect(async () => {
         if (props.search) {
             const res = await axios.get(`/topbar/findusers/${props.search}/0`);
             setUsers(res.data);
-            setVisible(true)
+            props.setVisible(true)
         } else
-            setVisible(false);
+            props.setVisible(false);
     }, [props.search])
 
-    const ref = useClickOutside(() => {
-        setVisible(false);
-    });
     const scrollRef = UseInfiniteScroll(false, offset, setOffset, setUsers, users, `/topbar/findusers/${props.search}/${offset}`);
 
-    return props.search && visible ?
+    return props.search && props.visible ?
         (
-            <SearchModal ref={ref} >
+            <SearchModal>
                 {users.length?
                     <Ul ref={scrollRef} className="mt-3">
                     {users.map(user => (
-                        <ProfileInList username={user.username} src={user.profileImage}/>
+                        <ProfileInList key={user.username} username={user.username} src={user.profileImage}/>
                     ))}
                 </Ul>:
                     <NoMatchesDiv>
