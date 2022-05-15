@@ -116,7 +116,10 @@ const Menu = props => {
                     {notifications.length ?
                         <Ul>
                             {notifications?.map((notification,index) => (
-                                <NotificationDiv key={index} background={notification.read}>
+                                <NotificationDiv
+                                    key={index}
+                                    background={notification.read}
+                                    onClick={() => setNotificationsVisible(false)}>
                                     <ProfileInList
                                         username={notification.user}
                                         src={notification.profileImage}
@@ -138,7 +141,6 @@ const Menu = props => {
             setNotificationsVisible(!notificationsVisible);
             setNotifications(res.data);
             setNotificationsNum(0);
-            console.log(res.data);
         }catch{
 
         }

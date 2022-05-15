@@ -10,7 +10,7 @@ const Posts = props => {
                           userId={props.userId || post.user.id}
                           profileurl={props.profileImage || post.user.profileImage}
                           url={post.url}
-                          fullname={props.username || post.user.username}
+                          fullname={props.username || post.user.displayUsername}
                           date={post.createdAt}
                           desc={post.description}
                           likes={post.likes}

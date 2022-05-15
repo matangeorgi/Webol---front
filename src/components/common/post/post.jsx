@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 import useClickOutside from "../../../hooks/useClickOutside";
 import {P} from "../commonStyles/General.styled";
-import Likes from "../likes/likes";
+import ProfilesList from "../profilesList/profilesList";
 import {PostButton} from "../newPost/newPost.styled";
 import ResizeTextArea from "../resizeTextArea/resizeTextArea";
 
@@ -101,11 +101,12 @@ const Post = (props) => {
     return (
         <PostBody key={props.id}>
             {likesModal?
-                <Likes
+                <ProfilesList
                     ForwardRef={likesRef}
                     visible={likesModal}
                     onClose={() => setLikesModal(false)}
-                    postId={props.id}
+                    url={`global/getlikes/${props.id}`}
+                    title='ProfilesList'
                 />:null}
             <PostWrapper>
 

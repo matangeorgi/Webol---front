@@ -4,7 +4,7 @@ import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {P} from "../../common/commonStyles/General.styled";
-import {Ul, TopDiv} from "../../common/likes/likes.styled";
+import {Ul, TopDiv} from "../../common/profilesList/profilesList.styled";
 import Post from "../../common/post/post";
 import {Li, ProfileImg} from "../../common/profileInList/profileInList.styled";
 import {ReactComponent as CloseIcon} from "../../common/Navbar/icons/close.svg";
@@ -69,7 +69,7 @@ const PostPage = () => {
                               id={id}
                               profileurl={data.user["profileImage"]}
                               url={data.url}
-                              fullname={data.user["username"]}
+                              fullname={data.user["displayUsername"]}
                               date={data.createdAt}
                               desc={data.description}
                               likes={data.likes}
@@ -88,7 +88,7 @@ const PostPage = () => {
                                         key={comment.id}
                                         id={comment.id}
                                         src={comment.user["profileImage"]}
-                                        username={comment.user["username"]}
+                                        username={comment.user["displayUsername"]}
                                         comment={comment.content}
                                         date={comment.createdAt}
                                         isMine={comment.isMe}

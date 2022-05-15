@@ -27,7 +27,7 @@ const SearchResults = props => {
                 {users.length?
                     <Ul ref={scrollRef} className="mt-3">
                     {users.map(user => (
-                        <ProfileInList key={user.username} username={user.username} src={user.profileImage}/>
+                        <ProfileInList key={user.displayUsername} username={user.displayUsername} src={user.profileImage}/>
                     ))}
                 </Ul>:
                     <NoMatchesDiv>

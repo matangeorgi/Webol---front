@@ -11,9 +11,8 @@ import {Content} from "./home.styled";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
-    const [offset, setOffset] = useState(20);
 
-    UseInfiniteScroll(true,offset,setOffset, setPosts, posts, `global/gethomepage/${offset}`);
+    UseInfiniteScroll(true, setPosts, posts, `global/gethomepage`);
 
     useEffect(async() => {
         try {

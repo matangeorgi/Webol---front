@@ -24,12 +24,11 @@ import {
     LockIcon,
     BioInput
 } from "./Profile.styled";
-import FollowersModal from "./followers/followersModal";
+import ProfilesList from "../../common/profilesList/profilesList";
 
 const Profile = () => {
     const navigate = useNavigate();
     const {username} = useParams();
-    const [offset, setOffset] = useState(20);
     const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -56,14 +55,14 @@ const Profile = () => {
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
             setData(res.data[2]);
-            setBioInput(res.data[2].bio);
+            setBioInput(res.data[2].bio || `Welcome to ${username} page!`);
             setLoaded(true);
         } catch {
             navigate('/NotFound');
         }
         }, [window.location.pathname]);
 
-    UseInfiniteScroll(true,offset,setOffset, setPosts, posts, `user/getmoreuserpost/${username}/${offset}`);
+    UseInfiniteScroll(true,setPosts, posts, `user/getmoreuserpost/${username}`);
 
     let refBio = useClickOutside(async() => {
         setEditBio(false);
@@ -131,13 +130,13 @@ const Profile = () => {
             </ChangeImage>
 
             {followersModal?
-                <FollowersModal
-                    username={username}
-                    forwardRef={followersRef}
+                <ProfilesList
+                    ForwardRef={followersRef}
                     visible={followersModal}
                     onClose={() => setFollowersModal(false)}
+                    url={`user/getfollowers/${username}`}
+                    title='Followers'
                 />:null}
-
             <Body>
                 <Images className="mt-2">
                     <ThemeImage
@@ -192,7 +191,7 @@ const Profile = () => {
                             posts={posts}
                             userId={data.id}
                             profileImage={data.profileImage}
-                            username={data.username}
+                            username={data.displayUsername}
                             isMe={true}/>
                         :
                         <ContentLocked/>}
