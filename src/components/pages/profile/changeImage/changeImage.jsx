@@ -30,16 +30,20 @@ const ChangeImage = (props) => {
     );
 
     const UploadImage = async (event) => {
-        const url = await axios.get('s3/geturl').then(res => res.data);
+        try{
+            const url = await axios.get('s3/geturl').then(res => res.data);
 
-        const instance = axios.create();
-        instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-        await instance.put(url, event.target.files[0]);
+            const instance = axios.create();
+            instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+            await instance.put(url, event.target.files[0]);
 
-        const imageUrl = url.split('?')[0];
-        await axios.post(`update/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
-        localStorage.setItem('profileImage',imageUrl);
-        window.location.reload();
+            const imageUrl = url.split('?')[0];
+            await axios.post(`update/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
+            localStorage.setItem('profileImage',imageUrl);
+            window.location.reload();
+        }catch{
+            console.error("Couldn't upload image, try again later.")
+        }
     };
 
     return props.open ? (

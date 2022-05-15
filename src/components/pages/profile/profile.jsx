@@ -60,7 +60,7 @@ const Profile = () => {
         } catch {
             navigate('/NotFound');
         }
-        }, [window.location.pathname]);
+    }, [window.location.pathname]);
 
     UseInfiniteScroll(true,setPosts, posts, `user/getmoreuserpost/${username}`);
 
@@ -103,7 +103,7 @@ const Profile = () => {
             await axios.get(`user/addordeletefollower/${data.id}`);
             window.location.reload();
         } catch {
-
+            console.error('Could not send follow to the server.');
         }
     };
 

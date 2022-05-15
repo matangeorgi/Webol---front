@@ -12,7 +12,7 @@ const Google = () => {
             localStorage.setItem("profileImage", response.data.UserInfo.profileImage);
             window.location.reload();
         } catch (error) {
-            console.log(error.response.data.error);
+            console.error(error.response.data.error);
         }
     };
 

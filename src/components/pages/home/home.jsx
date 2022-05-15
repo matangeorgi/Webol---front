@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 import axios from "axios";
 
@@ -11,9 +11,7 @@ import {Content} from "./home.styled";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
-
     UseInfiniteScroll(true, setPosts, posts, `global/gethomepage`);
-
     useEffect(async() => {
         try {
             const res = await axios.get('global/gethomepage/0');

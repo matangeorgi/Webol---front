@@ -25,20 +25,22 @@ const NewPost = () => {
     const [src, setSrc] = useState();
 
     const SharePost = async () => {
-        let imageUrl;
-        if (file) {
-            const url = await axios.get('s3/geturl').then(res => res.data);
+        try{
+            let imageUrl;
+            if (file) {
+                const url = await axios.get('s3/geturl').then(res => res.data);
+                const instance = axios.create();
+                instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                await instance.put(url, file[0]);
+                imageUrl = url.split('?')[0];
+            }
 
-            const instance = axios.create();
-            instance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-            await instance.put(url, file[0]);
-
-            imageUrl = url.split('?')[0];
+            const data = {description: desc, url: imageUrl};
+            await axios.post('user/addpost', data);
+            window.location.reload();
+        }catch{
+            console.error("Couldn't upload image, try again later.")
         }
-
-        const data = {description: desc, url: imageUrl};
-        await axios.post('user/addpost', data);
-        window.location.reload();
     };
 
     const handleChooseImage = e => {

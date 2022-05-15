@@ -19,7 +19,6 @@ const Login = () => {
        navigate('/');
     },[])
 
-    // Login in the regular way
     const submit = async e => {
         e.preventDefault();
         const user = {username, password};
@@ -56,7 +55,7 @@ const Login = () => {
             </div>
             <form onSubmit={submit}>
                 {inputFields.map(input => (
-                    <div>
+                    <div key={input.placeholder}>
                         <Input className="mt-3 mb-3" type={input.type} placeholder={input.placeholder}
                                required
                                onChange={e => input.onChange(e.target.value)}/>

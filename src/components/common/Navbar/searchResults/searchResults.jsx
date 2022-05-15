@@ -11,12 +11,16 @@ const SearchResults = props => {
     const [users, setUsers] = useState([]);
 
     useEffect(async () => {
-        if (props.search) {
-            const res = await axios.get(`/topbar/findusers/${props.search}/0`);
-            setUsers(res.data);
-            props.setVisible(true)
-        } else
-            props.setVisible(false);
+        try{
+            if (props.search) {
+                const res = await axios.get(`/topbar/findusers/${props.search}/0`);
+                setUsers(res.data);
+                props.setVisible(true)
+            } else
+                props.setVisible(false);
+        }catch{
+            console.error('Could not retrieve users from server.');
+        }
     }, [props.search])
 
     const scrollRef = UseInfiniteScroll(false, offset, setOffset, setUsers, users, `/topbar/findusers/${props.search}/${offset}`);

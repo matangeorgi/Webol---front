@@ -16,6 +16,15 @@ import Settings from "./components/pages/settings/settings";
 
 dotenv.config();
 axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
+axios.interceptors.response.use(response => {
+    return response;
+    }, error => {
+    if (error.response.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+    }
+    return error;
+});
 
 const App = () => {
 

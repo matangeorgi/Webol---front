@@ -38,7 +38,7 @@ const Menu = props => {
                 const res = await axios.get('topbar/getcountnotification');
                 setNotificationsNum(res.data);
             }catch{
-
+                console.error('Could not retrieve notifications from server');
             }
         }, 3000);
 
@@ -142,7 +142,7 @@ const Menu = props => {
             setNotifications(res.data);
             setNotificationsNum(0);
         }catch{
-
+            console.error('Could not retrieve notifications from server.');
         }
     };
 

@@ -20,7 +20,7 @@ const ProfilesList = props => {
             setData(res.data || []);
             setLoaded(true);
         } catch {
-
+            console.error('Could not retrieve users from server.');
         }
     }, []);
 

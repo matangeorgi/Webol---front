@@ -37,7 +37,7 @@ const PostPage = () => {
             await axios.delete(`global/deletecomment/${id}`);
             window.location.reload();
         } catch {
-
+            console.error('Could not send delete command to server.');
         }
     }
 

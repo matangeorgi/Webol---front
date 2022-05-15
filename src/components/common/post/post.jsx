@@ -50,7 +50,7 @@ const Post = (props) => {
         try {
             await axios.get(`global/addordeletelike/${props.id}/${props.userId}`);
         } catch {
-            console.log("Couldn't pass the like to the server.");
+            console.error("Couldn't pass the like to the server.");
         }
     };
 
@@ -63,7 +63,7 @@ const Post = (props) => {
             if (props.setIsCommented)
                 props.setIsCommented(true);
         } catch (e) {
-            console.log("Couldn't pass the comment to the server.");
+            console.error("Couldn't pass the comment to the server.");
         }
     };
 
@@ -93,7 +93,7 @@ const Post = (props) => {
             await axios.delete(`user/deletepost/${props.id}`);
             window.location.reload();
         }catch{
-
+            console.error('Could not send delete command to server.');
         }
 
     };

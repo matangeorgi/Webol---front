@@ -65,7 +65,7 @@ const Register = () => {
 
             <form id="test" onSubmit={submit}>
                 {inputFields.map(input => (
-                    <div>
+                    <div key={input.placeholder}>
                         <Input className="mb-3" type={input.type} placeholder={input.placeholder}
                                required
                                onChange={e => input.onChange(e.target.value)}/>
@@ -73,14 +73,15 @@ const Register = () => {
                 ))}
 
                 <div>
-                    <Button type="submit" className="btn mt-5" disabled={!password || !fullName || !email} width="320px"
+                    <Button type="submit" className="btn mt-3" disabled={!password || !fullName || !email} width="320px"
                             height="53px">
                         Sign up</Button>
                 </div>
-                <div>
-                    <P className="text-center mx-auto w-75 mt-4" color="red">{errorMessage}</P>
-                </div>
+
             </form>
+            <div>
+                <P className="text-center mx-auto w-75 mt-4" color="red">{errorMessage}</P>
+            </div>
             <P color="#4D47C3" className="mt-3 mb-4">have an account?
                 <Link style={{textDecoration: 'none'}} to="/"> Log in</Link></P>
 
