@@ -2,14 +2,16 @@ import {useEffect, useRef, useState} from "react";
 
 import axios from "axios";
 
-const UseInfiniteScroll = (isFullPage, offset, setOffset, setData, data, apiLink) => {
+const UseInfiniteScroll = (isFullPage, setData, data, apiLink) => {
     const ref = useRef();
     const [endOfData, setEndOfData] = useState(false);
+    const [offset, setOffset] = useState(20);
 
     useEffect(() => {
         const handler = async() => {
             try{
-                const res = await axios.get(apiLink);
+                console.log("here");
+                const res = await axios.get(`${apiLink}/${offset}`);
                 setOffset(offset + 20);
                 if (res.data.length === 0)
                     setEndOfData(true);

@@ -6,20 +6,17 @@ import UseInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import {IconButton} from "../../pages/profile/changeImage/ChangeImage.styled";
 import {P} from "../commonStyles/General.styled";
 import ProfileInList from "../profileInList/profileInList";
-import {ReactComponent as CloseIcon} from "../Topbar/icons/close.svg";
-import {Modal, TopDiv, Ul, CloseButton} from "./likes.styled";
+import {ReactComponent as CloseIcon} from "../Navbar/icons/close.svg";
+import {Modal, TopDiv, Ul, CloseButton} from "./profilesList.styled";
 
 
-const Likes = props => {
+const ProfilesList = props => {
     const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
-    const ref = UseInfiniteScroll(false, () => {
-        console.log("Likes bottom");
-    });
 
     useEffect(async () => {
         try {
-            const res = await axios.get(`global/getlikes/${props.postId}/0`);
+            const res = await axios.get(`${props.url}/0`);
             setData(res.data || []);
             setLoaded(true);
         } catch {
@@ -30,18 +27,18 @@ const Likes = props => {
     return (props.visible && loaded ?
             <Modal ref={props.ForwardRef}>
                 <TopDiv>
-                    <P>Likes</P>
+                    <P>{props.title}</P>
                     <CloseButton>
                         <IconButton size={'30px'}><CloseIcon onClick={props.onClose}/></IconButton>
                     </CloseButton>
                 </TopDiv>
-                <Ul ref={ref}>
+                <Ul>
                     {data.map(like => (
-                        <ProfileInList username={like.username} src={like.profileImage}/>
+                        <ProfileInList key={like.displayUsername} username={like.displayUsername} src={like.profileImage}/>
                     ))}
                 </Ul>
             </Modal> : null
     );
 };
 
-export default Likes;
+export default ProfilesList;

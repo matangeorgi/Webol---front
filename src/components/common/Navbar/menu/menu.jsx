@@ -4,15 +4,15 @@ import axios from "axios";
 import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 
-import useClickOutside from "../../../hooks/useClickOutside";
-import {P} from "../../pages/login/Forms.styled";
-import {ProfileImg} from "../post/Post.styled";
-import ProfileInList from "../profileInList/profileInList";
-import {ReactComponent as BellIcon} from "./icons/bell.svg";
-import {ReactComponent as CaretIcon} from "./icons/caret.svg";
-import {ReactComponent as CogIcon} from "./icons/cog.svg";
-import {ReactComponent as HelpIcon} from "./icons/help.svg";
-import {ReactComponent as LogoutIcon} from "./icons/logout.svg";
+import useClickOutside from "../../../../hooks/useClickOutside";
+import {P} from "../../../pages/login/Forms.styled";
+import {ProfileImg} from "../../post/Post.styled";
+import ProfileInList from "../../profileInList/profileInList";
+import {ReactComponent as BellIcon} from "../icons/bell.svg";
+import {ReactComponent as CaretIcon} from "../icons/caret.svg";
+import {ReactComponent as CogIcon} from "../icons/cog.svg";
+import {ReactComponent as HelpIcon} from "../icons/help.svg";
+import {ReactComponent as LogoutIcon} from "../icons/logout.svg";
 import {
     Navrow,
     DropDownDiv,
@@ -116,7 +116,10 @@ const Menu = props => {
                     {notifications.length ?
                         <Ul>
                             {notifications?.map((notification,index) => (
-                                <NotificationDiv key={index} background={notification.read}>
+                                <NotificationDiv
+                                    key={index}
+                                    background={notification.read}
+                                    onClick={() => setNotificationsVisible(false)}>
                                     <ProfileInList
                                         username={notification.user}
                                         src={notification.profileImage}
@@ -138,7 +141,6 @@ const Menu = props => {
             setNotificationsVisible(!notificationsVisible);
             setNotifications(res.data);
             setNotificationsNum(0);
-            console.log(res.data);
         }catch{
 
         }

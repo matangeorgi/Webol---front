@@ -58,6 +58,11 @@ export const SearchBar = styled.input`
   border-radius: 20px;
 `;
 
+export const ResultsDiv = styled.div`
+  position: relative;
+  top: 100px;
+`;
+
 // --------------------------- Right side --------------------------------
 export const TopBarRight = styled.div`
   flex: 3;

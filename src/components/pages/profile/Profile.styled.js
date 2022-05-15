@@ -63,6 +63,9 @@ export const MiddleDiv = styled.div`
   display: flex;
   align-items: center;
 
+  span{
+    cursor: pointer;
+  }
   button {
     margin-right: 15px;
   }
@@ -93,7 +96,7 @@ export const Content = styled.div`
 
   @media only screen and (min-width: 920px) {
     position: relative;
-    top: -230px;
+    top: -250px;
   }
 `;
 

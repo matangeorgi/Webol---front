@@ -11,7 +11,7 @@ import {P, Button} from "../../common/commonStyles/General.styled";
 import NewPost from "../../common/newPost/newPost";
 import Posts from "../../common/posts/posts";
 import ResizeTextArea from "../../common/resizeTextArea/resizeTextArea";
-import Topbar from "../../common/Topbar/Topbar";
+import Navbar from "../../common/Navbar/Navbar";
 import ChangeImage from "./changeImage/changeImage";
 import {
     ProfileImg,
@@ -24,12 +24,11 @@ import {
     LockIcon,
     BioInput
 } from "./Profile.styled";
-import {useHistory} from "react-router";
+import ProfilesList from "../../common/profilesList/profilesList";
 
 const Profile = () => {
     const navigate = useNavigate();
     const {username} = useParams();
-    const [offset, setOffset] = useState(20);
     const [data, setData] = useState();
     const [loaded, setLoaded] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -39,10 +38,15 @@ const Profile = () => {
     const [editBio, setEditBio] = useState(false);
     const [bioInput, setBioInput] = useState();
     const [posts, setPosts] = useState([]);
+    const [followersModal, setFollowersModal] = useState(false);
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
     });
+
+    const followersRef = useClickOutside(() => {
+        setFollowersModal(false);
+    })
 
     useEffect(async() => {
         try {
@@ -51,14 +55,14 @@ const Profile = () => {
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
             setData(res.data[2]);
-            setBioInput(res.data[2].bio);
+            setBioInput(res.data[2].bio || `Welcome to ${username} page!`);
             setLoaded(true);
         } catch {
             navigate('/NotFound');
         }
         }, [window.location.pathname]);
 
-    UseInfiniteScroll(true,offset,setOffset, setPosts, posts, `user/getmoreuserpost/${username}/${offset}`);
+    UseInfiniteScroll(true,setPosts, posts, `user/getmoreuserpost/${username}`);
 
     let refBio = useClickOutside(async() => {
         setEditBio(false);
@@ -117,7 +121,7 @@ const Profile = () => {
 
     return loaded ? (
         <div>
-            <Topbar/>
+            <Navbar/>
             <ChangeImage
                 forwardRef={refChangeImage}
                 open={visible}
@@ -125,6 +129,14 @@ const Profile = () => {
                 data={modalDetails}>
             </ChangeImage>
 
+            {followersModal?
+                <ProfilesList
+                    ForwardRef={followersRef}
+                    visible={followersModal}
+                    onClose={() => setFollowersModal(false)}
+                    url={`user/getfollowers/${username}`}
+                    title='Followers'
+                />:null}
             <Body>
                 <Images className="mt-2">
                     <ThemeImage
@@ -154,7 +166,10 @@ const Profile = () => {
                         </div> : null}
 
                     <div>
-                        <P size="14px"><b>{data.followers} followers &emsp; {data.posts} posts &emsp; {data.role}</b></P>
+                        <div className='d-flex'>
+                            <P size="14px" onClick={() => setFollowersModal(true)}><span><b>{data.followers} followers &emsp;</b></span></P>
+                            <P size="14px"><b>{data.posts} posts &emsp; {data.role}</b></P>
+                        </div>
                     </div>
 
                 </MiddleDiv>
@@ -176,7 +191,7 @@ const Profile = () => {
                             posts={posts}
                             userId={data.id}
                             profileImage={data.profileImage}
-                            username={data.username}
+                            username={data.displayUsername}
                             isMe={true}/>
                         :
                         <ContentLocked/>}

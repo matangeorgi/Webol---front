@@ -31,6 +31,7 @@ const App = () => {
                             <Route path="/:username" element={<Profile/>}/>
                             <Route path="/NotFound" element={<NotFound/>}/>
                             <Route path="/settings" element={<Settings/>}/>
+                            <Route path="/post/:id" element={<PostPage/>}/>
                         </>)
                     :
                     <>
@@ -40,7 +41,6 @@ const App = () => {
                         <Route path='*' element={<Login/>}/>
                     </>
                 }
-                <Route path="/post/:id" element={<PostPage/>}/>
             </Routes>
         </Router>
     );

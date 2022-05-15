@@ -4,17 +4,15 @@ import axios from "axios";
 
 import UseInfiniteScroll from "../../../hooks/useInfiniteScroll";
 import NewPost from "../../common/newPost/newPost";
-import Post from "../../common/post/post";
 import Posts from "../../common/posts/posts";
-import Topbar from "../../common/Topbar/Topbar";
+import Navbar from "../../common/Navbar/Navbar";
 import {Body} from "../profile/Profile.styled";
 import {Content} from "./home.styled";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
-    const [offset, setOffset] = useState(20);
 
-    UseInfiniteScroll(true,offset,setOffset, setPosts, posts, `global/gethomepage/${offset}`);
+    UseInfiniteScroll(true, setPosts, posts, `global/gethomepage`);
 
     useEffect(async() => {
         try {
@@ -27,7 +25,7 @@ const Home = () => {
 
     return (
         <div>
-            <Topbar/>
+            <Navbar/>
             <Body>
                 <Content>
                     <NewPost profileurl={posts.profileImage}/>
