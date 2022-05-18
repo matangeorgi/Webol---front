@@ -7,7 +7,6 @@ export const Body = styled.div`
   position: center;
   display: flex;
   flex-direction: column;
-
   box-shadow: 0px 0px 10px #b9b9b9;
   border-radius: 5px;
   width: 100%;
