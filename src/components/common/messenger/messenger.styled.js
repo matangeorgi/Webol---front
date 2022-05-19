@@ -7,7 +7,6 @@ export const MessengerDiv = styled.div`
   bottom: 0;
   position:fixed;
   background-color:white;
-  margin-left:0;
   border-radius: 8px;
 `;
 
@@ -107,24 +106,29 @@ export const ProfileInChat = styled.span`
   }
 `;
 
-export const ProfileImage = styled.span`
-  width: 30px;
-  height: 30px;
-  background-color: #ffffff;
+export const NumberBadge = styled.span`
+  width: 15px; 
+  height: 15px;
+  background-color: red;
   border-radius: 50%;
-  padding: 5px;
-  margin: 2px;
+  color: white;
+  position: relative;
+  top: -15px;
+  right: 115px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: filter 300ms;
-  :hover {
-    filter: brightness(1.2);
-  }
+  font-size: 12px;
+`;
+
+export const ProfileImage = styled.span`
+  padding: 5px;
+  margin: 2px;
+  
   svg {
     fill: black;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
   }
 `;
 
@@ -135,9 +139,7 @@ export const NameOfChat = styled.div`
 export const TextAreDiv = styled.div`
   display: flex;
   position: fixed;
-  bottom: 0;
-  opacity: ${props => props.isLoaded? 100 : 0};
-  transition: opacity 300ms;
+  top: 360px;
   textarea{
     margin-bottom: 0;
     margin-right: 5px;

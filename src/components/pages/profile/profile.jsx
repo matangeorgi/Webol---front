@@ -25,6 +25,7 @@ import {
     BioInput
 } from "./Profile.styled";
 import ProfilesList from "../../common/profilesList/profilesList";
+import Messenger from "../../common/messenger/messenger";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Profile = () => {
     const [bioInput, setBioInput] = useState();
     const [posts, setPosts] = useState([]);
     const [followersModal, setFollowersModal] = useState(false);
+    const [messageClicked, setMessageClicked] = useState(false);
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
@@ -122,6 +124,11 @@ const Profile = () => {
     return loaded ? (
         <div>
             <Navbar/>
+            <Messenger
+            userId={data.id}
+            messaged={messageClicked}
+            setMessaged={setMessageClicked}
+            username={username}/>
             <ChangeImage
                 forwardRef={refChangeImage}
                 open={visible}
@@ -162,7 +169,7 @@ const Profile = () => {
                             <Button width="105px" height="45px" onClick={handleFollow}>
                                 {isFollowed? "UnFollow":"Follow"}
                             </Button>
-                            <Button width="105px" height="45px">Message</Button>
+                            <Button width="105px" height="45px" onClick={() => setMessageClicked(true)}>Message</Button>
                         </div> : null}
 
                     <div>
