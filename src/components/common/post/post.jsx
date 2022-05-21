@@ -10,6 +10,7 @@ import {P} from "../commonStyles/General.styled";
 import ProfilesList from "../profilesList/profilesList";
 import {PostButton} from "../newPost/newPost.styled";
 import ResizeTextArea from "../resizeTextArea/resizeTextArea";
+import {sendNotifications, socket} from "../../../socket/socket";
 
 import {
     PostBody,
@@ -49,6 +50,8 @@ const Post = (props) => {
         setLikes(liked ? likes - 1 : likes + 1);
         try {
             await axios.get(`global/addordeletelike/${props.id}/${props.userId}`);
+            if (!liked)
+                socket.emit("sendNotification",props.userId);
         } catch {
             console.error("Couldn't pass the like to the server.");
         }
@@ -58,6 +61,7 @@ const Post = (props) => {
         const data = {content: text, postId: props.id, userId: props.userId};
         try {
             await axios.post('global/addcomment', data);
+            socket.emit("sendNotification",props.userId);
             setComments(comments + 1);
             setText("");
             if (props.setIsCommented)

@@ -7,13 +7,13 @@ const Google = () => {
     const googleLogin = async e => {
         try {
             const response = await axios.post('googlelogin', e.profileObj);
-            localStorage.setItem("token", response.data.id);
+            localStorage.setItem("id", response.data.id);
             localStorage.setItem("token", response.data.auth_token);
             localStorage.setItem("username", response.data.username);
             localStorage.setItem("profileImage", response.data.profileImage);
             window.location.reload();
         } catch (error) {
-            console.error(error.response.data.error);
+            console.error(error.response?.data.error);
         }
     };
 

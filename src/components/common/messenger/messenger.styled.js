@@ -12,6 +12,10 @@ export const MessengerDiv = styled.div`
 
 export const SideBar = styled.div`
   font-family: 'Poppins';
+  overflow-x: hidden;
+  overflow-y: ${props => props.overflowY? 'auto' : 'hidden'};
+  display: flex;
+  flex-direction: column;
   position: absolute;
   bottom: 0;
   max-width: 400px;
@@ -21,7 +25,6 @@ export const SideBar = styled.div`
   box-shadow: 0px 0px 10px #b9b9b9;
   border-radius: var(--border-radius);
   padding: 1rem;
-  overflow: hidden;
   transition: all var(--speed) ease;
   h2{
     margin-left: auto;
@@ -92,6 +95,8 @@ export const ProfileInChat = styled.span`
   border-radius: 8px;
   transition: background 500ms;
   padding: 0.5rem;
+  margin-bottom: 5px;
+  position: relative;
 
   span {
     margin-right: 0.5rem;
@@ -112,9 +117,9 @@ export const NumberBadge = styled.span`
   background-color: red;
   border-radius: 50%;
   color: white;
-  position: relative;
-  top: -15px;
-  right: 115px;
+  position: absolute;
+  bottom: 30px;
+  left: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,9 +127,12 @@ export const NumberBadge = styled.span`
 `;
 
 export const ProfileImage = styled.span`
-  padding: 5px;
+
   margin: 2px;
-  
+  border-radius: 50%;
+  border: solid #90ce30;
+  border: ${props => props.online? 1 : 0};
+
   svg {
     fill: black;
     width: 30px;
@@ -134,12 +142,28 @@ export const ProfileImage = styled.span`
 
 export const NameOfChat = styled.div`
   text-align: center;
+  top: -16px;
+  margin-top:-16px;
+  position: sticky;
+  background-color: white;
+  width: 100%;
+  h2{
+    margin-left: auto;
+    vertical-align:middle;
+  }
+  span{
+    margin-right: auto;
+    vertical-align:middle;
+  }
 `;
 
 export const TextAreDiv = styled.div`
   display: flex;
-  position: fixed;
-  top: 360px;
+  position: sticky;
+  bottom: -16px;
+  margin-bottom:-16px;
+  margin-top: ${props => props.marginTop};
+  background-color: white;
   textarea{
     margin-bottom: 0;
     margin-right: 5px;

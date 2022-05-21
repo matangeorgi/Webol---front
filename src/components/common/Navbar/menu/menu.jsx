@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 
 import axios from "axios";
 import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
 
+import {SocketContext} from "../../../../socket/socket";
 import useClickOutside from "../../../../hooks/useClickOutside";
 import {P} from "../../../pages/login/Forms.styled";
 import {ProfileImg} from "../../post/Post.styled";
@@ -31,21 +32,24 @@ const Menu = props => {
     const [notificationsVisible, setNotificationsVisible] = useState(false);
     const [notificationsNum, setNotificationsNum] = useState(0);
     const [notifications, setNotifications] = useState([]);
+    const socket = useContext(SocketContext);
 
     useEffect(() => {
-        const interval = setInterval(async() => {
+        socket.emit("connected",localStorage.getItem('id'));
+        async function getNotificationsNum() {
             try{
                 const res = await axios.get('topbar/getcountnotification');
                 setNotificationsNum(res.data);
             }catch{
                 console.error('Could not retrieve notifications from server');
             }
-        }, 3000);
+        }
+        getNotificationsNum();
 
-        return () => {
-            clearInterval(interval);
-        };
-    },[notificationsNum]);
+        socket.on("getNotification", (notifications) => {
+            setNotificationsNum(notifications);
+        });
+    },[]);
 
     const menuRef = useClickOutside(() => {
         setMenuVisible(false);
@@ -122,7 +126,7 @@ const Menu = props => {
                                     onClick={() => setNotificationsVisible(false)}>
                                     <ProfileInList
                                         username={notification.user}
-                                        src={notification.profileImage}
+                                        src={notification.user.profileImage}
                                         message={notification.message}/>
                                 </NotificationDiv>
                             ))}
@@ -141,6 +145,7 @@ const Menu = props => {
             setNotificationsVisible(!notificationsVisible);
             setNotifications(res.data);
             setNotificationsNum(0);
+            socket.emit("eraseNotification",localStorage.getItem('id'));
         }catch{
             console.error('Could not retrieve notifications from server.');
         }

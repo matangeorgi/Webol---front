@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
@@ -22,15 +22,20 @@ const Login = () => {
     const submit = async e => {
         e.preventDefault();
         const user = {username, password};
+
         try {
             const response = await axios.post('login', user);
-            localStorage.setItem("token", response.data.UserInfo.auth_token);
-            localStorage.setItem("username", response.data.UserInfo.username);
-            localStorage.setItem("profileImage", response.data.UserInfo.profileImage);
+            console.log(response.data);
+            localStorage.setItem("id", response.data.id);
+            localStorage.setItem("token", response.data.auth_token);
+            localStorage.setItem("username", response.data.username);
+            localStorage.setItem("profileImage", response.data.profileImage);
             window.location.reload();
         } catch (error) {
-            setError(error.response.data.error);
+            console.log("hey");
+            setError(error.response?.data.error);
         }
+
     };
 
     const inputFields = useMemo(() => (

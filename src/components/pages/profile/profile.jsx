@@ -26,6 +26,7 @@ import {
 } from "./Profile.styled";
 import ProfilesList from "../../common/profilesList/profilesList";
 import Messenger from "../../common/messenger/messenger";
+import {sendNotifications, socket} from "../../../socket/socket";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -103,6 +104,7 @@ const Profile = () => {
     const handleFollow = async() => {
         try {
             await axios.get(`user/addordeletefollower/${data.id}`);
+            socket.emit("sendNotification",data.id);
             window.location.reload();
         } catch {
             console.error('Could not send follow to the server.');
@@ -167,7 +169,7 @@ const Profile = () => {
                     {!isMyProfile ?
                         <div>
                             <Button width="105px" height="45px" onClick={handleFollow}>
-                                {isFollowed? "UnFollow":"Follow"}
+                                {isFollowed? "Unfollow":"Follow"}
                             </Button>
                             <Button width="105px" height="45px" onClick={() => setMessageClicked(true)}>Message</Button>
                         </div> : null}

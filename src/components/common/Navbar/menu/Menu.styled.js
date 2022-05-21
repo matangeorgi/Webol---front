@@ -61,14 +61,13 @@ export const DropDownDiv = styled.div`
   transform: translateX(-45%);
   background-color: #ffffff;
   border-radius: 8px;
-  padding: 1rem;
+
   overflow: hidden;
   transition: height 500ms ease;
   box-shadow: 0px 0px 10px #b9b9b9;
 `;
 
 export const MenuDiv = styled.div`
-  width: 100%;
 `;
 
 export const MenuItem = styled.a`

@@ -7,8 +7,9 @@ import NewPost from "../../common/newPost/newPost";
 import Posts from "../../common/posts/posts";
 import Navbar from "../../common/Navbar/Navbar";
 import {Body} from "../profile/Profile.styled";
-import {Content, RightSideBar} from "./home.styled";
+import {Content} from "./home.styled";
 import Messenger from "../../common/messenger/messenger";
+
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
