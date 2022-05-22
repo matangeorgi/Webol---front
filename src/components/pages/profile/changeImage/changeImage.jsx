@@ -39,7 +39,10 @@ const ChangeImage = (props) => {
 
             const imageUrl = url.split('?')[0];
             await axios.post(`update/userimage/${props.data.serverURL}`, {imgurl: imageUrl});
-            localStorage.setItem('profileImage',imageUrl);
+
+            if (props.data.serverURL === 'profileImage')
+                localStorage.setItem('profileImage',imageUrl);
+
             window.location.reload();
         }catch{
             console.error("Couldn't upload image, try again later.")

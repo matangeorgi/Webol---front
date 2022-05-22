@@ -125,7 +125,7 @@ const Menu = props => {
                                     background={notification.read}
                                     onClick={() => setNotificationsVisible(false)}>
                                     <ProfileInList
-                                        username={notification.user}
+                                        username={notification.user.displayUsername}
                                         src={notification.user.profileImage}
                                         message={notification.message}/>
                                 </NotificationDiv>
