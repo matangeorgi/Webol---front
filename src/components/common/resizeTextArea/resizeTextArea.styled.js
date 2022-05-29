@@ -12,4 +12,5 @@ export const TextArea = styled.textarea`
   border-radius: 5px;
   font-family: 'Poppins';
   margin-bottom: 6.5px;
+  max-height: ${(props) => props.borderStyle !== 'dashed'? '100px' : null};;
 `;

@@ -31,6 +31,20 @@ export const SideBar = styled.div`
   }
 `;
 
+export const NoChatsDiv = styled.div
+`
+  font-family: 'Poppins';
+  position: absolute;
+  bottom: 0;
+  max-width: 400px;
+  min-width: 250px;
+  transform: translateX(-100%);
+  background-color: var(--bg);
+  box-shadow: 0px 0px 10px #b9b9b9;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+`;
+
 export const MinimizeDiv = styled.div`
   cursor: pointer;
   padding-left: 10px;

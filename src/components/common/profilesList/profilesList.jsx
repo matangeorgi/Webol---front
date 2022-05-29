@@ -34,7 +34,9 @@ const ProfilesList = props => {
                 </TopDiv>
                 <Ul>
                     {data.map(like => (
-                        <ProfileInList key={like.displayUsername} username={like.displayUsername} src={like.profileImage}/>
+                        <ProfileInList key={like.displayUsername} route={like.displayUsername} src={like.profileImage}>
+                            {like.displayUsername}
+                        </ProfileInList>
                     ))}
                 </Ul>
             </Modal> : null

@@ -8,7 +8,7 @@ import {
     ProfileInChat,
     SideBar,
     TextAreDiv,
-    ConversationDiv
+    NoChatsDiv
 } from "./messenger.styled";
 import './messenger.css';
 import {ReactComponent as ArrowIcon} from '../Navbar/icons/arrow.svg';
@@ -81,6 +81,7 @@ const Messenger = props => {
 
         const handleResize = () => {
             setWidth((window.innerWidth - 900) / 2 - 70);
+            console.log((window.innerWidth - 900) / 2 - 70)
         }
         window.addEventListener('resize', handleResize)
         return () => {
@@ -164,7 +165,7 @@ const Messenger = props => {
     };
 
     const right = useMemo(() => {
-        if (width > 250)
+        if (width > 240)
             return Math.max(((width / 2) - 50), 115);
         else return 100;
     }, [width])
@@ -209,59 +210,66 @@ const Messenger = props => {
         return <div ref={elementRef} />;
     };
 
-    return(width > 250 || openSidebar ?
-            <MessengerDiv ref={sideBarRef}>
-                <SideBar overflowY={marginTop===270} style={{height: sideBarHeight, width: width, right: -right}} ref={dropdownRef}>
-                    <CSSTransition
-                        in={activeChat === 'main'}
-                        timeout={500}
-                        classNames="menu-primary"
-                        unmountOnExit
-                        onEnter={calcHeight}>
-                        <div className="menu">
-                            {users.map(user => (
-                                <DropdownItem
-                                    key={user.id}
-                                    leftIcon={<ProfileImg src={user.profileImage} alt="Profile image"/>}
-                                    goToChat={user}>
-                                    {user.displayUsername}
-                                </DropdownItem>
-                            ))}
-                        </div>
-                    </CSSTransition>
-
-                    <CSSTransition
-                        in={activeChat !== 'main'}
-                        timeout={500}
-                        classNames="menu-secondary"
-                        unmountOnExit
-                        onEnter={() => setSideBarHeight(400)}>
-                        <div className="menu">
-                            <NameOfChat>
-                                <DropdownItem goToChat="main" rightIcon={<ArrowIcon/>}>
-                                    <h2>All Chats</h2>
-                                </DropdownItem>
-                                <p>{activeChat}</p>
-                            </NameOfChat>
-                            <div ref={messagesRef}>
-                                {conversation.slice(0).reverse().map(message => (
-                                    <Message key={message.createdAt} isMine={message.isMe}>{message.message}</Message>
+    return(width > 240 || openSidebar ?
+            (users.length?
+                <MessengerDiv ref={sideBarRef}>
+                    <SideBar overflowY={marginTop===270} style={{height: sideBarHeight, width: width, right: -right}} ref={dropdownRef}>
+                        <CSSTransition
+                            in={activeChat === 'main'}
+                            timeout={500}
+                            classNames="menu-primary"
+                            unmountOnExit
+                            onEnter={calcHeight}>
+                            <div className="menu">
+                                {users.map(user => (
+                                    <DropdownItem
+                                        key={user.id}
+                                        leftIcon={<ProfileImg src={user.profileImage} alt="Profile image"/>}
+                                        goToChat={user}>
+                                        {user.displayUsername}
+                                    </DropdownItem>
                                 ))}
-                                <AlwaysScrollToBottom />
                             </div>
+                        </CSSTransition>
 
-                            <TextAreDiv marginTop={`${270-marginTop}px`}>
-                                <ResizeTextArea
-                                    text={message}
-                                    setText={setMessage}
-                                    placeholder="Message..."/>
-                                <PostButton onClick={sendMessage}>Send</PostButton>
-                            </TextAreDiv>
+                        <CSSTransition
+                            in={activeChat !== 'main'}
+                            timeout={500}
+                            classNames="menu-secondary"
+                            unmountOnExit
+                            onEnter={() => setSideBarHeight(400)}>
+                            <div className="menu">
+                                <NameOfChat>
+                                    <DropdownItem goToChat="main" rightIcon={<ArrowIcon/>}>
+                                        <h2>All Chats</h2>
+                                    </DropdownItem>
+                                    <p>{activeChat}</p>
+                                </NameOfChat>
+                                <div ref={messagesRef}>
+                                    {conversation.slice(0).reverse().map(message => (
+                                        <Message key={message.createdAt} isMine={message.isMe}>{message.message}</Message>
+                                    ))}
+                                    <AlwaysScrollToBottom />
+                                </div>
 
-                        </div>
-                    </CSSTransition>
-                </SideBar>
-            </MessengerDiv>
+                                <TextAreDiv marginTop={`${270-marginTop}px`}>
+                                    <ResizeTextArea
+                                        text={message}
+                                        setText={setMessage}
+                                        placeholder="Message..."/>
+                                    <PostButton onClick={sendMessage}>Send</PostButton>
+                                </TextAreDiv>
+
+                            </div>
+                        </CSSTransition>
+                    </SideBar>
+                </MessengerDiv>:
+                    <MessengerDiv>
+                        <NoChatsDiv>
+                            No chats to disaply...
+                        </NoChatsDiv>
+                    </MessengerDiv>
+            )
             :
             <MinimizeDiv onClick={() => setOpenSidebar(true)}>
                 <ChatIcon/>

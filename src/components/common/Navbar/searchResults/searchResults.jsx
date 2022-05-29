@@ -1,46 +1,78 @@
 import React, {useEffect, useState} from "react";
+
+import loadingGif from "../icons/android-spinner.gif"
 import UseInfiniteScroll from "../../../../hooks/useInfiniteScroll";
 import ProfileInList from "../../profileInList/profileInList";
-import useClickOutside from "../../../../hooks/useClickOutside";
-import {SearchModal,Ul,NoMatchesDiv} from "./searchResults.styled";
+import {NoMatchesDiv, SearchModal, TopDiv, Ul} from "./searchResults.styled";
 import axios from "axios";
 import {P} from "../../../pages/login/Forms.styled";
 
 const SearchResults = props => {
     const [offset, setOffset] = useState(0);
-    const [users, setUsers] = useState([]);
+    const [results, setResults] = useState([]);
+    const [searchType, setSearchType] = useState('users');
 
     useEffect(async () => {
-        try{
+        try {
             if (props.search) {
-                const res = await axios.get(`/topbar/findusers/${props.search}/0`);
-                setUsers(res.data);
+                const res = await axios.get(`/topbar/find${searchType}/${props.search}/0`);
+                setResults(res.data);
                 props.setVisible(true)
             } else
                 props.setVisible(false);
-        }catch{
+        } catch {
             console.error('Could not retrieve users from server.');
         }
-    }, [props.search])
+    }, [props.search, searchType])
 
-    const scrollRef = UseInfiniteScroll(false, offset, setOffset, setUsers, users, `/topbar/findusers/${props.search}/${offset}`);
+    const scrollRef = UseInfiniteScroll(false, offset, setOffset, setResults, results, `/topbar/findusers/${props.search}/${offset}`);
+
+    const DisplayResults = () => {
+        if (searchType === 'users')
+            return (
+                results.map(user => (
+                    <ProfileInList key={user.displayUsername} route={user.displayUsername} src={user.profileImage}>
+                        {user.displayUsername}
+                    </ProfileInList>
+                ))
+            )
+        else if (searchType === 'posts')
+            return (
+                results.map(post => (
+                    <ProfileInList key={post.id} route={`post/${post.id}`} src={post.user?.profileImage}>
+                        <b>{post.user?.displayUsername}</b><br/>
+                        {post.description}
+                    </ProfileInList>
+                ))
+            )
+    }
 
     return props.search && props.visible ?
         (
             <SearchModal>
-                {users.length?
+                <TopDiv>
+                    <div>
+                        <P onClick={() => setSearchType('users')}>Users</P>
+                    </div>
+                    <div>
+                        <P onClick={() => setSearchType('posts')}>Posts</P>
+                    </div>
+                    <div>
+                        <P onClick={() => setSearchType('roles')}>Roles</P>
+                    </div>
+                </TopDiv>
+                {results.length ?
                     <Ul ref={scrollRef} className="mt-3">
-                    {users.map(user => (
-                        <ProfileInList key={user.displayUsername} username={user.displayUsername} src={user.profileImage}/>
-                    ))}
-                </Ul>:
+                        <DisplayResults/>
+                    </Ul> :
                     <NoMatchesDiv>
                         <P color='grey' className='d-flex justify-content-center'>No matches found...</P>
+                        {/*<img width={80} src={loadingGif} alt="wait until the page loads" />*/}
                     </NoMatchesDiv>
                 }
             </SearchModal>
         )
-        :null;
+        : null;
 }
 
 export default SearchResults;

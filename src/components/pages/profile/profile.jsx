@@ -201,7 +201,7 @@ const Profile = () => {
                             userId={data.id}
                             profileImage={data.profileImage}
                             username={data.displayUsername}
-                            isMe={true}/>
+                            isMe={isMyProfile}/>
                         :
                         <ContentLocked/>}
 
