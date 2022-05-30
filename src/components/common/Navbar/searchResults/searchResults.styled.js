@@ -15,7 +15,6 @@ export const SearchModal = styled.div`
       background-color: #c4c3e0;
     }
   }
-
 `;
 
 export const Ul = styled.ul`

@@ -28,7 +28,7 @@ export const TextArea = styled.textarea`
   width: 90%;
   position: relative;
   top: 10px;
-  height:${(props) => props.height};
+  height: ${(props) => props.height};
   font-family: 'Poppins';
 `;
 
@@ -48,14 +48,9 @@ export const Options = styled.div`
 `;
 
 export const PostOption = styled.div`
-  display: flex;
-  align-items: center;
+  text-align: start;
   margin-right: 15px;
   cursor: pointer;
-
-  input {
-    display: none;
-  }
 `;
 
 export const SpanForIcon = styled.span`
@@ -83,4 +78,11 @@ export const PostButton = styled.button`
 export const Img = styled.img`
   max-width: 90%;
   max-height: 90%;
+`;
+
+export const InputCategory = styled.input`
+  border-radius: 8px;
+  border-color: #6c68d3;
+  margin-left: 5px;
+  float: left;
 `;

@@ -2,7 +2,9 @@ import React, {useRef, useState} from "react";
 
 import axios from "axios";
 import {MdPermMedia} from "react-icons/md";
+import {BiCategory} from "react-icons/bi";
 
+import InputDropdown from "../inputDropdown/inputDropdown"
 import {ProfileImg} from "../post/Post.styled";
 import ResizeTextArea from "../resizeTextArea/resizeTextArea";
 import {
@@ -13,16 +15,16 @@ import {
     Bottom,
     Options,
     PostOption,
-    SpanForIcon, IconMedia, PostButton, Img
+    SpanForIcon, IconMedia, PostButton, Img, InputCategory
 } from "./newPost.styled";
 
-
 const NewPost = () => {
-
     const [desc, setDesc] = useState();
     const [file, setFile] = useState(null);
     const hiddenFileInput = useRef(null);
     const [src, setSrc] = useState();
+    const [category, setCategory] = useState('General');
+    const [categoryInput, setCategoryInput] = useState(false);
 
     const SharePost = async () => {
         try{
@@ -35,7 +37,7 @@ const NewPost = () => {
                 imageUrl = url.split('?')[0];
             }
 
-            const data = {description: desc, url: imageUrl};
+            const data = {description: desc, url: imageUrl, category};
             await axios.post('user/addpost', data);
             window.location.reload();
         }catch{
@@ -75,12 +77,20 @@ const NewPost = () => {
                         <PostOption onClick={() => hiddenFileInput.current.click()}>
                             <IconMedia><MdPermMedia/></IconMedia>
                             <SpanForIcon>Photo or Video</SpanForIcon>
-                            <input ref={hiddenFileInput} type="file" accept="image/*,video/*" onChange={handleChooseImage}/>
+                            <input className='d-none' ref={hiddenFileInput} type="file" accept="image/*,video/*" onChange={handleChooseImage}/>
+                        </PostOption>
+                        <PostOption onClick={() => setCategoryInput(true)}>
+                            <IconMedia><BiCategory/></IconMedia>
+                            <SpanForIcon onClick={() => setCategoryInput(true)}>Category: {category}</SpanForIcon>
                         </PostOption>
                     </Options>
-
                     <PostButton onClick={SharePost}>Share</PostButton>
                 </Bottom>
+                <InputDropdown
+                setSelectedValue={setCategory}
+                selectedValue={category}
+                url={'global/getcategories'}
+                visible={categoryInput}/>
             </ContainerWrapepr>
         </Container>
     );
