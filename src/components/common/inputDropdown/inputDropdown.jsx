@@ -41,7 +41,7 @@ const InputDropdown = props => {
         <div className="container">
             <div className="row">
                 <div className="col-md-4">
-                    <InputCategory value={inputValue} placeholder="Choose Category" onChange={fetchData}/>
+                    <InputCategory value={inputValue? inputValue : props.selectedValue} placeholder={props.placeholder} onChange={fetchData}/>
                     {inputValue && dropdownVisible?
                         <Ul ref={dropdownRef}>
                             {items.map(item => (

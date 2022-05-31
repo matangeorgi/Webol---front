@@ -134,10 +134,10 @@ const Messenger = props => {
     }, [activeChat])
 
     useEffect(() => {
-        if (messagesRef.current?.clientHeight < 270)
+        if (messagesRef.current?.clientHeight < 280)
             setMarginTop(messagesRef.current?.clientHeight);
         else
-            setMarginTop(270);
+            setMarginTop(280);
     },[messagesRef.current?.clientHeight])
 
     useEffect(() => {
@@ -204,16 +204,16 @@ const Messenger = props => {
     const AlwaysScrollToBottom = () => {
         const elementRef = useRef();
         useEffect(() => {
-            if (marginTop === 270)
+            if (marginTop === 280)
                 elementRef.current.scrollIntoView()
         });
         return <div ref={elementRef} />;
     };
 
     return(width > 240 || openSidebar ?
-            (users.length?
+            (users.length || activeChat !== 'main'?
                 <MessengerDiv ref={sideBarRef}>
-                    <SideBar overflowY={marginTop===270} style={{height: sideBarHeight, width: width, right: -right}} ref={dropdownRef}>
+                    <SideBar overflowY={marginTop===280} style={{height: sideBarHeight, width: width, right: -right}} ref={dropdownRef}>
                         <CSSTransition
                             in={activeChat === 'main'}
                             timeout={500}
@@ -252,7 +252,7 @@ const Messenger = props => {
                                     <AlwaysScrollToBottom />
                                 </div>
 
-                                <TextAreDiv marginTop={`${270-marginTop}px`}>
+                                <TextAreDiv marginTop={`${280-marginTop}px`}>
                                     <ResizeTextArea
                                         text={message}
                                         setText={setMessage}

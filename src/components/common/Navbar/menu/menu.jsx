@@ -124,10 +124,9 @@ const Menu = props => {
                                     key={index}
                                     background={notification.read}
                                     onClick={() => setNotificationsVisible(false)}>
-                                    <ProfileInList
-                                        username={notification.user.displayUsername}
-                                        src={notification.user.profileImage}
-                                        message={notification.message}/>
+                                    <ProfileInList route={notification.user.displayUsername} src={notification.user.profileImage}>
+                                        {notification.message}
+                                    </ProfileInList>
                                 </NotificationDiv>
                             ))}
                         </Ul>
@@ -142,6 +141,7 @@ const Menu = props => {
     const showNotifications = async() => {
         try{
             const res = await axios.get('topbar/getnotification');
+            console.log(res.data);
             setNotificationsVisible(!notificationsVisible);
             setNotifications(res.data);
             setNotificationsNum(0);

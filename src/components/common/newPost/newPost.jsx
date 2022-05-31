@@ -90,7 +90,8 @@ const NewPost = () => {
                 setSelectedValue={setCategory}
                 selectedValue={category}
                 url={'global/getcategories'}
-                visible={categoryInput}/>
+                visible={categoryInput}
+                placeholder={'Choose category'}/>
             </ContainerWrapepr>
         </Container>
     );

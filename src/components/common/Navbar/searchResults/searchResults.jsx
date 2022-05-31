@@ -45,6 +45,15 @@ const SearchResults = props => {
                     </ProfileInList>
                 ))
             )
+        else if (searchType === 'roles')
+            return (
+                results.map(user => (
+                    <ProfileInList key={user.displayUsername} route={user.displayUsername} src={user.profileImage}>
+                        <b>{user.displayUsername}</b><br/>
+                        {user.role}
+                    </ProfileInList>
+                ))
+            )
     }
 
     return props.search && props.visible ?

@@ -6,6 +6,9 @@ export const Ul = styled.ul`
   border-bottom-right-radius: 8px;
   max-height: 300px;
   overflow-y: auto;
+  width: 200px;
+  top: 30px;
+  position: absolute;
   background-color: white;
 `;
 
