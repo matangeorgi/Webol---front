@@ -28,10 +28,31 @@ const ProfileSettings = () => {
         }
     },[role]);
 
+    const SwitchPrivate = async() => {
+        setIsPrivate(!isPrivate);
+        try{
+            await axios.put('update/updateprivatesettings',{isPrivate: !isPrivate});
+        }catch{
+            console.error('Could not update private setting, Server is unavailable');
+        }
+    }
+
+    const ChangePrice = async(newPrice) => {
+        setPrice(newPrice);
+        try{
+            await axios.put('update/updateuserprice',{price: newPrice});
+        }catch{
+            console.error('Could not update price, Server is unavailable');
+        }
+    }
+
     useEffect(() => {
         async function fetchData() {
             try{
-                const res = await axios.get('update/userrole');
+                const res = await axios.get('update/profileinfo');
+                console.log(res.data)
+                setIsPrivate(res.data.isPrivate);
+                setPrice(res.data.price);
                 setRole(res.data.role);
             }catch{
                 console.error('Could not get role, Server is unavailable');
@@ -48,7 +69,7 @@ const ProfileSettings = () => {
                         <P>Profile is private:</P>
                         <ToggleDiv className="form-check form-switch">
                             <input className="form-check-input" type="checkbox" role="switch"
-                                   checked={isPrivate} onChange={() => setIsPrivate(!isPrivate)}/>
+                                   checked={isPrivate} onChange={SwitchPrivate}/>
                         </ToggleDiv>
                     </Field>
                     <P size={'14px'} color={'#a09cd5'}>This option will determine if your posts are free and available for all.</P>
@@ -60,12 +81,12 @@ const ProfileSettings = () => {
                                 <CollapseDiv>
                                     <Dropdown>
                                         <Dropdown.Toggle id="dropdown-basic">
-                                            {price? `${price} USD`: 'Choose Price'}
+                                            {`${price} USD`}
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu id='dropdown'>
                                             {prices.map(i => (
-                                                <Dropdown.Item key={i} onClick={() => setPrice(i)}>{i} USD</Dropdown.Item>
+                                                <Dropdown.Item key={i} onClick={() => ChangePrice(i)}>{i} USD</Dropdown.Item>
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
@@ -78,7 +99,7 @@ const ProfileSettings = () => {
                         <RoleDiv>
                             <InputDropdown
                                 setSelectedValue={setRole}
-                                selectedValue={role}
+                                selectedValue={role || ''}
                                 url={'update/getroles'}
                                 visible={true}
                                 placeholder={'Choose role'}/>

@@ -27,6 +27,7 @@ import {
 import ProfilesList from "../../common/profilesList/profilesList";
 import Messenger from "../../common/messenger/messenger";
 import {sendNotifications, socket} from "../../../socket/socket";
+import Payment from "../../common/payment/payment";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Profile = () => {
     const [posts, setPosts] = useState([]);
     const [followersModal, setFollowersModal] = useState(false);
     const [messageClicked, setMessageClicked] = useState(false);
+    const [openPayment, setOpenPayment] = useState(false);
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
@@ -54,6 +56,7 @@ const Profile = () => {
     useEffect(async() => {
         try {
             const res = await axios.get(`user/${username}`);
+            console.log(res.data);
             setPosts(res.data[2].post);
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
@@ -102,13 +105,14 @@ const Profile = () => {
     };
 
     const handleFollow = async() => {
-        try {
-            await axios.get(`user/addordeletefollower/${data.id}`);
-            socket.emit("sendNotification",data.id);
-            window.location.reload();
-        } catch {
-            console.error('Could not send follow to the server.');
-        }
+        setOpenPayment(true);
+        // try {
+        //     await axios.get(`user/addordeletefollower/${data.id}`);
+        //     socket.emit("sendNotification",data.id);
+        //     window.location.reload();
+        // } catch {
+        //     console.error('Could not send follow to the server.');
+        // }
     };
 
     const ContentLocked = () => {
@@ -126,11 +130,17 @@ const Profile = () => {
     return loaded ? (
         <div>
             <Navbar/>
+            <Payment
+                visible={openPayment}
+                setVisible={setOpenPayment}
+                username={username}/>
+
             <Messenger
             userId={data.id}
             messaged={messageClicked}
             setMessaged={setMessageClicked}
             username={username}/>
+
             <ChangeImage
                 forwardRef={refChangeImage}
                 open={visible}

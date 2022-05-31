@@ -5,12 +5,14 @@ export const ModalBody = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #1D2226;
+  background-color: ${props => props.color || '#1D2226'};
   padding: 50px;
   z-index: 1000;
   width: fit-content;
   height: fit-content;
   border-radius: 10px;
+  max-height: 600px;
+  overflow-y: auto;
 `;
 
 export const CloseButton = styled.span`
