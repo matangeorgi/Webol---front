@@ -81,7 +81,6 @@ const Messenger = props => {
 
         const handleResize = () => {
             setWidth((window.innerWidth - 900) / 2 - 70);
-            console.log((window.innerWidth - 900) / 2 - 70)
         }
         window.addEventListener('resize', handleResize)
         return () => {

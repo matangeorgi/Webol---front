@@ -9,14 +9,19 @@ const UseInfiniteScroll = (isFullPage, setData, data, apiLink) => {
 
     useEffect(() => {
         const handler = async() => {
+            console.log(apiLink);
             try{
                 console.log("here");
                 const res = await axios.get(`${apiLink}/${offset}`);
                 setOffset(offset + 20);
                 if (res.data.length === 0)
                     setEndOfData(true);
-                else
+                else{
                     setData(data => [...data,...res.data]);
+                    console.log("in");
+                }
+                console.log(res.data,offset)
+
             }catch{
                 console.error("Couldn't retrieve data from server");
             }
@@ -33,8 +38,8 @@ const UseInfiniteScroll = (isFullPage, setData, data, apiLink) => {
                 }
                 :
                 () => {
-                    if(ref.current.clientHeight + ref.current.scrollTop >=
-                        ref.current.scrollHeight)
+                    if(ref.current?.clientHeight + ref.current?.scrollTop >=
+                        ref.current?.scrollHeight)
                         handler();
                 };
 

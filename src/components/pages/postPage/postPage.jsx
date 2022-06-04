@@ -8,7 +8,6 @@ import {Ul, TopDiv} from "../../common/profilesList/profilesList.styled";
 import Post from "../../common/post/post";
 import {Li, ProfileImg} from "../../common/profileInList/profileInList.styled";
 import {ReactComponent as CloseIcon} from "../../common/Navbar/icons/close.svg";
-import Navbar from "../../common/Navbar/Navbar";
 import {IconButton} from "../profile/changeImage/ChangeImage.styled";
 import {CommentsDiv, Page, Comment, CloseButton} from "./postPage.styled";
 import {Body} from "../profile/Profile.styled";
@@ -63,7 +62,6 @@ const PostPage = () => {
 
     return (loaded ?
             <div>
-                <Navbar/>
                 <Body>
                         <Post className="col-5"
                               id={id}

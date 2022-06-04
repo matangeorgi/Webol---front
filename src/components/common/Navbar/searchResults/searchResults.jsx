@@ -8,24 +8,31 @@ import axios from "axios";
 import {P} from "../../../pages/login/Forms.styled";
 
 const SearchResults = props => {
-    const [offset, setOffset] = useState(0);
     const [results, setResults] = useState([]);
     const [searchType, setSearchType] = useState('users');
+    const [loading, setLoading] = useState(false);
 
     useEffect(async () => {
-        try {
-            if (props.search) {
-                const res = await axios.get(`/topbar/find${searchType}/${props.search}/0`);
-                setResults(res.data);
-                props.setVisible(true)
-            } else
-                props.setVisible(false);
-        } catch {
-            console.error('Could not retrieve users from server.');
+        if(loading){
+            try {
+                if (props.search) {
+                    const res = await axios.get(`/topbar/find${searchType}/${props.search}/0`);
+                    setResults(res.data);
+                    props.setVisible(true)
+                } else
+                    props.setVisible(false);
+            } catch {
+                console.error('Could not retrieve users from server.');
+            }
+            setLoading(false);
         }
+    }, [loading])
+
+    useEffect(() =>{
+        setLoading(true);
     }, [props.search, searchType])
 
-    const scrollRef = UseInfiniteScroll(false, offset, setOffset, setResults, results, `/topbar/findusers/${props.search}/${offset}`);
+    const scrollRef = UseInfiniteScroll(false, setResults, results, `/topbar/findusers/${props.search}`);
 
     const DisplayResults = () => {
         if (searchType === 'users')
@@ -75,8 +82,12 @@ const SearchResults = props => {
                         <DisplayResults/>
                     </Ul> :
                     <NoMatchesDiv>
-                        <P color='grey' className='d-flex justify-content-center'>No matches found...</P>
-                        {/*<img width={80} src={loadingGif} alt="wait until the page loads" />*/}
+                        {!loading && !results.length ? <P color='grey' className='d-flex justify-content-center'>No matches found...</P> : null}
+                        {loading?
+                            <div className='d-flex justify-content-center'>
+                                <img width={80} src={loadingGif} alt="loading"/>
+                            </div>
+                            : null}
                     </NoMatchesDiv>
                 }
             </SearchModal>

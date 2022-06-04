@@ -9,7 +9,8 @@ import Navbar from "../../common/Navbar/Navbar";
 import {Body} from "../profile/Profile.styled";
 import {Content} from "./home.styled";
 import Messenger from "../../common/messenger/messenger";
-
+import UsersCarousel from "../../common/usersCarousel/usersCarousel";
+import CategoriesSidebar from "../../common/categoriesSidebar/categoriesSidebar";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
@@ -25,11 +26,11 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar/>
             <Messenger/>
             <Body>
                 <Content>
                     <NewPost profileurl={posts.profileImage}/>
+                    <UsersCarousel/>
                     <Posts posts={posts}/>
                 </Content>
             </Body>

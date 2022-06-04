@@ -34,7 +34,7 @@ export const NoMatchesDiv = styled.div`
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: white;
-  height: 30px;
+  min-height: 30px;
 `;
 
 export const TopDiv = styled.div`

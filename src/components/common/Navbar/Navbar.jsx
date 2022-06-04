@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, memo} from "react";
 
 import {ImSearch} from "react-icons/im";
 import {useNavigate} from "react-router-dom";
@@ -11,13 +11,12 @@ import {
     TopBarCenter,
     TopBarRight,
     Logo,
-    SearchBar,
-    ResultsDiv
+    SearchBar
 } from "./Navbar.styled";
 import SearchResults from "./searchResults/searchResults";
 
 
-export default function Navbar() {
+const Navbar = props => {
     const navigate = useNavigate();
     const [isWide, setWide] = useState(window.innerWidth > 610);
     const [search, setSearch] = useState(isWide);
@@ -77,8 +76,14 @@ export default function Navbar() {
 
             {isWide || !search ?
                 <TopBarRight>
-                    <Menu wideMode={isWide} openSearch={() => setSearch(true)}/>
+                    <Menu wideMode={isWide}
+                          width={props.width}
+                          setSidebar={props.setSidebar}
+                          sidebar={props.sidebar}
+                          openSearch={() => setSearch(true)}/>
                 </TopBarRight> : null}
         </TopBar>
     );
 }
+
+export default memo(Navbar);

@@ -14,6 +14,7 @@ import {ReactComponent as CaretIcon} from "../icons/caret.svg";
 import {ReactComponent as CogIcon} from "../icons/cog.svg";
 import {ReactComponent as HelpIcon} from "../icons/help.svg";
 import {ReactComponent as LogoutIcon} from "../icons/logout.svg";
+import {ReactComponent as ExploreIcon} from "../icons/explore.svg";
 import {
     Navrow,
     DropDownDiv,
@@ -154,13 +155,24 @@ const Menu = props => {
     return (
         <Navrow>
             {props.wideMode ? null :
+                    <NavbarItem onClick={() => {
+                        props.openSearch();
+                    }}>
+                        <IconButton>
+                            <ImSearch/>
+                        </IconButton>
+                    </NavbarItem>
+            }
+            {props.width < 210?
                 <NavbarItem onClick={() => {
-                    props.openSearch();
+                    props.setSidebar(!props.sidebar);
                 }}>
                     <IconButton>
-                        <ImSearch/>
+                        <ExploreIcon/>
                     </IconButton>
-                </NavbarItem>}
+                </NavbarItem>
+                : null
+            }
 
             <NavbarItem ref={notificationsRef}>
                 <IconButton onClick={showNotifications}>

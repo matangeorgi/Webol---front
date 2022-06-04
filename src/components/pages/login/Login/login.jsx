@@ -32,7 +32,6 @@ const Login = () => {
             localStorage.setItem("profileImage", response.data.profileImage);
             window.location.reload();
         } catch (error) {
-            console.log("hey");
             setError(error.response?.data.error);
         }
 

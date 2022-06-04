@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import {useMemo} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 import axios from "axios";
 import dotenv from "dotenv";
@@ -14,27 +14,28 @@ import PostPage from "./components/pages/postPage/postPage";
 import Profile from "./components/pages/profile/profile";
 import Settings from "./components/pages/settings/settings";
 import {SocketContext, socket} from "./socket/socket";
+import CategoriesSidebar from "./components/common/categoriesSidebar/categoriesSidebar";
+import Navbar from "./components/common/Navbar/Navbar";
+import Explore from "./components/pages/explore/explore";
 
 dotenv.config();
 axios.defaults.baseURL = process.env.REACT_APP_API_KEY;
-// axios.interceptors.response.use(response => {
-//     return response;
-//     }, error => {
-//     if (error.response.status === 401) {
-//         localStorage.clear();
-//         window.location.reload();
-//     }
-//     return error;
-// });
 
 const App = () => {
-
     const verified = useMemo(() => (localStorage.getItem('token')), [localStorage.getItem('token')]);
     axios.defaults.headers.common['auth_token'] = useMemo(() => verified, [verified]);
+    const [sideBar, setSidebar] = useState(true);
+    const [width, setWidth] = useState();
 
     return (
         <SocketContext.Provider value={socket}>
             <Router>
+                {verified?
+                    <>
+                        <Navbar width={width} sidebar={sideBar} setSidebar={setSidebar}/>
+                        <CategoriesSidebar width={width} setWidth={setWidth} open={sideBar} setOpen={setSidebar}/>
+                    </>
+                    : null}
                 <Routes>
                     {verified ? (
                             <>
@@ -43,8 +44,9 @@ const App = () => {
                                 <Route path="/NotFound" element={<NotFound/>}/>
                                 <Route path="/settings" element={<Settings/>}/>
                                 <Route path="/post/:id" element={<PostPage/>}/>
+                                <Route path="/explore/:category" element={<Explore/>}/>
                             </>
-                            )
+                        )
                         :
                         <>
                             <Route path="/register" element={<Register/>}/>

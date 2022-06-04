@@ -14,7 +14,6 @@ const Settings = () => {
 
     return(
         <div>
-            <Navbar/>
             <Body>
                 <TopDiv>
                     <TabButton chosen={settingsPage==='account'} onClick={() => setSettingsPage('account')}>

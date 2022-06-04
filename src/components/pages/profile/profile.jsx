@@ -11,7 +11,6 @@ import {P, Button} from "../../common/commonStyles/General.styled";
 import NewPost from "../../common/newPost/newPost";
 import Posts from "../../common/posts/posts";
 import ResizeTextArea from "../../common/resizeTextArea/resizeTextArea";
-import Navbar from "../../common/Navbar/Navbar";
 import ChangeImage from "./changeImage/changeImage";
 import {
     ProfileImg,
@@ -26,7 +25,7 @@ import {
 } from "./Profile.styled";
 import ProfilesList from "../../common/profilesList/profilesList";
 import Messenger from "../../common/messenger/messenger";
-import {sendNotifications, socket} from "../../../socket/socket";
+import {socket} from "../../../socket/socket";
 import Payment from "../../common/payment/payment";
 
 const Profile = () => {
@@ -44,6 +43,7 @@ const Profile = () => {
     const [followersModal, setFollowersModal] = useState(false);
     const [messageClicked, setMessageClicked] = useState(false);
     const [openPayment, setOpenPayment] = useState(false);
+    const [isPrivate, setIsPrivate] = useState();
 
     const refChangeImage = useClickOutside(() => {
         setVisible(false);
@@ -56,11 +56,11 @@ const Profile = () => {
     useEffect(async() => {
         try {
             const res = await axios.get(`user/${username}`);
-            console.log(res.data);
             setPosts(res.data[2].post);
             setIsMyProfile(res.data[0]);
             setFollowed(res.data[1]);
             setData(res.data[2]);
+            setIsPrivate(res.data[2].isPrivate);
             setBioInput(res.data[2].bio || `Welcome to ${username} page!`);
             setLoaded(true);
         } catch {
@@ -105,14 +105,14 @@ const Profile = () => {
     };
 
     const handleFollow = async() => {
-        setOpenPayment(true);
-        // try {
-        //     await axios.get(`user/addordeletefollower/${data.id}`);
-        //     socket.emit("sendNotification",data.id);
-        //     window.location.reload();
-        // } catch {
-        //     console.error('Could not send follow to the server.');
-        // }
+        //setOpenPayment(true);
+        try {
+            await axios.get(`user/addordeletefollower/${data.id}`);
+            socket.emit("sendNotification",data.id);
+            window.location.reload();
+        } catch {
+            console.error('Could not send follow to the server.');
+        }
     };
 
     const ContentLocked = () => {
@@ -129,7 +129,6 @@ const Profile = () => {
 
     return loaded ? (
         <div>
-            <Navbar/>
             <Payment
                 visible={openPayment}
                 setVisible={setOpenPayment}
@@ -205,7 +204,7 @@ const Profile = () => {
                         <P onClick={() => setEditBio(true)} style={{cursor: isMyProfile? "pointer" : ""}}>{bioInput}</P>}
 
                     {isMyProfile ? <NewPost profileurl={data.profileImage}/> : null}
-                    {isFollowed || isMyProfile ?
+                    {isFollowed || isMyProfile || !isPrivate ?
                         <Posts
                             posts={posts}
                             userId={data.id}

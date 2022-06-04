@@ -30,6 +30,7 @@ const ProfileSettings = () => {
 
     const SwitchPrivate = async() => {
         setIsPrivate(!isPrivate);
+        setPrice(0);
         try{
             await axios.put('update/updateprivatesettings',{isPrivate: !isPrivate});
         }catch{
@@ -50,7 +51,6 @@ const ProfileSettings = () => {
         async function fetchData() {
             try{
                 const res = await axios.get('update/profileinfo');
-                console.log(res.data)
                 setIsPrivate(res.data.isPrivate);
                 setPrice(res.data.price);
                 setRole(res.data.role);
